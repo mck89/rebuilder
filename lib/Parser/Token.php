@@ -38,6 +38,11 @@ class REBuilder_Parser_Token
 	Const TYPE_GENERIC_CHAR_TYPE = 6;
 	
 	/**
+	 * Simple assertion identifier
+	 */
+	Const TYPE_SIMPLE_ASSERTION = 7;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

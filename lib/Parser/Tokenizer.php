@@ -95,6 +95,14 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
+			//If not escaped and it's a simple assertion identifier
+			elseif ($this->_escaped &&
+					REBuilder_Parser_Rules::validateSimpleAssertion($char)) {
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_SIMPLE_ASSERTION,
+					$char
+				);
+			}
 			//If not escaped and it's a non-printing characted identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateNonPrintingChar($char)) {

@@ -9,7 +9,6 @@
  */
 class REBuilder_Pattern_GenericCharType extends REBuilder_Pattern_Simple
 {
-	
 	/**
 	 * Sets the subject. It can be one of the following identifiers:
 	 * "d", "D", "h", "H", "s", "S", "v", "V", "w", "W"

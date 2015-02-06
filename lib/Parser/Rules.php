@@ -42,6 +42,14 @@ class REBuilder_Parser_Rules
 	);
 	
 	/**
+	 * Array of simple assertion identifiers
+	 * 
+	 * @var array
+	 * @static
+	 */
+	protected static $_simpleAssertions = array("b", "B", "A", "Z", "z", "g");
+	
+	/**
 	 * Return true if the given string is a valid delimiter, otherwise false
 	 * 
 	 * @param string $delimiter Delimiter to check
@@ -108,8 +116,8 @@ class REBuilder_Parser_Rules
 	}
 	
 	/**
-	 * Return true if the given string is a valid generic type identifier,
-	 * otherwise false
+	 * Return true if the given string is a valid generic character type
+	 * identifier, otherwise false
 	 * 
 	 * @param string $str String to check
 	 * @return string
@@ -118,5 +126,18 @@ class REBuilder_Parser_Rules
 	public static function validateGenericCharType ($str)
 	{
 		return in_array($str, self::$_genericCharTypes);
+	}
+	
+	/**
+	 * Return true if the given string is a valid simple assertion identifier,
+	 * otherwise false
+	 * 
+	 * @param string $str String to check
+	 * @return string
+	 * @static
+	 */
+	public static function validateSimpleAssertion ($str)
+	{
+		return in_array($str, self::$_simpleAssertions);
 	}
 }

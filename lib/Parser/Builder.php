@@ -85,9 +85,19 @@ class REBuilder_Parser_Builder
 			break;
 			//Generic character type identifier
 			case REBuilder_Parser_Token::TYPE_GENERIC_CHAR_TYPE:
-				//Create a generic character type character identifier and add
-				//it to the current container
+				//Create a generic character type identifier and add it to the
+				//current container
 				$this->_currentItem = new REBuilder_Pattern_GenericCharType(
+					$token->getPattern()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
+		
+			//Simple assertion identifier
+			case REBuilder_Parser_Token::TYPE_SIMPLE_ASSERTION:
+				//Create a simple assertion identifier and add it to the current
+				//container
+				$this->_currentItem = new REBuilder_Pattern_SimpleAssertion(
 					$token->getPattern()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);

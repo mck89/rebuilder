@@ -1,26 +1,26 @@
 <?php
 /**
- * Represents non printing characters: \a, \e, \f, \n, \r, \t
+ * Represents simple assertions: "b", "B", "A", "Z", "z", "g"
  * 
  * @author Marco Marchiò
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_NonPrintingChar extends REBuilder_Pattern_GenericCharType
+class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_GenericCharType
 {
 	/**
 	 * Sets the subject. It can be one of the following identifiers:
-	 * "a", "e", "f", "n", "r", "t".
+	 * "b", "B", "A", "Z", "z", "g"
 	 * 
 	 * @param string $subject Subject to match
-	 * @return REBuilder_Pattern_NonPrintingChar
+	 * @return REBuilder_Pattern_SimpleAssertion
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
 	public function setSubject ($subject)
 	{
-		if (!REBuilder_Parser_Rules::validateNonPrintingChar($subject)) {
+		if (!REBuilder_Parser_Rules::validateSimpleAssertion($subject)) {
 			throw new REBuilder_Exception_Generic(
-				"'$subject' is not a valid non-printing character identifier"
+				"'$subject' is not a valid simple assertion type identifier"
 			);
 		}
 		$this->_subject = $subject;

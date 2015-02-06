@@ -47,7 +47,9 @@ class REBuilder_Parser_Rules
 	 * @var array
 	 * @static
 	 */
-	protected static $_simpleAssertions = array("b", "B", "A", "Z", "z", "g");
+	protected static $_simpleAssertions = array(
+		"b", "B", "A", "Z", "z", "g", "Q", "E", "K"
+	);
 	
 	/**
 	 * Return true if the given string is a valid delimiter, otherwise false

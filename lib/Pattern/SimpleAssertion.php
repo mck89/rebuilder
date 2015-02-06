@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents simple assertions: "b", "B", "A", "Z", "z", "g"
+ * Represents simple assertions: "b", "B", "A", "Z", "z", "g", "Q", "E", "K"
  * 
  * @author Marco Marchiò
  * @abstract
@@ -10,7 +10,7 @@ class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_GenericCharTyp
 {
 	/**
 	 * Sets the subject. It can be one of the following identifiers:
-	 * "b", "B", "A", "Z", "z", "g"
+	 * "b", "B", "A", "Z", "z", "g", "Q", "E", "K"
 	 * 
 	 * @param string $subject Subject to match
 	 * @return REBuilder_Pattern_SimpleAssertion

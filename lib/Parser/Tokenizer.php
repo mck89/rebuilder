@@ -217,6 +217,16 @@ class REBuilder_Parser_Tokenizer
 	}
 	
 	/**
+	 * Unconsumes the given number of characters
+	 * 
+	 * @param int $number Number of characters to unconsume
+	 */
+	protected function _unconsume ($number = 1)
+	{
+		$this->_index = max($this->_index - $number, 0);
+	}
+	
+	/**
 	 * Consumes everything until the given character. If the character has not
 	 * been found it returns null
 	 * 
@@ -228,17 +238,18 @@ class REBuilder_Parser_Tokenizer
 	protected function _consumeUntil ($char, $includeChar = false)
 	{
 		$ret = "";
-		$startIndex = $this->_index;
+		$number = 0;
 		
 		while (true) {
+			$number++;
 			$nextChar = $this->_consume();
 			//If there are no more characters reset the index and return null
 			if ($nextChar === null) {
-				$this->_index = $startIndex;
+				$this->_unconsume($number);
 				return null;
 			} elseif ($nextChar === $char) {
 				if (!$includeChar) {
-					$this->_index--;
+					$this->_unconsume();
 				} else {
 					$ret .= $nextChar;
 				}

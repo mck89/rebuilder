@@ -52,7 +52,7 @@ class REBuilder_Parser_Builder
 				}
 				//Set the delimiter
 				$this->_regexContainer->setDelimiter(
-					$token->getPattern()
+					$token->getSubject()
 				);
 			break;
 			//Regex end delimiter
@@ -63,14 +63,14 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS:
 				//Set the modifiers
 				$this->_regexContainer->setModifiers(
-					$token->getPattern()
+					$token->getSubject()
 				);
 			break;
 			//Simple character
 			case REBuilder_Parser_Token::TYPE_CHAR:
 				//Create a simple character and add it to the current container
 				$this->_currentItem = new REBuilder_Pattern_Simple(
-					$token->getPattern()
+					$token->getSubject()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -79,7 +79,7 @@ class REBuilder_Parser_Builder
 				//Create a non-printing character identifier and add it to the
 				//current container
 				$this->_currentItem = new REBuilder_Pattern_NonPrintingChar(
-					$token->getPattern()
+					$token->getSubject()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -88,7 +88,7 @@ class REBuilder_Parser_Builder
 				//Create a generic character type identifier and add it to the
 				//current container
 				$this->_currentItem = new REBuilder_Pattern_GenericCharType(
-					$token->getPattern()
+					$token->getSubject()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -97,7 +97,7 @@ class REBuilder_Parser_Builder
 				//Create a simple assertion identifier and add it to the current
 				//container
 				$this->_currentItem = new REBuilder_Pattern_SimpleAssertion(
-					$token->getPattern()
+					$token->getSubject()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -106,7 +106,7 @@ class REBuilder_Parser_Builder
 				//Create a control character identifier and add it to the
 				//current container
 				$this->_currentItem = new REBuilder_Pattern_ControlChar(
-					$token->getPattern()
+					$token->getSubject()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;

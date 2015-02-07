@@ -55,23 +55,23 @@ class REBuilder_Parser_Token
 	protected $_type;
 	
 	/**
-	 * Token's pattern
+	 * Token's subject
 	 * 
 	 * @var string
 	 */
-	protected $_pattern;
+	protected $_subject;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param int $type       Token's type. It can be one of the current class
 	 *                        type constants
-	 * @param string $pattern Token's pattern
+	 * @param string $subject Token's subject
 	 */
-	public function __construct ($type, $pattern)
+	public function __construct ($type, $subject)
 	{
 		$this->_type = $type;
-		$this->_pattern = $pattern;
+		$this->_subject = $subject;
 	}
 	
 	/**
@@ -85,12 +85,12 @@ class REBuilder_Parser_Token
 	}
 	
 	/**
-	 * Returns the token pattern
+	 * Returns the token subject
 	 * 
 	 * @return string
 	 */
-	public function getPattern ()
+	public function getSubject()
 	{
-		return $this->_pattern;
+		return $this->_subject;
 	}
 }

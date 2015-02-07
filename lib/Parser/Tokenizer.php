@@ -201,12 +201,12 @@ class REBuilder_Parser_Tokenizer
 	/**
 	 * Emits a token to the receiver function
 	 * 
-	 * @param int    $type  Token's type
-	 * @param string $pattern Token's pattern
+	 * @param int    $type    Token's type
+	 * @param string $subject Token's subject
 	 */
-	protected function _emitToken ($type, $pattern)
+	protected function _emitToken ($type, $subject)
 	{
-		$token = new REBuilder_Parser_Token($type, $pattern);
+		$token = new REBuilder_Parser_Token($type, $subject);
 		call_user_func($this->_receiver, $token);
 	}
 }

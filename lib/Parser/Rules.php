@@ -52,6 +52,46 @@ class REBuilder_Parser_Rules
 	);
 	
 	/**
+	 * Array of supported unicode property codes
+	 * 
+	 * @var array
+	 * @static
+	 */
+	protected static $_unicodePropertyCodes = array(
+		"C", "Cc", "Cf", "Cn", "Co", "Cs", "L", "Ll", "Lm", "Lo", "Lt", "Lu",
+		"M", "Mc", "Me", "Mn", "N", "Nd", "Nl", "No", "P", "Pc", "Pd", "Pe",
+		"Pf", "Pi", "Po", "Ps", "S", "Sc", "Sk", "Sm", "So", "Z", "Zl", "Zp",
+		"Zs"
+	);
+	
+	/**
+	 * Array of supported unicode scripts
+	 * 
+	 * @var array
+	 * @static
+	 */
+	protected static $_unicodeScripts = array(
+		"Arabic", "Armenian", "Avestan", "Balinese", "Bamum", "Batak",
+		"Bengali", "Bopomofo", "Brahmi", "Braille", "Buginese", "Buhid",
+		"Canadian_Aboriginal", "Carian", "Chakma", "Cham", "Cherokee", "Common",
+		"Coptic", "Cuneiform", "Cypriot", "Cyrillic", "Deseret", "Devanagari",
+		"Egyptian_Hieroglyphs", "Ethiopic", "Georgian", "Glagolitic", "Gothic",
+		"Greek", "Gujarati", "Gurmukhi", "Han", "Hangul", "Hanunoo", "Hebrew",
+		"Hiragana", "Imperial_Aramaic", "Inherited", "Inscriptional_Pahlavi",
+		"Inscriptional_Parthian", "Javanese", "Kaithi", "Kannada", "Katakana",
+		"Kayah_Li", "Kharoshthi", "Khmer", "Lao", "Latin", "Lepcha", "Limbu",
+		"Linear_B", "Lisu", "Lycian", "Lydian", "Malayalam", "Mandaic",
+		"Meetei_Mayek", "Meroitic_Cursive", "Meroitic_Hieroglyphs", "Miao",
+		"Mongolian", "Myanmar", "New_Tai_Lue", "Nko", "Ogham", "Old_Italic",
+		"Old_Persian", "Old_South_Arabian", "Old_Turkic", "Ol_Chiki", "Oriya",
+		"Osmanya", "Phags_Pa", "Phoenician", "Rejang", "Runic", "Samaritan",
+		"Saurashtra", "Sharada", "Shavian", "Sinhala", "Sora_Sompeng",
+		"Sundanese", "Syloti_Nagri", "Syriac", "Tagalog", "Tagbanwa", "Tai_Le",
+		"Tai_Tham", "Tai_Viet", "Takri", "Tamil", "Telugu", "Thaana", "Thai",
+		"Tibetan", "Tifinagh", "Ugaritic", "Vai", "Yi"
+	);
+	
+	/**
 	 * Return true if the given string is a valid delimiter, otherwise false
 	 * 
 	 * @param string $delimiter Delimiter to check
@@ -141,5 +181,31 @@ class REBuilder_Parser_Rules
 	public static function validateSimpleAssertion ($str)
 	{
 		return in_array($str, self::$_simpleAssertions);
+	}
+	
+	/**
+	 * Return true if the given string is a valid unicode property code,
+	 * otherwise false
+	 * 
+	 * @param string $str String to check
+	 * @return string
+	 * @static
+	 */
+	public static function validateUnicodePropertyCode ($str)
+	{
+		return in_array($str, self::$_unicodePropertyCodes);
+	}
+	
+	/**
+	 * Return true if the given string is a valid unicode script, otherwise
+	 * false
+	 * 
+	 * @param string $str String to check
+	 * @return string
+	 * @static
+	 */
+	public static function validateUnicodeScript ($str)
+	{
+		return in_array($str, self::$_unicodeScripts);
 	}
 }

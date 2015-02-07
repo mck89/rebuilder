@@ -52,7 +52,7 @@ class REBuilder_Parser_Builder
 				}
 				//Set the delimiter
 				$this->_regexContainer->setDelimiter(
-					$token->getSubject()
+					$token->getIdentifier()
 				);
 			break;
 			//Regex end delimiter
@@ -63,14 +63,14 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS:
 				//Set the modifiers
 				$this->_regexContainer->setModifiers(
-					$token->getSubject()
+					$token->getIdentifier()
 				);
 			break;
 			//Simple character
 			case REBuilder_Parser_Token::TYPE_CHAR:
 				//Create a simple character and add it to the current container
 				$this->_currentItem = new REBuilder_Pattern_Simple(
-					$token->getSubject()
+					$token->getIdentifier()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -79,7 +79,7 @@ class REBuilder_Parser_Builder
 				//Create a non-printing character identifier and add it to the
 				//current container
 				$this->_currentItem = new REBuilder_Pattern_NonPrintingChar(
-					$token->getSubject()
+					$token->getIdentifier()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -88,7 +88,7 @@ class REBuilder_Parser_Builder
 				//Create a generic character type identifier and add it to the
 				//current container
 				$this->_currentItem = new REBuilder_Pattern_GenericCharType(
-					$token->getSubject()
+					$token->getIdentifier()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -97,7 +97,7 @@ class REBuilder_Parser_Builder
 				//Create a simple assertion identifier and add it to the current
 				//container
 				$this->_currentItem = new REBuilder_Pattern_SimpleAssertion(
-					$token->getSubject()
+					$token->getIdentifier()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
@@ -107,6 +107,25 @@ class REBuilder_Parser_Builder
 				//current container
 				$this->_currentItem = new REBuilder_Pattern_ControlChar(
 					$token->getSubject()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
+			//Extended unicode sequence identifier
+			case REBuilder_Parser_Token::TYPE_EXT_UNICODE_SEQUENCE:
+				//Create an extended unicode sequence identifier and add it to
+				//the current container
+				$this->_currentItem = new REBuilder_Pattern_UnicodeCharClass(
+					$token->getIdentifier()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
+			//Unicode character class identifier
+			case REBuilder_Parser_Token::TYPE_UNICODE_CHAR_CLASS:
+				//Create a unicode character class identifier and add it to
+				//the current container
+				$this->_currentItem = new REBuilder_Pattern_UnicodeCharClass(
+					rtrim(ltrim($token->getSubject(), "{"), "}"),
+					$token->getIdentifier() === "P"
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;

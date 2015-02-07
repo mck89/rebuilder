@@ -14,6 +14,7 @@ class REBuilder_Pattern_NonPrintingChar extends REBuilder_Pattern_GenericCharTyp
 	 * 
 	 * @param string $subject Subject to match
 	 * @return REBuilder_Pattern_NonPrintingChar
+	 * @throws REBuilder_Exception_Generic
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
 	public function setSubject ($subject)

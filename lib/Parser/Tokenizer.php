@@ -90,6 +90,7 @@ class REBuilder_Parser_Tokenizer
 			//If escaped and it's a generic character type identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateGenericCharType($char)) {
+				//Emit a generic character type token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_GENERIC_CHAR_TYPE,
 					$char
@@ -98,33 +99,83 @@ class REBuilder_Parser_Tokenizer
 			//If escaped and it's a simple assertion identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateSimpleAssertion($char)) {
+				//Emit a simple assertion token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_SIMPLE_ASSERTION,
 					$char
 				);
 			}
-			//If escaped and it's a non-printing characted identifier
+			//If escaped and it's a non-printing character identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateNonPrintingChar($char)) {
+				//Emit a non-printing character token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR,
 					$char
 				);
 			}
+			//If escaped and it's the extended unicode sequence identifier
+			elseif ($this->_escaped && $char === "X") {
+				//Emit a extended unicode sequence token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_EXT_UNICODE_SEQUENCE,
+					$char
+				);
+			}
+			//If escaped and it's the unicode character class identifier
+			elseif ($this->_escaped && ($char === "p" || $char === "P")) {
+				//Take the next character
+				$nextChar = $this->_consume();
+				//If there are no characters left throw an exception
+				if ($nextChar === null) {
+					throw new REBuilder_Exception_Generic(
+						"Unspecified character class form \\" . $char
+					);
+				}
+				//If the next char is not { emit the token
+				elseif ($nextChar !== "{") {
+					$this->_emitToken(
+						REBuilder_Parser_Token::TYPE_UNICODE_CHAR_CLASS,
+						$char,
+						$nextChar
+					);
+				}
+				//If the next char is {
+				else {
+					//Find everything until the closing bracket
+					$nextChars = $this->_consumeUntil("}", true);
+					//If the closing bracket has not been found throw an
+					//exception
+					if ($nextChars === null) {
+						throw new REBuilder_Exception_Generic(
+							"Unclosed \\" . $char . " character class"
+						);
+					}
+					//Otherwise emit the unicode char class token
+					else {
+						$this->_emitToken(
+							REBuilder_Parser_Token::TYPE_UNICODE_CHAR_CLASS,
+							$char,
+							$nextChar . $nextChars
+						);
+					}
+				}
+			}
 			//If escaped and it's the control character identifier "c"
 			elseif ($this->_escaped && $char === "c") {
 				//Take the next character
-				$char = $this->_consume();
+				$nextChar = $this->_consume();
 				//If there are no characters left throw an exception
-				if ($char === null) {
+				if ($nextChar === null) {
 					throw new REBuilder_Exception_Generic(
-						"\c not allowed at the end of the regex"
+						"Character not specified for \c"
 					);
 				}
 				//Otherwise emit the control character token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_CONTROL_CHAR,
-					$char
+					$char,
+					$nextChar
 				);
 			}
 			//If it does not fall in any of the cases above
@@ -166,6 +217,39 @@ class REBuilder_Parser_Tokenizer
 	}
 	
 	/**
+	 * Consumes everything until the given character. If the character has not
+	 * been found it returns null
+	 * 
+	 * @param string $char        Character to find
+	 * @param bool   $includeChar True to includ the searched character at the
+	 *                            end of the result
+	 * @return string|null
+	 */
+	protected function _consumeUntil ($char, $includeChar = false)
+	{
+		$ret = "";
+		$startIndex = $this->_index;
+		
+		while (true) {
+			$nextChar = $this->_consume();
+			//If there are no more characters reset the index and return null
+			if ($nextChar === null) {
+				$this->_index = $startIndex;
+				return null;
+			} elseif ($nextChar === $char) {
+				if (!$includeChar) {
+					$this->_index--;
+				} else {
+					$ret .= $nextChar;
+				}
+				return $ret;
+			} else {
+				$ret .= $nextChar;
+			}
+		}
+	}
+	
+	/**
 	 * Strip regex delimiters and modifiers and returns the end delimiter
 	 * 
 	 * @throws REBuilder_Exception_InvalidDelimiter
@@ -201,12 +285,13 @@ class REBuilder_Parser_Tokenizer
 	/**
 	 * Emits a token to the receiver function
 	 * 
-	 * @param int    $type    Token's type
-	 * @param string $subject Token's subject
+	 * @param int    $type       Token's type
+	 * @param string $identifier Token's identifier
+	 * @param string $subject    Token's subject
 	 */
-	protected function _emitToken ($type, $subject)
+	protected function _emitToken ($type, $identifier, $subject = null)
 	{
-		$token = new REBuilder_Parser_Token($type, $subject);
+		$token = new REBuilder_Parser_Token($type, $identifier, $subject);
 		call_user_func($this->_receiver, $token);
 	}
 }

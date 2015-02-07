@@ -48,11 +48,28 @@ class REBuilder_Parser_Token
 	Const TYPE_CONTROL_CHAR = 8;
 	
 	/**
+	 * Extended unicode sequence identifier
+	 */
+	Const TYPE_EXT_UNICODE_SEQUENCE = 9;
+	
+	/**
+	 * Unicode character class identifier
+	 */
+	Const TYPE_UNICODE_CHAR_CLASS = 10;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int
 	 */
 	protected $_type;
+	
+	/**
+	 * Token's identifier
+	 * 
+	 * @var string
+	 */
+	protected $_identifier;
 	
 	/**
 	 * Token's subject
@@ -64,13 +81,18 @@ class REBuilder_Parser_Token
 	/**
 	 * Constructor
 	 * 
-	 * @param int $type       Token's type. It can be one of the current class
-	 *                        type constants
-	 * @param string $subject Token's subject
+	 * @param int $type          Token's type. It can be one of the current
+	 *                           class ype constants
+	 * @param string $identifier Token's identifier
+	 * @param string $subject    Token's subject
 	 */
-	public function __construct ($type, $subject)
+	public function __construct ($type, $identifier, $subject = null)
 	{
+		if ($subject === null) {
+			$subject = $identifier;
+		}
 		$this->_type = $type;
+		$this->_identifier = $identifier;
 		$this->_subject = $subject;
 	}
 	
@@ -82,6 +104,16 @@ class REBuilder_Parser_Token
 	public function getType ()
 	{
 		return $this->_type;
+	}
+	
+	/**
+	 * Returns the token identifier
+	 * 
+	 * @return string
+	 */
+	public function getIdentifier()
+	{
+		return $this->_identifier;
 	}
 	
 	/**

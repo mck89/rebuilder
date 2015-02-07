@@ -87,7 +87,7 @@ class REBuilder_Parser_Tokenizer
 				//Set escaped flag to true
 				$this->_escaped  = true;
 			}
-			//If not escaped and it's a generic character type identifier
+			//If escaped and it's a generic character type identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateGenericCharType($char)) {
 				$this->_emitToken(
@@ -95,7 +95,7 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
-			//If not escaped and it's a simple assertion identifier
+			//If escaped and it's a simple assertion identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateSimpleAssertion($char)) {
 				$this->_emitToken(
@@ -103,11 +103,27 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
-			//If not escaped and it's a non-printing characted identifier
+			//If escaped and it's a non-printing characted identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateNonPrintingChar($char)) {
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR,
+					$char
+				);
+			}
+			//If escaped and it's the control character identifier "c"
+			elseif ($this->_escaped && $char === "c") {
+				//Take the next character
+				$char = $this->_consume();
+				//If there are no characters left throw an exception
+				if ($char === null) {
+					throw new REBuilder_Exception_Generic(
+						"\c not allowed at the end of the regex"
+					);
+				}
+				//Otherwise emit the control character token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_CONTROL_CHAR,
 					$char
 				);
 			}

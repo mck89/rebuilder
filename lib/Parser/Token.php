@@ -43,6 +43,11 @@ class REBuilder_Parser_Token
 	Const TYPE_SIMPLE_ASSERTION = 7;
 	
 	/**
+	 * Control character identifier
+	 */
+	Const TYPE_CONTROL_CHAR = 8;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

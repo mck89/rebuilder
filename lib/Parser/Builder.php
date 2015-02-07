@@ -92,12 +92,20 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
-		
 			//Simple assertion identifier
 			case REBuilder_Parser_Token::TYPE_SIMPLE_ASSERTION:
 				//Create a simple assertion identifier and add it to the current
 				//container
 				$this->_currentItem = new REBuilder_Pattern_SimpleAssertion(
+					$token->getPattern()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
+			//Control character identifier
+			case REBuilder_Parser_Token::TYPE_CONTROL_CHAR:
+				//Create a control character identifier and add it to the
+				//current container
+				$this->_currentItem = new REBuilder_Pattern_ControlChar(
 					$token->getPattern()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);

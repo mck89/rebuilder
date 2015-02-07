@@ -86,6 +86,7 @@ class REBuilder_Parser_Tokenizer
 			if ($char === "\\" && !$this->_escaped) {
 				//Set escaped flag to true
 				$this->_escaped  = true;
+				continue;
 			}
 			//If escaped and it's a generic character type identifier
 			elseif ($this->_escaped &&
@@ -186,6 +187,17 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
+			
+			//Reset the escaped state
+			$this->_escaped  = false;
+		}
+		
+		//If the escaped state is already active it means that no end delimiter
+		//has been found, so an exception must be thrown
+		if ($this->_escaped) {
+			throw new REBuilder_Exception_InvalidDelimiter(
+				"End delimiter '$endDelimiter' not found"
+			);
 		}
 		
 		//Emit the end delimiter token

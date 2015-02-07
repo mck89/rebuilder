@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract class for pattern containers
+ * Abstract class for classes that can contain child patterns
  * 
  * @author Marco Marchiò
  * @abstract

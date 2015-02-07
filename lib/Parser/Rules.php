@@ -208,4 +208,17 @@ class REBuilder_Parser_Rules
 	{
 		return in_array($str, self::$_unicodeScripts);
 	}
+	
+	/**
+	 * Return true if the given string contains only valid hexadecimal digits,
+	 * otherwise false
+	 * 
+	 * @param string $str String to check
+	 * @return string
+	 * @static
+	 */
+	public static function validateHexString ($str)
+	{
+		return preg_match("#^[0-9a-f]+$#i", $str) === 1;
+	}
 }

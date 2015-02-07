@@ -162,6 +162,27 @@ class REBuilder_Parser_Tokenizer
 					}
 				}
 			}
+			//If escaped and it's the hexadecimal  character identifier "x"
+			elseif ($this->_escaped && $char === "x") {
+				//Find following hexadecimal digits
+				$tokenSubject = "";
+				for ($i = 0; $i < 2; $i++) {
+					$nextChar = $this->_consume();
+					if ($nextChar !== null &&
+						REBuilder_Parser_Rules::validateHexString($nextChar)) {
+						$tokenSubject .= $nextChar;
+					} else {
+						$nextChar !== null && $this->_unconsume();
+						break;
+					}
+				}
+				//Emit the hexadecimal character token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_HEX_CHAR,
+					$char,
+					$tokenSubject
+				);
+			}
 			//If escaped and it's the control character identifier "c"
 			elseif ($this->_escaped && $char === "c") {
 				//Take the next character

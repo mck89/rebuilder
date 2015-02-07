@@ -129,6 +129,15 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
+			//Hexadecimal character identifier
+			case REBuilder_Parser_Token::TYPE_HEX_CHAR:
+				//Create a hexadecimal character identifier and add it to the
+				//current container
+				$this->_currentItem = new REBuilder_Pattern_HexChar(
+					$token->getSubject()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
 		}
 	}
 	

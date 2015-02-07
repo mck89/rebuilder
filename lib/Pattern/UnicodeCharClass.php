@@ -75,7 +75,7 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
 	public function render ()
 	{
 		if ($this->_subject === "X") {
-			return "\\X";
+			return "\X";
 		}
 		return	"\\" . ($this->_negate ? "P" : "p") .
 				"{" . $this->_subject . "}";

@@ -1,26 +1,31 @@
 <?php
 /**
- * Represents the control character identifier \c
+ * Represents the hexadecimal character identifier \x
  * 
  * @author Marco Marchiò
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Simple
+class REBuilder_Pattern_HexChar extends REBuilder_Pattern_Simple
 {
 	/**
-	 * Sets the subject. It can be any character
+	 * Sets the subject. It can be 0, 1 or 2 hexadecimal digits
 	 * 
 	 * @param string $subject Subject to match
-	 * @return REBuilder_Pattern_ControlChar
+	 * @return REBuilder_Pattern_HexChar
 	 * @throws REBuilder_Exception_Generic
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
 	public function setSubject ($subject)
 	{
-		if (strlen($subject) !== 1) {
+		if ($subject !== "" &&
+			!REBuilder_Parser_Rules::validateHexString($subject)) {
 			throw new REBuilder_Exception_Generic(
-				"Control character requires a single character"
+				"Invalid hexadecimal sequence '$subject'"
+			);
+		} elseif (strlen($subject) > 2) {
+			throw new REBuilder_Exception_Generic(
+				"Hexadecimal character can match a maximum of 2 digits"
 			);
 		}
 		$this->_subject = $subject;
@@ -33,6 +38,6 @@ class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
-		return "\c" . $this->_subject;
+		return "\x" . $this->_subject;
 	}
 }

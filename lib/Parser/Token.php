@@ -58,6 +58,11 @@ class REBuilder_Parser_Token
 	Const TYPE_UNICODE_CHAR_CLASS = 10;
 	
 	/**
+	 * Hexadecimal character identifier
+	 */
+	Const TYPE_HEX_CHAR = 11;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

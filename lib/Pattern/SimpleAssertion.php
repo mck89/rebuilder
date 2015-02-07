@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents simple assertions: "b", "B", "A", "Z", "z", "g", "Q", "E", "K"
+ * Represents simple assertions: \b, \B, \A, \Z, \z, \g, \Q, \E, \K
  * 
  * @author Marco Marchiò
  * @abstract

@@ -1,7 +1,6 @@
 <?php
 /**
- * Represents generic character types: "d", "D", "h", "H", "s", "S", "v", "V",
- * "w", "W"
+ * Represents generic character types: \d, \D, \h, \H, \s, \S, \v, \V, \w, \W
  * 
  * @author Marco Marchiò
  * @abstract

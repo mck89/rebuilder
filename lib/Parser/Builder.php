@@ -78,7 +78,7 @@ class REBuilder_Parser_Builder
 			//Simple character
 			case REBuilder_Parser_Token::TYPE_CHAR:
 				//Create a simple character and add it to the current container
-				$this->_currentItem = new REBuilder_Pattern_Simple(
+				$this->_currentItem = new REBuilder_Pattern_Char(
 					$token->getIdentifier()
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
@@ -192,6 +192,7 @@ class REBuilder_Parser_Builder
 			//Tokens that can handle the repetition
 			//@TODO add allowed tokens
 			//@TODO emit repetition as simple character if inside a character class
+			//@TODO do not render repetition if character is inside a character class
 			case REBuilder_Parser_Token::TYPE_CHAR:
 			case REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR:
 			case REBuilder_Parser_Token::TYPE_GENERIC_CHAR_TYPE:

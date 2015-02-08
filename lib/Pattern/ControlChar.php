@@ -6,24 +6,25 @@
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Simple
+class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Char
 {
 	/**
-	 * Sets the subject. It can be any character
+	 * Sets the character to match. It can be any character
 	 * 
-	 * @param string $subject Subject to match
+	 * @param string $char Character to match
 	 * @return REBuilder_Pattern_ControlChar
 	 * @throws REBuilder_Exception_Generic
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
-	public function setSubject ($subject)
+	public function setChar ($char)
 	{
-		if (strlen($subject) !== 1) {
+		$char = "$char";
+		if (strlen($char) !== 1) {
 			throw new REBuilder_Exception_Generic(
 				"Control character requires a single character"
 			);
 		}
-		$this->_subject = $subject;
+		return parent::setChar($char);
 	}
 	
 	/**
@@ -33,6 +34,11 @@ class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
-		return "\c" . $this->_subject . $this->_renderRepetition();
+		if ($this->_char === null || $this->_char === "") {
+			throw new REBuilder_Exception_Generic(
+				"No character has been set"
+			);
+		}
+		return "\c" . $this->_char . $this->_renderRepetition();
 	}
 }

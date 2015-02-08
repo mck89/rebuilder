@@ -6,29 +6,37 @@
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_HexChar extends REBuilder_Pattern_Simple
+class REBuilder_Pattern_HexChar extends REBuilder_Pattern_Char
 {
 	/**
-	 * Sets the subject. It can be 0, 1 or 2 hexadecimal digits
+	 * Character to match
 	 * 
-	 * @param string $subject Subject to match
+	 * @var string
+	 */
+	protected $_char = "";
+	
+	/**
+	 * Sets the character code . It can be 0, 1 or 2 hexadecimal digits
+	 * that represent a character code
+	 * 
+	 * @param string $char Character to match
 	 * @return REBuilder_Pattern_HexChar
 	 * @throws REBuilder_Exception_Generic
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
-	public function setSubject ($subject)
+	public function setChar ($char)
 	{
-		if ($subject !== "" &&
-			!REBuilder_Parser_Rules::validateHexString($subject)) {
+		if ($char !== "" &&
+			!REBuilder_Parser_Rules::validateHexString($char)) {
 			throw new REBuilder_Exception_Generic(
-				"Invalid hexadecimal sequence '$subject'"
+				"Invalid hexadecimal sequence '$char'"
 			);
-		} elseif (strlen($subject) > 2) {
+		} elseif (strlen($char) > 2) {
 			throw new REBuilder_Exception_Generic(
 				"Hexadecimal character can match a maximum of 2 digits"
 			);
 		}
-		$this->_subject = $subject;
+		return parent::setChar($char);
 	}
 	
 	/**
@@ -38,6 +46,6 @@ class REBuilder_Pattern_HexChar extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
-		return "\x" . $this->_subject . $this->_renderRepetition();
+		return "\x" . $this->_char . $this->_renderRepetition();
 	}
 }

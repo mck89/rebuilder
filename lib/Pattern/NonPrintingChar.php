@@ -9,21 +9,21 @@
 class REBuilder_Pattern_NonPrintingChar extends REBuilder_Pattern_GenericCharType
 {
 	/**
-	 * Sets the subject. It can be one of the following identifiers:
+	 * Sets the identifier. It can be one of the following:
 	 * "a", "e", "f", "n", "r", "t".
 	 * 
-	 * @param string $subject Subject to match
+	 * @param string $identifier Identifier to match
 	 * @return REBuilder_Pattern_NonPrintingChar
 	 * @throws REBuilder_Exception_Generic
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
-	public function setSubject ($subject)
+	public function setIdentifier ($identifier)
 	{
-		if (!REBuilder_Parser_Rules::validateNonPrintingChar($subject)) {
+		if (!REBuilder_Parser_Rules::validateNonPrintingChar($identifier)) {
 			throw new REBuilder_Exception_Generic(
-				"'$subject' is not a valid non-printing character identifier"
+				"'$identifier' is not a valid non-printing character identifier"
 			);
 		}
-		$this->_subject = $subject;
+		return parent::setIdentifier($identifier);
 	}
 }

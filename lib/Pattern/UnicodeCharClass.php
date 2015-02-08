@@ -6,8 +6,15 @@
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.unicode.php
  */
-class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
+class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
 {
+	/**
+	 * Character class to match
+	 * 
+	 * @var string
+	 */
+	protected $_class;
+	
 	/**
 	 * Negation flag
 	 * 
@@ -18,12 +25,14 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
 	/**
 	 * Constructor
 	 * 
-	 * @param string $subject Subject to match
+	 * @param string $class   Character class to match
 	 * @param string $negate  True to create a negative match
 	 */
-	public function __construct ($subject, $negate = false)
+	public function __construct ($class = null, $negate = false)
 	{
-		$this->setSubject($subject);
+		if ($class !== null) {
+			$this->setClass($class);
+		}
 		$this->setNegate($negate);
 	}
 	
@@ -38,7 +47,7 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
 	 */
 	public function setNegate ($negate)
 	{
-		if ($negate && $this->_subject === "X") {
+		if ($negate && $this->_class === "X") {
 			throw new REBuilder_Exception_Generic(
 				"Negation is not supported for \X"
 			);
@@ -47,24 +56,44 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
 	}
 	
 	/**
-	 * Sets the subject. It can be any supported unicode property code or
-	 * script. If "X" it will be used as extended unicode sequence (\X)
+	 * Returns the negate flag
 	 * 
-	 * @param string $subject Subject to match
+	 * @return bool
+	 */
+	public function getNegate ()
+	{
+		return $this->_negate;
+	}
+	
+	/**
+	 * Sets the character class. It can be any supported unicode property code
+	 * or script. If "X" it will be used as extended unicode sequence (\X)
+	 * 
+	 * @param string $class Character class to match
 	 * @return REBuilder_Pattern_UnicodeCharClass
 	 * @throws REBuilder_Exception_Generic
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
-	public function setSubject ($subject)
+	public function setClass ($class)
 	{
-		if ($subject !== "X" &&
-			!REBuilder_Parser_Rules::validateUnicodePropertyCode($subject) &&
-			!!REBuilder_Parser_Rules::validateUnicodeScript($subject)) {
+		if ($class !== "X" &&
+			!REBuilder_Parser_Rules::validateUnicodePropertyCode($class) &&
+			!!REBuilder_Parser_Rules::validateUnicodeScript($class)) {
 			throw new REBuilder_Exception_Generic(
-				"Unknow unicode character class '$subject'"
+				"Unknow unicode character class '$class'"
 			);
 		}
-		$this->_subject = $subject;
+		$this->_class = $class;
+	}
+	
+	/**
+	 * Returns the character class to match
+	 * 
+	 * @return string
+	 */
+	public function getClass ()
+	{
+		return $this->_class;
 	}
 	
 	/**
@@ -74,12 +103,17 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
+		if ($this->_class === null) {
+			throw new REBuilder_Exception_Generic(
+				"No character class has been set"
+			);
+		}
 		$ret = "";
-		if ($this->_subject === "X") {
+		if ($this->_class === "X") {
 			$ret = "\X";
 		} else {
 			$ret =	"\\" . ($this->_negate ? "P" : "p") .
-					"{" . $this->_subject . "}";
+					"{" . $this->_class . "}";
 		}
 		$ret .= $this->_renderRepetition();
 		return $ret;

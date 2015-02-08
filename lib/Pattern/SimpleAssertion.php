@@ -9,21 +9,21 @@
 class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_GenericCharType
 {
 	/**
-	 * Sets the subject. It can be one of the following identifiers:
+	 * Sets the identifier. It can be one of the following:
 	 * "b", "B", "A", "Z", "z", "g", "Q", "E", "K"
 	 * 
-	 * @param string $subject Subject to match
+	 * @param string $identifier Identifier to match
 	 * @return REBuilder_Pattern_SimpleAssertion
 	 * @link http://php.net/manual/en/regexp.reference.escape.php
 	 */
-	public function setSubject ($subject)
+	public function setIdentifier ($identifier)
 	{
-		if (!REBuilder_Parser_Rules::validateSimpleAssertion($subject)) {
+		if (!REBuilder_Parser_Rules::validateSimpleAssertion($identifier)) {
 			throw new REBuilder_Exception_Generic(
-				"'$subject' is not a valid simple assertion type identifier"
+				"'$identifier' is not a valid simple assertion type identifier"
 			);
 		}
-		$this->_subject = $subject;
+		return parent::setIdentifier($identifier);
 	}
 	
 	/**

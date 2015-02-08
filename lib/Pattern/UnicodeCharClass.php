@@ -4,7 +4,7 @@
  * 
  * @author Marco Marchiò
  * @abstract
- * @link http://php.net/manual/en/regexp.reference.escape.php
+ * @link http://php.net/manual/en/regexp.reference.unicode.php
  */
 class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
 {
@@ -74,10 +74,14 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
+		$ret = "";
 		if ($this->_subject === "X") {
-			return "\X";
+			$ret = "\X";
+		} else {
+			$ret =	"\\" . ($this->_negate ? "P" : "p") .
+					"{" . $this->_subject . "}";
 		}
-		return	"\\" . ($this->_negate ? "P" : "p") .
-				"{" . $this->_subject . "}";
+		$ret .= $this->_renderRepetition();
+		return $ret;
 	}
 }

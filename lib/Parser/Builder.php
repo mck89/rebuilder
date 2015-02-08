@@ -21,6 +21,13 @@ class REBuilder_Parser_Builder
 	protected $_containersStack;
 	
 	/**
+	 * Tokens stack
+	 * 
+	 * @var SplStack 
+	 */
+	protected $_tokensStack;
+	
+	/**
 	 * Current item
 	 * 
 	 * @var REBuilder_Pattern_Abstract 
@@ -33,6 +40,7 @@ class REBuilder_Parser_Builder
 	public function __construct ()
 	{
 		$this->_containersStack = new SplStack();
+		$this->_tokensStack = new SplStack();
 	}
 	
 	/**
@@ -54,6 +62,7 @@ class REBuilder_Parser_Builder
 				$this->_regexContainer->setDelimiter(
 					$token->getIdentifier()
 				);
+				$this->_currentItem = $this->_regexContainer;
 			break;
 			//Regex end delimiter
 			case REBuilder_Parser_Token::TYPE_REGEX_END_DELIMITER:
@@ -138,7 +147,93 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
+			//Repetition identifier
+			case REBuilder_Parser_Token::TYPE_REPETITION:
+				$this->_handleRepetition($token);
+			break;
 		}
+		
+		//Push the token in the tokens stack
+		$this->_tokensStack->push($token);
+	}
+	
+	/**
+	 * Handles a repetition token
+	 * 
+	 * @param REBuilder_Parser_Token $token Token
+	 */
+	protected function _handleRepetition (REBuilder_Parser_Token $token)
+	{
+		//Repetitions are allowed only after certain tokens, so check the last
+		//emitted token
+		$lastToken = $this->_tokensStack->top();
+		switch ($lastToken->getType()) {
+			//Handle lazy repetition
+			case REBuilder_Parser_Token::TYPE_REPETITION:
+				$prevLastToken = $this->_tokensStack->offsetGet(
+					$this->_tokensStack->count() - 2
+				);
+				//if this token is "?" and follows a repetition token that
+				//does not come after another repetition token set the lazy flag
+				if ($token->getIdentifier() === "?" &&
+					$prevLastToken->getType() !== REBuilder_Parser_Token::TYPE_REPETITION) {
+					//Check if last repetition supports the lazy flag
+					$lastRepetition = $this->_currentItem->getRepetition();
+					if ($lastRepetition->supportsLazy()) {
+						$lastRepetition->setLazy(true);
+					}
+					return;
+				} else {
+					throw new REBuilder_Exception_InvalidRepetition(
+						"Nothing to repeat"
+					);
+				}
+			break;
+			//Tokens that can handle the repetition
+			case REBuilder_Parser_Token::TYPE_CHAR:
+			case REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR:
+			case REBuilder_Parser_Token::TYPE_GENERIC_CHAR_TYPE:
+			case REBuilder_Parser_Token::TYPE_CONTROL_CHAR:
+			case REBuilder_Parser_Token::TYPE_EXT_UNICODE_SEQUENCE:
+			case REBuilder_Parser_Token::TYPE_UNICODE_CHAR_CLASS:
+			case REBuilder_Parser_Token::TYPE_HEX_CHAR:
+			break;
+			default:
+				throw new REBuilder_Exception_InvalidRepetition(
+					"Repetition cannot be inserted at this point"
+				);
+			break;
+		}
+		
+		//Get the right repetition class
+		switch ($token->getIdentifier()) {
+			case "*":
+				$repetition = new REBuilder_Pattern_Repetition_ZeroOrMore();
+			break;
+			case "+":
+				$repetition = new REBuilder_Pattern_Repetition_OneOrMore();
+			break;
+			case "?":
+				$repetition = new REBuilder_Pattern_Repetition_Optional();
+			break;
+			case "{":
+				//Check if {}
+				if (strpos($token->getSubject(), ",") === false) {
+					$repetition = new REBuilder_Pattern_Repetition_Number(
+						$token->getSubject()
+					);
+				} else {
+					$limits = explode(",", $token->getSubject());
+					$repetition = new REBuilder_Pattern_Repetition_Range(
+						$limits[0],
+						$limits[1] === "" ? null : $limits[1]
+					);
+				}
+			break;
+		}
+
+		//Set the repetition on the current item
+		$this->_currentItem->setRepetition($repetition);
 	}
 	
 	/**

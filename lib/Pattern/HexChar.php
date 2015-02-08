@@ -38,6 +38,6 @@ class REBuilder_Pattern_HexChar extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
-		return "\x" . $this->_subject;
+		return "\x" . $this->_subject . $this->_renderRepetition();
 	}
 }

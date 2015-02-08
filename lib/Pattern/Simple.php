@@ -56,7 +56,6 @@ class REBuilder_Pattern_Simple extends REBuilder_Pattern_Abstract
 	{
 		$multiChar = strlen($this->_subject) > 1;
 		$subject = $this->getParentRegex()->quote($this->_subject);
-		//@TODO add repetition. Use non matching group only if repetition is set
-		return $multiChar ? "(?:$subject)" : $subject;
+		return $multiChar ? "(?:$subject)" : $subject . $this->_renderRepetition();
 	}
 }

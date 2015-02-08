@@ -200,9 +200,29 @@ class REBuilder_Parser_Tokenizer
 					$nextChar
 				);
 			}
+			//If not escaped and it's a valid repetition identifier
+			elseif (!$this->_escaped && ($char === "*" || $char === "+" ||
+					$char === "?")) {
+				//Emit a repetition token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_REPETITION,
+					$char
+				);
+			}
+			//If not escaped and it's an open curly brace and the following
+			//text identifies a repetition
+			elseif (!$this->_escaped && $char === "{" &&
+					($nextChars = $this->_consumeRegex("/^\d+(?:,\d*)?\}/"))) {
+				//Emit a repetition token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_REPETITION,
+					$char,
+					rtrim($nextChars, "}")
+				);
+			}
 			//If it does not fall in any of the cases above
 			else {
-				//emit the character as a simple pattern token
+				//Emit the character as a simple pattern token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_CHAR,
 					$char
@@ -291,6 +311,24 @@ class REBuilder_Parser_Tokenizer
 				$ret .= $nextChar;
 			}
 		}
+	}
+	
+	/**
+	 * Tests a regular expression, if it matches it consumes every matched
+	 * character, if not it returns null and it does not consume anything
+	 * 
+	 * @param string $reg         Regular expression to test
+	 * @param int    $matchNumber Match number to return
+	 * @return string|null
+	 */
+	protected function _consumeRegex ($reg, $matchNumber = 0)
+	{
+		if (preg_match($reg, $this->_regex, $match, PREG_OFFSET_CAPTURE,
+					   $this->_index)) {
+			$this->_index += $match[0][1] + strlen($match[0][0]);
+			return $match[$matchNumber][0];
+		}
+		return null;
 	}
 	
 	/**

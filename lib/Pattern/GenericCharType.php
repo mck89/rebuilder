@@ -34,6 +34,6 @@ class REBuilder_Pattern_GenericCharType extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
-		return "\\" . $this->_subject;
+		return "\\" . $this->_subject . $this->_renderRepetition();
 	}
 }

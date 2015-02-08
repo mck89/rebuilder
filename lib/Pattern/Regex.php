@@ -104,6 +104,19 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_Container
 	}
 	
 	/**
+	 * Sets the repetition. This class cannot handle repetitions so this
+	 * method will throw an exception
+	 * 
+	 * @throws REBuilder_Exception_Generic
+	 */
+	public function setRepetition ()
+	{
+		throw new REBuilder_Exception_InvalidRepetition(
+			"Regex container cannot handle repetitions"
+		);
+	}
+	
+	/**
 	 * Quotes the given string using current configurations
 	 * 
 	 * @return string

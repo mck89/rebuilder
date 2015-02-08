@@ -25,4 +25,17 @@ class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_GenericCharTyp
 		}
 		$this->_subject = $subject;
 	}
+	
+	/**
+	 * Sets the repetition. This class cannot handle repetitions so this
+	 * method will throw an exception
+	 * 
+	 * @throws REBuilder_Exception_Generic
+	 */
+	public function setRepetition ()
+	{
+		throw new REBuilder_Exception_InvalidRepetition(
+			"Simple assertions cannot handle repetitions"
+		);
+	}
 }

@@ -33,6 +33,6 @@ class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Simple
 	 */
 	public function render ()
 	{
-		return "\c" . $this->_subject;
+		return "\c" . $this->_subject . $this->_renderRepetition();
 	}
 }

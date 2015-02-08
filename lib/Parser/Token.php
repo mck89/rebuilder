@@ -63,6 +63,11 @@ class REBuilder_Parser_Token
 	Const TYPE_HEX_CHAR = 11;
 	
 	/**
+	 * Repetition identifier
+	 */
+	Const TYPE_REPETITION = 12;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

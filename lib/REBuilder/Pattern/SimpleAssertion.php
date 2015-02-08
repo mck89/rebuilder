@@ -30,6 +30,8 @@ class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_GenericCharTyp
 	 * Sets the repetition. This class cannot handle repetitions so this
 	 * method will throw an exception
 	 * 
+	 * @param mixed $repetition Repetition. 
+	 * @param mixed $max		Max repetition
 	 * @throws REBuilder_Exception_Generic
 	 */
 	public function setRepetition ()

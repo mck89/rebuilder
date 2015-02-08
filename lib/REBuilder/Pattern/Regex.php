@@ -107,9 +107,11 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_Container
 	 * Sets the repetition. This class cannot handle repetitions so this
 	 * method will throw an exception
 	 * 
+	 * @param mixed $repetition Repetition. 
+	 * @param mixed $max		Max repetition
 	 * @throws REBuilder_Exception_Generic
 	 */
-	public function setRepetition ()
+	public function setRepetition ($repetition, $max = null)
 	{
 		throw new REBuilder_Exception_InvalidRepetition(
 			"Regex container cannot handle repetitions"

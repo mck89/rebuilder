@@ -190,6 +190,8 @@ class REBuilder_Parser_Builder
 				}
 			break;
 			//Tokens that can handle the repetition
+			//@TODO add allowed tokens
+			//@TODO emit repetition as simple character if inside a character class
 			case REBuilder_Parser_Token::TYPE_CHAR:
 			case REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR:
 			case REBuilder_Parser_Token::TYPE_GENERIC_CHAR_TYPE:

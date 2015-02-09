@@ -83,21 +83,21 @@ abstract class REBuilder_Pattern_Abstract
 	{
 		if (!$repetition instanceof REBuilder_Pattern_Repetition_Abstract) {
 			if ($repetition === "*") {
-				$repetition = REBuilder_Pattern_Repetition_ZeroOrMore(
+				$repetition = new REBuilder_Pattern_Repetition_ZeroOrMore(
 					is_bool($max) ? $max : false
 				);
 			} elseif ($repetition === "+") {
-				$repetition = REBuilder_Pattern_Repetition_OneOrMore(
+				$repetition = new REBuilder_Pattern_Repetition_OneOrMore(
 					is_bool($max) ? $max : false
 				);
 			} elseif ($repetition === "?") {
-				$repetition = REBuilder_Pattern_Repetition_Optional();
+				$repetition = new REBuilder_Pattern_Repetition_Optional();
 			} elseif (is_numeric($repetition) &&
 					  ($max === null || is_numeric($max))) {
 				if (func_num_args() === 1) {
-					$repetition = REBuilder_Pattern_Repetition_Number($repetition);
+					$repetition = new REBuilder_Pattern_Repetition_Number($repetition);
 				} else {
-					$repetition = REBuilder_Pattern_Repetition_Range($repetition, $max);
+					$repetition = new REBuilder_Pattern_Repetition_Range($repetition, $max);
 				}
 			} else {
 				throw new REBuilder_Exception_InvalidRepetition(

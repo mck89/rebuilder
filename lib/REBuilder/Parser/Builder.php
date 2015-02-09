@@ -77,11 +77,19 @@ class REBuilder_Parser_Builder
 			break;
 			//Simple character
 			case REBuilder_Parser_Token::TYPE_CHAR:
-				//Create a simple character and add it to the current container
-				$this->_currentItem = new REBuilder_Pattern_Char(
-					$token->getIdentifier()
-				);
-				$this->_containersStack->top()->addChild($this->_currentItem);
+				//If the current item is already a char append data to it
+				if ($this->_currentItem instanceof REBuilder_Pattern_Char) {
+					$this->_currentItem->setChar(
+						$this->_currentItem->getChar() . $token->getIdentifier()
+					);
+				} else {
+					//Otherwise create a simple character and add it to the
+					//current container
+					$this->_currentItem = new REBuilder_Pattern_Char(
+						$token->getIdentifier()
+					);
+					$this->_containersStack->top()->addChild($this->_currentItem);
+				}
 			break;
 			//Non-printing character identifier
 			case REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR:
@@ -189,17 +197,29 @@ class REBuilder_Parser_Builder
 					);
 				}
 			break;
-			//Tokens that can handle the repetition
 			//@TODO add allowed tokens
 			//@TODO emit repetition as simple character if inside a character class
 			//@TODO do not render repetition if character is inside a character class
-			case REBuilder_Parser_Token::TYPE_CHAR:
+			//Tokens that can handle the repetition
 			case REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR:
 			case REBuilder_Parser_Token::TYPE_GENERIC_CHAR_TYPE:
 			case REBuilder_Parser_Token::TYPE_CONTROL_CHAR:
 			case REBuilder_Parser_Token::TYPE_EXT_UNICODE_SEQUENCE:
 			case REBuilder_Parser_Token::TYPE_UNICODE_CHAR_CLASS:
 			case REBuilder_Parser_Token::TYPE_HEX_CHAR:
+			break;
+			//When simple characters are grouped, repetition is valid only
+			//for the last one, so it needs to be splitted so that the last
+			//character belongs to a different object
+			case REBuilder_Parser_Token::TYPE_CHAR:
+				$chars = $this->_currentItem->getChar();
+				if (strlen($chars) > 1) {
+					$this->_currentItem->setChar(substr($chars, 0, -1));
+					$this->_currentItem = new REBuilder_Pattern_Char(
+						$chars[strlen($chars) - 1]
+					);
+					$this->_containersStack->top()->addChild($this->_currentItem);
+				}
 			break;
 			default:
 				throw new REBuilder_Exception_InvalidRepetition(

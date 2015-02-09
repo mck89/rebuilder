@@ -263,7 +263,7 @@ class REBuilder_Parser_Tokenizer
 	 */
 	protected function _consume ()
 	{
-		if ($this->_index < $this->_length - 1) {
+		if ($this->_index < $this->_length) {
 			return $this->_regex[$this->_index++];
 		}
 		return null;

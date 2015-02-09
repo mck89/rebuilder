@@ -37,7 +37,7 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 	{
 		if ($this->hasChildren()) {
 			$index = null;
-			foreach ($this->_children as $k => $c) {
+			foreach ($this->getChildren() as $k => $c) {
 				if (spl_object_hash($c) === spl_object_hash($child)) {
 					$index = $k;
 					break;
@@ -51,13 +51,23 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 	}
 	
 	/**
+	 * Returns children array
+	 * 
+	 * @return array
+	 */
+	public function getChildren ()
+	{
+		return $this->_children;
+	}
+	
+	/**
 	 * Returns true if the class has at least one child
 	 * 
 	 * @return bool
 	 */
 	public function hasChildren ()
 	{
-		return count($this->_children) !== 0;
+		return count($this->getChildren()) !== 0;
 	}
 	
 	/**
@@ -69,7 +79,7 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 	{
 		$ret = "";
 		if ($this->hasChildren()) {
-			foreach ($this->_children as $child) {
+			foreach ($this->getChildren() as $child) {
 				$ret .= $child->render();
 			}
 		}

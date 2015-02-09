@@ -61,8 +61,8 @@ class REBuilder_Pattern_Char extends REBuilder_Pattern_Abstract
 				"No character has been set"
 			);
 		}
-		$multiChar = strlen($this->_char) > 1;
+		$needsGroup = strlen($this->_char) > 1 && $this->getRepetition();
 		$char = $this->getParentRegex()->quote($this->_char);
-		return $multiChar ? "(?:$char)" : $char . $this->_renderRepetition();
+		return ($needsGroup ? "(?:$char)" : $char) . $this->_renderRepetition();
 	}
 }

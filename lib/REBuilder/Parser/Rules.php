@@ -101,7 +101,7 @@ class REBuilder_Parser_Rules
 	public static function validateDelimiter ($delimiter)
 	{
 		//A delimiter can be any non-alphanumeric, non-backslash, non-whitespace character. 
-		return preg_match("#^[^\\a-z\d\s]$#i", $delimiter) === 1;
+		return preg_match("#^[^\\\\a-z\d\s]$#i", $delimiter) === 1;
 	}
 	
 	/**

@@ -6,15 +6,8 @@
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_HexChar extends REBuilder_Pattern_Char
+class REBuilder_Pattern_HexChar extends REBuilder_Pattern_AbstractChar
 {
-	/**
-	 * Character to match
-	 * 
-	 * @var string
-	 */
-	protected $_char = "";
-	
 	/**
 	 * Sets the character code . It can be 0, 1 or 2 hexadecimal digits
 	 * that represent a character code

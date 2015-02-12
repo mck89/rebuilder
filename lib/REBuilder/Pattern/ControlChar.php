@@ -6,7 +6,7 @@
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Char
+class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_AbstractChar
 {
 	/**
 	 * Sets the character to match. It can be any character
@@ -34,11 +34,6 @@ class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_Char
 	 */
 	public function render ()
 	{
-		if ($this->_char === null || $this->_char === "") {
-			throw new REBuilder_Exception_Generic(
-				"No character has been set"
-			);
-		}
-		return "\c" . $this->_char . $this->_renderRepetition();
+		return "\c" . parent::render() . $this->_renderRepetition();
 	}
 }

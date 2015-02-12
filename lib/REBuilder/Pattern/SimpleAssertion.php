@@ -6,7 +6,7 @@
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_GenericCharType
+class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_AbstractIdentifier
 {
 	/**
 	 * Sets the identifier. It can be one of the following:
@@ -34,7 +34,7 @@ class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_GenericCharTyp
 	 * @param mixed $max		Max repetition
 	 * @throws REBuilder_Exception_Generic
 	 */
-	public function setRepetition ()
+	public function setRepetition ($repetition, $max = null)
 	{
 		throw new REBuilder_Exception_InvalidRepetition(
 			"Simple assertions cannot handle repetitions"

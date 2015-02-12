@@ -6,7 +6,7 @@
  * @abstract
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_NonPrintingChar extends REBuilder_Pattern_GenericCharType
+class REBuilder_Pattern_NonPrintingChar extends REBuilder_Pattern_AbstractIdentifier
 {
 	/**
 	 * Sets the identifier. It can be one of the following:

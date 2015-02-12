@@ -66,4 +66,13 @@ class GenericCharTypeTest extends AbstractTest
 		$regex->addChild(new REBuilder_Pattern_GenericCharType("w"));
 		$this->assertSame("#\w#i", $regex->render());
 	}
+	
+	/**
+     * @expectedException REBuilder_Exception_Generic
+     */
+	public function testExceptionMissingIdentifier ()
+	{
+		$assertion = new REBuilder_Pattern_GenericCharType();
+		$assertion->render();
+	}
 }

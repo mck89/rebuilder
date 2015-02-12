@@ -16,8 +16,7 @@ class REBuilder_Pattern_Char extends REBuilder_Pattern_AbstractChar
 	public function render ()
 	{
 		$char = parent::render();
-		$needsGroup = strlen($char) > 1 && $this->getRepetition();
-		$char = $this->getParentRegex()->quote($char);
+		$needsGroup = strlen($this->_char) > 1 && $this->getRepetition();
 		return ($needsGroup ? "(?:$char)" : $char) . $this->_renderRepetition();
 	}
 }

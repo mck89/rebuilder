@@ -71,4 +71,14 @@ class CharTest extends AbstractTest
 		$this->assertInstanceOf("REBuilder_Pattern_Repetition_ZeroOrMore", $children[1]->getRepetition());
 		$this->assertSame("/abc*/i", $regex->render());
 	}
+	
+	public function testCharEscaped ()
+	{
+		$regex = REBuilder::parse("/\*/i");
+		$children = $regex->getChildren();
+		$this->assertSame(1, count($children));
+		$this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
+		$this->assertSame("*", $children[0]->getChar());
+		$this->assertSame("/\*/i", $regex->render());
+	}
 }

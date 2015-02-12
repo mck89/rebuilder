@@ -186,11 +186,11 @@ class REBuilder_Parser_Tokenizer
 			//If escaped and it's the control character identifier "c"
 			elseif ($this->_escaped && $char === "c") {
 				//Take the next character
-				$nextChar = $this->_consume();
+				$nextChar = $this->_consumeIgnoreEscape();
 				//If there are no characters left throw an exception
 				if ($nextChar === null) {
 					throw new REBuilder_Exception_Generic(
-						"Character not specified for \c"
+						"Character not specified for control character"
 					);
 				}
 				//Otherwise emit the control character token
@@ -265,6 +265,23 @@ class REBuilder_Parser_Tokenizer
 	{
 		if ($this->_index < $this->_length) {
 			return $this->_regex[$this->_index++];
+		}
+		return null;
+	}
+	
+	/**
+	 * Consumes next character ignoring the escape
+	 * 
+	 * @return string|null
+	 */
+	protected function _consumeIgnoreEscape ()
+	{
+		$char = $this->_consume();
+		if ($char !== null) {
+			if ($char === "\\") {
+				$char = $this->_consume();
+			}
+			return $char;
 		}
 		return null;
 	}

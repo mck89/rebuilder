@@ -118,6 +118,19 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
+			//Dot
+			case REBuilder_Parser_Token::TYPE_DOT:
+				//Create a dot and add it to the current container
+				$this->_currentItem = new REBuilder_Pattern_Dot;
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
+			//Single byte identifier
+			case REBuilder_Parser_Token::TYPE_BYTE:
+				//Create a single byte identifier and add it to the current
+				//container
+				$this->_currentItem = new REBuilder_Pattern_Byte;
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
 			//Control character identifier
 			case REBuilder_Parser_Token::TYPE_CONTROL_CHAR:
 				//Create a control character identifier and add it to the
@@ -207,6 +220,8 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_EXT_UNICODE_SEQUENCE:
 			case REBuilder_Parser_Token::TYPE_UNICODE_CHAR_CLASS:
 			case REBuilder_Parser_Token::TYPE_HEX_CHAR:
+			case REBuilder_Parser_Token::TYPE_DOT:
+			case REBuilder_Parser_Token::TYPE_BYTE:
 			break;
 			//When simple characters are grouped, repetition is valid only
 			//for the last one, so it needs to be splitted so that the last

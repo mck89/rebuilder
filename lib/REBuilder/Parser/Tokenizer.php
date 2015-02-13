@@ -88,6 +88,14 @@ class REBuilder_Parser_Tokenizer
 				$this->_escaped  = true;
 				continue;
 			}
+			//If not escaped and it's a dot
+			elseif (!$this->_escaped && $char === ".") {
+				//Emit a dot token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_DOT,
+					$char
+				);
+			}
 			//If escaped and it's a generic character type identifier
 			elseif ($this->_escaped &&
 					REBuilder_Parser_Rules::validateGenericCharType($char)) {
@@ -120,6 +128,14 @@ class REBuilder_Parser_Tokenizer
 				//Emit a extended unicode sequence token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_EXT_UNICODE_SEQUENCE,
+					$char
+				);
+			}
+			//If escaped and it's a single byte identifier
+			elseif ($this->_escaped && $char === "C") {
+				//Emit a single byte identifier token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_BYTE,
 					$char
 				);
 			}

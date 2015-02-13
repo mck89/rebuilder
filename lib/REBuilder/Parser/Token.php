@@ -68,6 +68,16 @@ class REBuilder_Parser_Token
 	Const TYPE_REPETITION = 12;
 	
 	/**
+	 * Dot
+	 */
+	Const TYPE_DOT = 13;
+	
+	/**
+	 * Single byte identifier
+	 */
+	Const TYPE_BYTE = 14;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

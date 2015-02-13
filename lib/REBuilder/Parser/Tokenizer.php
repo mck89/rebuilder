@@ -212,7 +212,7 @@ class REBuilder_Parser_Tokenizer
 			//If not escaped and it's an open curly brace and the following
 			//text identifies a repetition
 			elseif (!$this->_escaped && $char === "{" &&
-					($nextChars = $this->_consumeRegex("/^\d+(?:,\d*)?\}/"))) {
+					$nextChars = $this->_consumeRegex("/^\d+(?:,\d*)?\}/")) {
 				//Emit a repetition token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_REPETITION,
@@ -340,8 +340,8 @@ class REBuilder_Parser_Tokenizer
 	 */
 	protected function _consumeRegex ($reg, $matchNumber = 0)
 	{
-		if (preg_match($reg, $this->_regex, $match, PREG_OFFSET_CAPTURE,
-					   $this->_index)) {
+		if (preg_match($reg, substr($this->_regex, $this->_index),
+					   $match, PREG_OFFSET_CAPTURE)) {
 			$this->_index += $match[0][1] + strlen($match[0][0]);
 			return $match[$matchNumber][0];
 		}

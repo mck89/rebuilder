@@ -78,7 +78,7 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
 	{
 		if ($class !== "X" &&
 			!REBuilder_Parser_Rules::validateUnicodePropertyCode($class) &&
-			!!REBuilder_Parser_Rules::validateUnicodeScript($class)) {
+			!REBuilder_Parser_Rules::validateUnicodeScript($class)) {
 			throw new REBuilder_Exception_Generic(
 				"Unknow unicode character class '$class'"
 			);

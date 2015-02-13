@@ -40,7 +40,6 @@ class GenericCharTypeTest extends AbstractTest
 		$this->assertSame($identifier, $char->getIdentifier());
     }
 	
-	
 	public function invalidIdentifiersProvider () {
 		return array(
 			array("a"),

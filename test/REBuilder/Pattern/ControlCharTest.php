@@ -31,6 +31,14 @@ class ControlCharTest extends AbstractTest
 		$char->setChar("");
     }
 	
+	/**
+     * @expectedException REBuilder_Exception_Generic
+     */
+    public function testInvalidRegexException ()
+    {
+		$regex = REBuilder::parse("/\c/");
+    }
+	
 	public function testObjectGeneration ()
 	{
 		$regex = new REBuilder_Pattern_Regex("#", "i");

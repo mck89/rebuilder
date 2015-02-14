@@ -144,7 +144,9 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 		} elseif ($this->getName() !== "") {
 			$ret .= "?<" . $this->getName() . ">";
 		}
+		$ret .= $this->renderChildren();
 		$ret .= ")";
+		$ret .= $this->_renderRepetition();
 		return $ret;
 	}
 }

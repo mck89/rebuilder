@@ -78,7 +78,8 @@ class REBuilder_Parser_Builder
 			//Simple character
 			case REBuilder_Parser_Token::TYPE_CHAR:
 				//If the current item is already a char append data to it
-				if ($this->_currentItem instanceof REBuilder_Pattern_Char) {
+				if ($this->_currentItem &&
+					$this->_currentItem instanceof REBuilder_Pattern_Char) {
 					$this->_currentItem->setChar(
 						$this->_currentItem->getChar() . $token->getIdentifier()
 					);
@@ -171,8 +172,9 @@ class REBuilder_Parser_Builder
 			//Subpattern start character
 			case REBuilder_Parser_Token::TYPE_SUBPATTERN_START:
 				//Create a new subpattern and add it to the container stack
-				$this->_currentItem = new REBuilder_Pattern_SubPattern;
-				$this->_containersStack->top()->addChild($this->_currentItem);
+				$subPattern = new REBuilder_Pattern_SubPattern;
+				$this->_containersStack->top()->addChild($subPattern);
+				$this->_containersStack->push($subPattern);
 				$this->_currentItem = null;
 			break;
 			//Subpattern end character
@@ -191,6 +193,11 @@ class REBuilder_Parser_Builder
 						$token->getSubject()
 					);
 				}
+			break;
+			//Subpattern name
+			case REBuilder_Parser_Token::TYPE_SUBPATTERN_NAME:
+				//Set the subpattern name
+				$this->_containersStack->top()->setName($token->getSubject());
 			break;
 			//Repetition identifier
 			case REBuilder_Parser_Token::TYPE_REPETITION:
@@ -253,6 +260,7 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_HEX_CHAR:
 			case REBuilder_Parser_Token::TYPE_DOT:
 			case REBuilder_Parser_Token::TYPE_BYTE:
+			case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
 			break;
 			//When simple characters are grouped, repetition is valid only
 			//for the last one, so it needs to be splitted so that the last

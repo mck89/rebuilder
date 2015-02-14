@@ -254,14 +254,32 @@ class REBuilder_Parser_Tokenizer
 				//Check if the next character is a question mark that identifies
 				//group options
 				if ($nextChar === "?") {
-					//Check if following character represent group modifiers
-					//and/or non capturing flag
+					//Check if the following characters represent subpattern
+					//modifiers and/or non capturing flag
 					if ($nextChars = $this->_consumeRegex("/^[a-z]*:/i")) {
 						//Emit a non capturing subpattern token
 						$this->_emitToken(
 							REBuilder_Parser_Token::TYPE_SUBPATTERN_NON_CAPTURING,
 							":",
 							rtrim($nextChars, ":")
+						);
+					}
+					//Check if the following characters represent subpattern
+					//name
+					elseif ($nextChars = $this->_consumeRegex(
+							"/^(?|P?<(\w+)>|'(\w+)')/", 1
+						)) {
+						//Emit a subpattern name token
+						$this->_emitToken(
+							REBuilder_Parser_Token::TYPE_SUBPATTERN_NAME,
+							"P",
+							$nextChars
+						);
+					}
+					//Syntax error
+					elseif (($nextChar = $this->_consume()) !== null) {
+						throw new REBuilder_Exception_Generic(
+							"Invalid char '$nextChar' in subpattern options"
 						);
 					}
 				} else {

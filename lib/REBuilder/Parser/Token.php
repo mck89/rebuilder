@@ -93,6 +93,11 @@ class REBuilder_Parser_Token
 	Const TYPE_SUBPATTERN_NON_CAPTURING = 17;
 	
 	/**
+	 * Subpattern name
+	 */
+	Const TYPE_SUBPATTERN_NAME = 18;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

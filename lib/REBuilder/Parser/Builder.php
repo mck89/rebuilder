@@ -62,7 +62,7 @@ class REBuilder_Parser_Builder
 				$this->_regexContainer->setDelimiter(
 					$token->getIdentifier()
 				);
-				$this->_currentItem = $this->_regexContainer;
+				$this->_currentItem = null;
 			break;
 			//Regex end delimiter
 			case REBuilder_Parser_Token::TYPE_REGEX_END_DELIMITER:
@@ -168,6 +168,30 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
+			//Subpattern start character
+			case REBuilder_Parser_Token::TYPE_SUBPATTERN_START:
+				//Create a new subpattern and add it to the container stack
+				$this->_currentItem = new REBuilder_Pattern_SubPattern;
+				$this->_containersStack->top()->addChild($this->_currentItem);
+				$this->_currentItem = null;
+			break;
+			//Subpattern end character
+			case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
+				//Remove the subpattern from the container stack and make it
+				//the current item
+				$this->_currentItem = $this->_containersStack->pop();
+			break;
+			//Subpattern non capturing flag and modifiers
+			case REBuilder_Parser_Token::TYPE_SUBPATTERN_NON_CAPTURING:
+				//Set the subpattern as non capturing and set its modifiers if
+				//present
+				$this->_containersStack->top()->setCapture(false);
+				if ($token->getSubject()) {
+					$this->_containersStack->top()->setModifiers(
+						$token->getSubject()
+					);
+				}
+			break;
 			//Repetition identifier
 			case REBuilder_Parser_Token::TYPE_REPETITION:
 				$this->_handleRepetition($token);
@@ -185,6 +209,13 @@ class REBuilder_Parser_Builder
 	 */
 	protected function _handleRepetition (REBuilder_Parser_Token $token)
 	{
+		//If there is no current item, throw exception
+		if ($this->_currentItem === null) {
+			throw new REBuilder_Exception_InvalidRepetition(
+				"Nothing to repeat"
+			);
+		}
+		
 		//Repetitions are allowed only after certain tokens, so check the last
 		//emitted token
 		$lastToken = $this->_tokensStack->top();

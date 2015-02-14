@@ -14,11 +14,11 @@ class REBuilder_Parser_Tokenizer
 	protected $_regex;
 	
 	/**
-	 * Regex modifiers stack
+	 * Regex modifiers
 	 * 
-	 * @var SplStack 
+	 * @var string 
 	 */
-	protected $_modifiersStack;
+	protected $_modifiers = "";
 	
 	/**
 	 * Function that will receive the emitted tokens
@@ -49,6 +49,13 @@ class REBuilder_Parser_Tokenizer
 	protected $_length = 0;
 	
 	/**
+	 * Number of open subpatters
+	 * 
+	 * @var int
+	 */
+	protected $_openSubpatterns = 0;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param string   $regex    The regex to tokenize
@@ -64,7 +71,6 @@ class REBuilder_Parser_Tokenizer
 		
 		$this->_regex = $regex;
 		$this->_receiver = $receiver;
-		$this->_modifiersStack = new SplStack;
 	}
 	
 	/**
@@ -236,6 +242,47 @@ class REBuilder_Parser_Tokenizer
 					rtrim($nextChars, "}")
 				);
 			}
+			//If not escaped and it's an open round bracket
+			elseif (!$this->_escaped && $char === "(") {
+				//Emit a subpattern start token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_SUBPATTERN_START,
+					$char
+				);
+				$this->_openSubpatterns++;
+				$nextChar = $this->_consume();
+				//Check if the next character is a question mark that identifies
+				//group options
+				if ($nextChar === "?") {
+					//Check if following character represent group modifiers
+					//and/or non capturing flag
+					if ($nextChars = $this->_consumeRegex("/^[a-z]*:/i")) {
+						//Emit a non capturing subpattern token
+						$this->_emitToken(
+							REBuilder_Parser_Token::TYPE_SUBPATTERN_NON_CAPTURING,
+							":",
+							rtrim($nextChars, ":")
+						);
+					}
+				} else {
+					$this->_unconsume();
+				}
+			}
+			//If not escaped and it's a closed round bracket
+			elseif (!$this->_escaped && $char === ")") {
+				//Throw exception if there are no open subpatterns
+				if (!$this->_openSubpatterns) {
+					throw new REBuilder_Exception_Generic(
+						"Unmatched parenthesis"
+					);
+				}
+				//Emit a subpattern end token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_SUBPATTERN_END,
+					$char
+				);
+				$this->_openSubpatterns--;
+			}
 			//If it does not fall in any of the cases above
 			else {
 				//Emit the character as a simple pattern token
@@ -257,6 +304,13 @@ class REBuilder_Parser_Tokenizer
 			);
 		}
 		
+		//Throw exception if there are unclosed subpatterns
+		if ($this->_openSubpatterns) {
+			throw new REBuilder_Exception_Generic(
+				"The regex contains unclosed subpatterns"
+			);
+		}
+		
 		//Emit the end delimiter token
 		$this->_emitToken(
 			REBuilder_Parser_Token::TYPE_REGEX_END_DELIMITER,
@@ -264,10 +318,10 @@ class REBuilder_Parser_Tokenizer
 		);
 		
 		//If regex modifiers were specified emit the token
-		if ($this->_modifiersStack->bottom()) {
+		if ($this->_modifiers) {
 			$this->_emitToken(
 				REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS,
-				$this->_modifiersStack->bottom()
+				$this->_modifiers
 			);
 		}
 	}
@@ -390,9 +444,8 @@ class REBuilder_Parser_Tokenizer
 				"End delimiter '$endDelimiter' not found"
 			);
 		}
-		$modifiers = substr($this->_regex, $endDelimiterPos + 1);
+		$this->_modifiers = substr($this->_regex, $endDelimiterPos + 1);
 		$this->_regex = substr($this->_regex, 0, $endDelimiterPos);
-		$this->_modifiersStack->push($modifiers);
 		
 		return $endDelimiter;
 	}

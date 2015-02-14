@@ -50,7 +50,9 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_Container
 	public function setDelimiter ($delimiter)
 	{
 		if (!REBuilder_Parser_Rules::validateDelimiter($delimiter)) {
-			throw new REBuilder_Exception_InvalidDelimiter("Invalid delimiter '$delimiter'");
+			throw new REBuilder_Exception_InvalidDelimiter(
+				"Invalid delimiter '$delimiter'"
+			);
 		}
 		$this->_startDelimiter = $delimiter;
 		$this->_endDelimiter = REBuilder_Parser_Rules::getEndDelimiter($delimiter);

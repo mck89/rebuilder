@@ -78,6 +78,21 @@ class REBuilder_Parser_Token
 	Const TYPE_BYTE = 14;
 	
 	/**
+	 * Subpattern start
+	 */
+	Const TYPE_SUBPATTERN_START = 15;
+	
+	/**
+	 * Subpattern end
+	 */
+	Const TYPE_SUBPATTERN_END = 16;
+	
+	/**
+	 * Subpattern non capturing flag and relatend modifiers
+	 */
+	Const TYPE_SUBPATTERN_NON_CAPTURING = 17;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

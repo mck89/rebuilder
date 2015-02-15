@@ -123,6 +123,36 @@ class SubPatternTest extends AbstractTest
 		$regex = REBuilder::parse("/$pattern/");
 	}
 	
+	public function combinedOptions () {
+		return array(
+			array(true, "name", "", false, false, "(?<name>a)"),
+			array(false, "name", "", false, false, "(?:a)"),
+			array(false, "", "i", false, false, "(?i:a)"),
+			array(true, "", "i", false, false, "((?i:a))"),
+			array(true, "", "i", true, false, "((?|(?i:a)))"),
+			array(true, "", "", false, true, "((?>a))"),
+			array(true, "", "i", true, true, "((?|(?>(?i:a))))"),
+			array(false, "", "i", true, true, "(?|(?>(?i:a)))"),
+			array(false, "", "", true, false, "(?|a)"),
+			array(false, "", "", false, true, "(?>a)")
+		);
+	}
+	
+	/**
+	 * @dataProvider combinedOptions
+     */
+	public function testCombinedOptions ($capture, $name, $modifiers,
+										 $groupMatches, $onceOnly, $testCode)
+	{
+		$subpattern = new REBuilder_Pattern_SubPattern($capture, $name,
+													   $modifiers, $groupMatches,
+													   $onceOnly);
+		$subpattern->addChild(new REBuilder_Pattern_Char("a"));
+		$render = $subpattern->render();
+		$this->assertSame($testCode, $render);
+		$this->assertSame(1, preg_match("/" . $render . "/", "a"));
+	}
+	
 	public function testObjectGeneration ()
 	{
 		$regex = new REBuilder_Pattern_Regex("#", "i");

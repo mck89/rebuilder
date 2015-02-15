@@ -60,6 +60,10 @@ abstract class REBuilder_Pattern_AbstractChar extends REBuilder_Pattern_Abstract
 				"No character has been set"
 			);
 		}
-		return $this->getParentRegex()->quote($this->_char);
+		if ($parentRegex = $this->getParentRegex()) {
+			return $parentRegex->quote($this->_char);
+		} else {
+			return preg_quote($this->_char);
+		}
 	}
 }

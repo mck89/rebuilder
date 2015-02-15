@@ -1,14 +1,6 @@
 <?php
 /**
  * Represent a capturing or non capturing subpattern.
- * Note that modifiers, group matches and once only options can't work together,
- * so when rendering the subpattern the priority is given in this order:
- * - If the subpattern's group matches mode is enabled render it as a group
- *   match non capturing subpattern
- * - If the subpattern's once only mode is enabled render it as a once
- *   only non capturing subpattern
- * - If the subpattern's modifiers are present render it as non capturing
- *   subpattern with modifiers
  * 
  * @author Marco Marchiò
  * @link http://php.net/manual/en/regexp.reference.subpatterns.php
@@ -132,8 +124,7 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 	}
 	
 	/**
-	 * Sets subpattern modifiers. Modifiers work only in non capturing
-	 * subpatterns
+	 * Sets subpattern modifiers
 	 * 
 	 * @param string $modifiers Subpattern modifiers
 	 * @return REBuilder_Pattern_SubPattern
@@ -162,8 +153,7 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 	
 	/**
 	 * Set the subpattern group matches mode. If true alternating child
-	 * subpatterns are stored in the same match number. This mode works only in
-	 * non capturing subpatterns
+	 * subpatterns are stored in the same match number
 	 * 
 	 * @param bool $groupMatches Subpattern group matches mode
 	 * @return REBuilder_Pattern_SubPattern
@@ -187,8 +177,7 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 	/**
 	 * Set the subpattern once only mode. If true the subpattern will be tested
 	 * only one time and if it fails it won't be tested again, this makes a
-	 * regex faster but it can cause it to fail is some cases. This mode works
-	 * only in non capturing subpatterns
+	 * regex faster but it can cause it to fail is some cases
 	 * 
 	 * @param bool $onceOnly Subpattern once only mode
 	 * @return REBuilder_Pattern_SubPattern
@@ -217,22 +206,31 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 	 */
 	public function render ()
 	{
-		$ret = "(";
-		if (!$this->getCapture()) {
-			$ret .= "?";
-			if ($this->getGroupMatches()) {
-				$ret .= "|";
-			} elseif ($this->getOnceOnly()) {
-				$ret .= ">";
-			} else {
-				$ret .= $this->getModifiers();
-				$ret .= ":";
+		$openBrackets = 0;
+		$ret = "";
+		if ($this->getCapture()) {
+			$ret .= "(";
+			if ($this->getName() !== "") {
+				$ret .= "?<" . $this->getName() . ">";
 			}
-		} elseif ($this->getName() !== "") {
-			$ret .= "?<" . $this->getName() . ">";
+			$openBrackets++;
+		}
+		if ($this->getGroupMatches()) {
+			$ret .= "(?|";
+			$openBrackets++;
+		}
+		if ($this->getOnceOnly()) {
+			$ret .= "(?>";
+			$openBrackets++;
+		}
+		if ($this->getModifiers() || (!$this->getCapture() && !$openBrackets)) {
+			$ret .= "(?";
+			$ret .= $this->getModifiers();
+			$ret .= ":";
+			$openBrackets++;
 		}
 		$ret .= $this->renderChildren();
-		$ret .= ")";
+		$ret .= str_repeat(")", $openBrackets);
 		$ret .= $this->_renderRepetition();
 		return $ret;
 	}

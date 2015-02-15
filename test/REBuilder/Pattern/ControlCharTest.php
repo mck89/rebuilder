@@ -39,13 +39,6 @@ class ControlCharTest extends AbstractTest
 		$regex = REBuilder::parse("/\c/");
     }
 	
-	public function testObjectGeneration ()
-	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_ControlChar("a"));
-		$this->assertSame("#\ca#i", $regex->render());
-	}
-	
 	public function testEscapedChar ()
 	{
 		$regex = REBuilder::parse("/\c\+/i");
@@ -56,5 +49,12 @@ class ControlCharTest extends AbstractTest
 		$this->assertSame("+", $children[0]->getChar());
 		$this->assertSame(null, $children[0]->getRepetition());
 		$this->assertSame("/\c\+/i", $regex->render());
+	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = new REBuilder_Pattern_Regex("#", "i");
+		$regex->addChild(new REBuilder_Pattern_ControlChar("a"));
+		$this->assertSame("#\ca#i", $regex->render());
 	}
 }

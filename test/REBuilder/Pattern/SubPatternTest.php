@@ -63,6 +63,47 @@ class SubPatternTest extends AbstractTest
 		$this->assertSame("/(?<name>a)*/", $regex->render());
 	}
 	
+	public function testGroupMatches ()
+	{
+		$regex = REBuilder::parse("/(?|a)*/");
+		$this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+		$children = $regex->getChildren();
+		$this->assertSame(1, count($children));
+		$this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+		$this->assertSame(false, $children[0]->getCapture());
+		$this->assertSame(true, $children[0]->getGroupMatches());
+		$this->assertSame("/(?|a)*/", $regex->render());
+	}
+	
+	public function testOnceOnly ()
+	{
+		$regex = REBuilder::parse("/(?>a)/");
+		$this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+		$children = $regex->getChildren();
+		$this->assertSame(1, count($children));
+		$this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+		$this->assertSame(false, $children[0]->getCapture());
+		$this->assertSame(true, $children[0]->getOnceOnly());
+		$this->assertSame("/(?>a)/", $regex->render());
+	}
+	
+	public function testNestedSubpatterns ()
+	{
+		$regex = REBuilder::parse("/(?:a(b))*/");
+		$this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+		$children = $regex->getChildren();
+		$this->assertSame(1, count($children));
+		$this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+		$this->assertSame(false, $children[0]->getCapture());
+		$children = $children[0]->getChildren();
+		$this->assertSame(2, count($children));
+		$this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
+		$this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[1]);
+		$children = $children[1]->getChildren();
+		$this->assertSame(1, count($children));
+		$this->assertSame("/(?:a(b))*/", $regex->render());
+	}
+	
 	public function invalidSubpatterns () {
 		return array(
 			array("(a"),
@@ -72,6 +113,7 @@ class SubPatternTest extends AbstractTest
 			array("(?<invalid)")
 		);
 	}
+	
 	/**
 	 * @dataProvider invalidSubpatterns
      * @expectedException REBuilder_Exception_Generic
@@ -79,5 +121,14 @@ class SubPatternTest extends AbstractTest
 	public function testErrorSubpattern ($pattern)
 	{
 		$regex = REBuilder::parse("/$pattern/");
+	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = new REBuilder_Pattern_Regex("#", "i");
+		$subpattern = new REBuilder_Pattern_SubPattern(false);
+		$regex->addChild($subpattern);
+		$subpattern->addChild(new REBuilder_Pattern_ControlChar(";"));
+		$this->assertSame("#(?:\c;)#i", $regex->render());
 	}
 }

@@ -1,6 +1,14 @@
 <?php
 /**
- * Represent a capturing or non capturing subpattern
+ * Represent a capturing or non capturing subpattern.
+ * Note that modifiers, group matches and once only options can't work together,
+ * so when rendering the subpattern the priority is given in this order:
+ * - If the subpattern's group matches mode is enabled render it as a group
+ *   match non capturing subpattern
+ * - If the subpattern's once only mode is enabled render it as a once
+ *   only non capturing subpattern
+ * - If the subpattern's modifiers are present render it as non capturing
+ *   subpattern with modifiers
  * 
  * @author Marco Marchiò
  * @link http://php.net/manual/en/regexp.reference.subpatterns.php
@@ -30,13 +38,34 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 	protected $_modifiers = "";
 	
 	/**
+	 * Subpattern group matches flag
+	 * 
+	 * @var bool
+	 */
+	protected $_groupMatches = false;
+	
+	/**
+	 * Once only flag
+	 * 
+	 * @var bool
+	 */
+	protected $_onceOnly = false;
+	
+	/**
 	 * Constructor
 	 * 
-	 * @param bool   $capture   False to make a non capturing subpattern
-	 * @param string $name      Subpattern name
-	 * @param string $modifiers Subpattern modifiers
+	 * @param bool   $capture      False to make a non capturing subpattern
+	 * @param string $name         Subpattern name
+	 * @param string $modifiers    Subpattern modifiers
+	 * @param string $groupMatches True to group matches so that any alternating
+	 *							   child subpattern is stored in the same match
+	 *							   number
+	 * @param bool   $onceOnly     True to transform the subpattern in a once
+	 *							   only subpattern
 	 */
-	public function __construct ($capture = true, $name = null, $modifiers = null)
+	public function __construct ($capture = true, $name = null,
+								 $modifiers = null, $groupMatches = false,
+								 $onceOnly = false)
 	{
 		$this->setCapture($capture);
 		if ($name !== null) {
@@ -45,6 +74,8 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 		if ($modifiers !== null) {
 			$this->setModifiers($modifiers);
 		}
+		$this->setGroupMatches($groupMatches);
+		$this->setOnceOnly($onceOnly);
 	}
 	
 	/**
@@ -130,6 +161,56 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 	}
 	
 	/**
+	 * Set the subpattern group matches mode. If true alternating child
+	 * subpatterns are stored in the same match number. This mode works only in
+	 * non capturing subpatterns
+	 * 
+	 * @param bool $groupMatches Subpattern group matches mode
+	 * @return REBuilder_Pattern_SubPattern
+	 */
+	public function setGroupMatches ($groupMatches)
+	{
+		$this->_groupMatches = (bool) $groupMatches;
+		return $this;
+	}
+	
+	/**
+	 * Returns true if the group matches mode is enabled
+	 * 
+	 * @return bool
+	 */
+	public function getGroupMatches ()
+	{
+		return $this->_groupMatches;
+	}
+	
+	/**
+	 * Set the subpattern once only mode. If true the subpattern will be tested
+	 * only one time and if it fails it won't be tested again, this makes a
+	 * regex faster but it can cause it to fail is some cases. This mode works
+	 * only in non capturing subpatterns
+	 * 
+	 * @param bool $onceOnly Subpattern once only mode
+	 * @return REBuilder_Pattern_SubPattern
+	 * @link http://php.net/manual/en/regexp.reference.onlyonce.php
+	 */
+	public function setOnceOnly ($onceOnly)
+	{
+		$this->_onceOnly = (bool) $onceOnly;
+		return $this;
+	}
+	
+	/**
+	 * Returns true if the once only mode is enabled
+	 * 
+	 * @return bool
+	 */
+	public function getOnceOnly ()
+	{
+		return $this->_onceOnly;
+	}
+	
+	/**
 	 * Returns the string representation of the class
 	 * 
 	 * @return string
@@ -139,8 +220,14 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 		$ret = "(";
 		if (!$this->getCapture()) {
 			$ret .= "?";
-			$ret .= $this->getModifiers();
-			$ret .= ":";
+			if ($this->getGroupMatches()) {
+				$ret .= "|";
+			} elseif ($this->getOnceOnly()) {
+				$ret .= ">";
+			} else {
+				$ret .= $this->getModifiers();
+				$ret .= ":";
+			}
 		} elseif ($this->getName() !== "") {
 			$ret .= "?<" . $this->getName() . ">";
 		}

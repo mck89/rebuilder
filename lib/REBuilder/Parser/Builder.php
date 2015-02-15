@@ -194,6 +194,21 @@ class REBuilder_Parser_Builder
 					);
 				}
 			break;
+			//Subpattern group matches identifier
+			case REBuilder_Parser_Token::TYPE_SUBPATTERN_GROUP_MATCHES:
+				//Enable subpattern group matches mode and make the subpattern
+				//non capturing
+				$this->_containersStack->top()
+					 ->setGroupMatches(true)
+					 ->setCapture(false);
+			break;
+			//Subpattern once only identifier
+			case REBuilder_Parser_Token::TYPE_SUBPATTERN_ONCE_ONLY:
+				//Enable once only mode and make the subpattern non capturing
+				$this->_containersStack->top()
+					 ->setOnceOnly(true)
+					 ->setCapture(false);
+			break;
 			//Subpattern name
 			case REBuilder_Parser_Token::TYPE_SUBPATTERN_NAME:
 				//Set the subpattern name

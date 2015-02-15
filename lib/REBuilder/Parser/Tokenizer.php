@@ -264,6 +264,23 @@ class REBuilder_Parser_Tokenizer
 							rtrim($nextChars, ":")
 						);
 					}
+					//Check if the following character is a pipe
+					elseif ($nextChar = $this->_consumeIfEquals("|")) {
+						//Emit a subpattern group matches token
+						$this->_emitToken(
+							REBuilder_Parser_Token::TYPE_SUBPATTERN_GROUP_MATCHES,
+							$nextChar
+						);
+					}
+					//Check if the following character represents the once only
+					//subpattern identifier
+					elseif ($nextChar = $this->_consumeIfEquals(">")) {
+						//Emit a subpattern once only token
+						$this->_emitToken(
+							REBuilder_Parser_Token::TYPE_SUBPATTERN_ONCE_ONLY,
+							$nextChar
+						);
+					}
 					//Check if the following characters represent subpattern
 					//name
 					elseif ($nextChars = $this->_consumeRegex(
@@ -354,6 +371,26 @@ class REBuilder_Parser_Tokenizer
 		if ($this->_index < $this->_length) {
 			return $this->_regex[$this->_index++];
 		}
+		return null;
+	}
+	
+	/**
+	 * Consumes next character only if it is equal to one of the given
+	 * characters
+	 * 
+	 * @param string|array $testChars Characters to test
+	 * @return string|null
+	 */
+	protected function _consumeIfEquals ($testChars = array())
+	{
+		if (!is_array($testChars)) {
+			$testChars = array($testChars);
+		}
+		$char = $this->_consume();
+		if ($char !== null && in_array($char, $testChars)) {
+			return $char;
+		}
+		$this->_unconsume();
 		return null;
 	}
 	

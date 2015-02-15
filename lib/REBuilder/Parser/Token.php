@@ -98,6 +98,16 @@ class REBuilder_Parser_Token
 	Const TYPE_SUBPATTERN_NAME = 18;
 	
 	/**
+	 * Subpattern group matches identifier
+	 */
+	Const TYPE_SUBPATTERN_GROUP_MATCHES = 19;
+	
+	/**
+	 * Subpattern once only identifier
+	 */
+	Const TYPE_SUBPATTERN_ONCE_ONLY = 20;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

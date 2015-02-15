@@ -26,8 +26,8 @@ class HexCharTest extends AbstractTest
 	
 	public function testObjectGeneration ()
 	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_HexChar("aa"));
-		$this->assertSame("#\\xaa#i", $regex->render());
+		$regex = REBuilder::create();
+		$regex->addHexChar("aa");
+		$this->assertSame("/\\xaa/", $regex->render());
 	}
 }

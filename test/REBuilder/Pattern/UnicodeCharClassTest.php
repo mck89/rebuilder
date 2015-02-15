@@ -51,8 +51,15 @@ class UnicodeCharClassTest extends AbstractTest
 	
 	public function testObjectGeneration ()
 	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_UnicodeCharClass("C"));
-		$this->assertSame("#\p{C}#i", $regex->render());
+		$regex = REBuilder::create();
+		$regex->addUnicodeCharClass("C");
+		$this->assertSame("/\p{C}/", $regex->render());
+	}
+	
+	public function testObjectGenerationNegate ()
+	{
+		$regex = REBuilder::create();
+		$regex->addUnicodeCharClass("C", true);
+		$this->assertSame("/\P{C}/", $regex->render());
 	}
 }

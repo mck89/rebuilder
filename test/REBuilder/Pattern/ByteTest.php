@@ -11,4 +11,11 @@ class ByteTest extends AbstractTest
 		$this->assertInstanceOf("REBuilder_Pattern_Repetition_ZeroOrMore", $children[0]->getRepetition());
 		$this->assertSame("/\C*/i", $regex->render());
 	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = REBuilder::create("x");
+		$regex->addByte()->setRepetition("*");
+		$this->assertSame("/\C*/x", $regex->render());
+	}
 }

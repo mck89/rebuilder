@@ -155,10 +155,10 @@ class SubPatternTest extends AbstractTest
 	
 	public function testObjectGeneration ()
 	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$subpattern = new REBuilder_Pattern_SubPattern(false);
-		$regex->addChild($subpattern);
-		$subpattern->addChild(new REBuilder_Pattern_ControlChar(";"));
-		$this->assertSame("#(?:\c;)#i", $regex->render());
+		$regex = REBuilder::create();
+		$regex
+				->addSubpattern(false)
+					->addControlChar(";");
+		$this->assertSame("/(?:\c;)/", $regex->render());
 	}
 }

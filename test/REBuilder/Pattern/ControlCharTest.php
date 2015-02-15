@@ -53,8 +53,8 @@ class ControlCharTest extends AbstractTest
 	
 	public function testObjectGeneration ()
 	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_ControlChar("a"));
-		$this->assertSame("#\ca#i", $regex->render());
+		$regex = REBuilder::create();
+		$regex->addControlChar("a");
+		$this->assertSame("/\ca/", $regex->render());
 	}
 }

@@ -31,13 +31,13 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_Container
 	/**
 	 * Constructor
 	 * 
-	 * @param type $delimiter Regex delimiter
-	 * @param type $modifiers Regex modifiers
+	 * @param string $modifiers Regex modifiers
+	 * @param string $delimiter Regex delimiter
 	 */
-	public function __construct ($delimiter = "/", $modifiers = "")
+	public function __construct ($modifiers = "", $delimiter = "/")
 	{
-		$this->setDelimiter($delimiter);
 		$this->setModifiers($modifiers);
+		$this->setDelimiter($delimiter);
 	}
 	
 	/**

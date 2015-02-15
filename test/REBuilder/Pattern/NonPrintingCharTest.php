@@ -51,13 +51,6 @@ class NonPrintingCharTest extends AbstractTest
 		$char->render();
     }
 	
-	public function testObjectGeneration ()
-	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_NonPrintingChar("a"));
-		$this->assertSame("#\a#i", $regex->render());
-	}
-	
 	/**
      * @expectedException REBuilder_Exception_Generic
      */
@@ -65,5 +58,12 @@ class NonPrintingCharTest extends AbstractTest
 	{
 		$assertion = new REBuilder_Pattern_NonPrintingChar();
 		$assertion->render();
+	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = REBuilder::create();
+		$regex->addNonPrintingChar("a");
+		$this->assertSame("/\a/", $regex->render());
 	}
 }

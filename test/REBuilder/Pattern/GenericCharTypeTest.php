@@ -59,13 +59,6 @@ class GenericCharTypeTest extends AbstractTest
 		$char->render();
     }
 	
-	public function testObjectGeneration ()
-	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_GenericCharType("w"));
-		$this->assertSame("#\w#i", $regex->render());
-	}
-	
 	/**
      * @expectedException REBuilder_Exception_Generic
      */
@@ -73,5 +66,12 @@ class GenericCharTypeTest extends AbstractTest
 	{
 		$assertion = new REBuilder_Pattern_GenericCharType();
 		$assertion->render();
+	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = REBuilder::create();
+		$regex->addGenericCharType("w");
+		$this->assertSame("/\w/", $regex->render());
 	}
 }

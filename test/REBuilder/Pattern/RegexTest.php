@@ -27,12 +27,12 @@ class RegexTest extends AbstractTest
      */
     public function testInvalidDelimiterException ($delimiter)
     {
-		new REBuilder_Pattern_Regex($delimiter);
+		new REBuilder_Pattern_Regex("", $delimiter);
     }
 	
 	public function testObjectGeneration ()
 	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
+		$regex = REBuilder::create("i", "#");
 		$this->assertSame("##i", $regex->render());
 	}
 }

@@ -11,4 +11,11 @@ class DotTest extends AbstractTest
 		$this->assertInstanceOf("REBuilder_Pattern_Repetition_ZeroOrMore", $children[0]->getRepetition());
 		$this->assertSame("/.*/i", $regex->render());
 	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = REBuilder::create("m");
+		$regex->addDot()->setRepetition("*");
+		$this->assertSame("/.*/m", $regex->render());
+	}
 }

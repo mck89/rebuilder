@@ -22,13 +22,6 @@ class CharTest extends AbstractTest
 		$char->render();
     }
 	
-	public function testObjectGeneration ()
-	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_Char("abc"));
-		$this->assertSame("#abc#i", $regex->render());
-	}
-	
 	public function testRepetition ()
 	{
 		$regex = REBuilder::parse("/a*/i");
@@ -37,15 +30,6 @@ class CharTest extends AbstractTest
 		$this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
 		$this->assertInstanceOf("REBuilder_Pattern_Repetition_ZeroOrMore", $children[0]->getRepetition());
 		$this->assertSame("/a*/i", $regex->render());
-	}
-	
-	public function testMultiCharWithRepetition ()
-	{
-		$regex = new REBuilder_Pattern_Regex("/", "i");
-		$char = new REBuilder_Pattern_Char("abc");
-		$char->setRepetition("*");
-		$regex->addChild($char);
-		$this->assertSame("/(?:abc)*/i", $regex->render());
 	}
 	
 	public function testParseMultiChar ()
@@ -80,5 +64,19 @@ class CharTest extends AbstractTest
 		$this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
 		$this->assertSame("*", $children[0]->getChar());
 		$this->assertSame("/\*/i", $regex->render());
+	}
+	
+	public function testMultiCharWithRepetition ()
+	{
+		$regex = REBuilder::create("i");
+		$regex->addChar("abc")->setRepetition("*");
+		$this->assertSame("/(?:abc)*/i", $regex->render());
+	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = REBuilder::create("i");
+		$regex->addChar("abc");
+		$this->assertSame("/abc/i", $regex->render());
 	}
 }

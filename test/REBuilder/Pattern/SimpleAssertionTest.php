@@ -59,14 +59,6 @@ class SimpleAssertionTest extends AbstractTest
 		$char->render();
     }
 	
-	public function testObjectGeneration ()
-	{
-		$regex = new REBuilder_Pattern_Regex("#", "i");
-		$regex->addChild(new REBuilder_Pattern_SimpleAssertion("b"));
-		$regex->addChild(new REBuilder_Pattern_Char("abc"));
-		$this->assertSame("#\babc#i", $regex->render());
-	}
-	
 	/**
      * @expectedException REBuilder_Exception_Generic
      */
@@ -91,5 +83,14 @@ class SimpleAssertionTest extends AbstractTest
 	{
 		$assertion = new REBuilder_Pattern_SimpleAssertion();
 		$assertion->render();
+	}
+	
+	public function testObjectGeneration ()
+	{
+		$regex = REBuilder::create();
+		$regex
+				->addSimpleAssertionAndContinue("b")
+				->addChar("abc");
+		$this->assertSame("/\babc/", $regex->render());
 	}
 }

@@ -22,7 +22,7 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 	 */
 	public function addChild (REBuilder_Pattern_Abstract $child)
 	{
-		$child->setParentContainer($this);
+		$child->setParent($this);
 		$this->_children[] = $child;
 		return $this;
 	}

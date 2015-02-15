@@ -8,11 +8,11 @@
 abstract class REBuilder_Pattern_Abstract
 {
 	/**
-	 * Parent container
+	 * Parent
 	 * 
 	 * @var REBuilder_Pattern_Container 
 	 */
-	protected $_parentContainer;
+	protected $_parent;
 	
 	/**
 	 * Repetition
@@ -22,29 +22,29 @@ abstract class REBuilder_Pattern_Abstract
 	protected $_repetition;
 	
 	/**
-	 * Sets the parent container
+	 * Sets the parent
 	 * 
 	 * @param REBuilder_Pattern_Container $parent Parent container
 	 * @return REBuilder_Pattern_Abstract
 	 */
-	public function setParentContainer (REBuilder_Pattern_Container $parent)
+	public function setParent (REBuilder_Pattern_Container $parent)
 	{
 		//Before proceed remove it from the previous parent container
-		if ($currentParent = $this->getParentContainer()) {
+		if ($currentParent = $this->getParent()) {
 			$currentParent->removeChild($this);
 		}
-		$this->_parentContainer = $parent;
+		$this->_parent = $parent;
 		return $this;
 	}
 	
 	/**
-	 * Returns the parent container
+	 * Returns the parent
 	 * 
 	 * @return REBuilder_Pattern_Container
 	 */
-	public function getParentContainer ()
+	public function getParent ()
 	{
-		return $this->_parentContainer;
+		return $this->_parent;
 	}
 	/**
 	 * Returns the parent regex
@@ -53,9 +53,9 @@ abstract class REBuilder_Pattern_Abstract
 	 */
 	public function getParentRegex ()
 	{
-		$parent = $this->getParentContainer();
+		$parent = $this->getParent();
 		while ($parent && !$parent instanceof REBuilder_Pattern_Regex) {
-			$parent = $parent->getParentContainer();
+			$parent = $parent->getParent();
 		}
 		return $parent;
 	}

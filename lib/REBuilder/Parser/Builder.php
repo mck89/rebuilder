@@ -337,14 +337,4 @@ class REBuilder_Parser_Builder
 	{
 		return $this->_regexContainer;
 	}
-	
-	/**
-	 * Returns the current container
-	 * 
-	 * @return REBuilder_Pattern_Container
-	 */
-	public function getCurrentContainer ()
-	{
-		return $this->_regexContainer;
-	}
 }

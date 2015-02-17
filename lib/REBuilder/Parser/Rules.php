@@ -13,7 +13,9 @@ class REBuilder_Parser_Rules
 	 * @var array
 	 * @static
 	 */
-	protected static $_bracketStyleDelimiters = array("(" => ")", "[" => "]", "{" => "}", "<" => ">");
+	protected static $_bracketStyleDelimiters = array(
+		"(" => ")", "[" => "]", "{" => "}", "<" => ">"
+	);
 	
 	/**
 	 * Array of valid modifiers
@@ -21,7 +23,9 @@ class REBuilder_Parser_Rules
 	 * @var array
 	 * @static
 	 */
-	protected static $_modifiers = array("i", "m", "s", "x", "e", "A", "D", "S", "U", "X", "J", "u");
+	protected static $_modifiers = array(
+		"i", "m", "s", "x", "e", "A", "D", "S", "U", "X", "J", "u"
+	);
 	
 	/**
 	 * Array of representable non-printing characters identifiers

@@ -14,11 +14,11 @@ class REBuilder_Parser_Tokenizer
 	protected $_regex;
 	
 	/**
-	 * Regex modifiers
+	 * Regex modifiers stack
 	 * 
-	 * @var string 
+	 * @var SplStack 
 	 */
-	protected $_modifiers = "";
+	protected $_modifiersStack;
 	
 	/**
 	 * Function that will receive the emitted tokens
@@ -71,6 +71,7 @@ class REBuilder_Parser_Tokenizer
 		
 		$this->_regex = $regex;
 		$this->_receiver = $receiver;
+		$this->_modifiersStack = new SplStack;
 	}
 	
 	/**
@@ -249,6 +250,7 @@ class REBuilder_Parser_Tokenizer
 					REBuilder_Parser_Token::TYPE_SUBPATTERN_START,
 					$char
 				);
+				$this->_applyModifiers("");
 				$this->_openSubpatterns++;
 				$nextChar = $this->_consume();
 				//Check if the next character is a question mark that identifies
@@ -258,10 +260,14 @@ class REBuilder_Parser_Tokenizer
 					//modifiers and/or non capturing flag
 					if ($nextChars = $this->_consumeRegex("/^[a-z]*:/i")) {
 						//Emit a non capturing subpattern token
+						$groupModifiers = rtrim($nextChars, ":");
+						if ($groupModifiers) {
+							$this->_applyModifiers($groupModifiers);
+						}
 						$this->_emitToken(
 							REBuilder_Parser_Token::TYPE_SUBPATTERN_NON_CAPTURING,
 							":",
-							rtrim($nextChars, ":")
+							$groupModifiers
 						);
 					}
 					//Check if the following character is a pipe
@@ -317,6 +323,7 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 				$this->_openSubpatterns--;
+				$this->_modifiersStack->pop();
 			}
 			//If it does not fall in any of the cases above
 			else {
@@ -353,10 +360,10 @@ class REBuilder_Parser_Tokenizer
 		);
 		
 		//If regex modifiers were specified emit the token
-		if ($this->_modifiers) {
+		if ($this->_modifiersStack->top()) {
 			$this->_emitToken(
 				REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS,
-				$this->_modifiers
+				$this->_modifiersStack->top()
 			);
 		}
 	}
@@ -499,10 +506,50 @@ class REBuilder_Parser_Tokenizer
 				"End delimiter '$endDelimiter' not found"
 			);
 		}
-		$this->_modifiers = substr($this->_regex, $endDelimiterPos + 1);
+		$modifiers = substr($this->_regex, $endDelimiterPos + 1);
 		$this->_regex = substr($this->_regex, 0, $endDelimiterPos);
+		$this->_modifiersStack->push($modifiers);
 		
 		return $endDelimiter;
+	}
+	
+	/**
+	 * Apply modifiers to the modifiers stack
+	 * 
+	 * @param string $modifiers Modifiers to apply
+	 */
+	protected function _applyModifiers ($modifiers)
+	{
+		$currentModifiers = $this->_modifiersStack->top();
+		//If $modifiers is an empty string just take current modifiers and
+		//add them to the modifiers stack
+		//Othwerwise
+		if ($modifiers !== "") {
+			//Explode modifiers with the dash, the first group of modifiers
+			//represents the modifiers to add, every following group represents
+			//the modifiers to subtract
+			$groups = explode("-", $modifiers);
+			foreach ($groups as $k => $group) {
+				if (!$group) {
+					continue;
+				}
+				$len = strlen($group);
+				for ($i = 0; $i < $len; $i++) {
+					$contains = strpos($currentModifiers, $group[$i]) !== false;
+					if (!$k && !$contains) {
+						$currentModifiers .= $group[$i];
+					} elseif ($k && $contains) {
+						$currentModifiers = str_replace(
+							$group[$i], "", $currentModifiers
+						);
+					}
+				}
+			}
+			//Remove the last entry in modifiers stack
+			$this->_modifiersStack->pop();
+		}
+		//Add calculated modifiers to the top of the modifiers stack
+		$this->_modifiersStack->push($currentModifiers);
 	}
 	
 	/**

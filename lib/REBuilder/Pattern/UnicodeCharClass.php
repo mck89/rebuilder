@@ -47,11 +47,6 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
 	 */
 	public function setNegate ($negate)
 	{
-		if ($negate && $this->_class === "X") {
-			throw new REBuilder_Exception_Generic(
-				"Negation is not supported for \X"
-			);
-		}
 		$this->_negate = $negate;
 	}
 	
@@ -110,6 +105,11 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
 		}
 		$ret = "";
 		if ($this->_class === "X") {
+			if ($this->_negate) {
+				throw new REBuilder_Exception_Generic(
+					"Negation is not supported for \X"
+				);
+			}
 			$ret = "\X";
 		} else {
 			$ret =	"\\" . ($this->_negate ? "P" : "p") .

@@ -118,9 +118,37 @@ class SubPatternTest extends AbstractTest
 	 * @dataProvider invalidSubpatterns
      * @expectedException REBuilder_Exception_Generic
      */
-	public function testErrorSubpattern ($pattern)
+	public function testInvaliSubpattern ($pattern)
 	{
-		$regex = REBuilder::parse("/$pattern/");
+		REBuilder::parse("/$pattern/");
+	}
+	
+	/**
+     * @expectedException REBuilder_Exception_InvalidRepetition
+     */
+	public function testInvalidRepetition ()
+	{
+		REBuilder::parse("/(*)/");
+	}
+	
+	/**
+     * @expectedException REBuilder_Exception_Generic
+     */
+	public function testInvalidNameException ()
+	{
+		REBuilder::create()
+				->addSubpattern()
+					->setName("%");
+	}
+	
+	/**
+     * @expectedException REBuilder_Exception_InvalidModifier
+     */
+	public function testInvalidModifierException ()
+	{
+		REBuilder::create()
+				->addSubpattern()
+					->setModifiers("?");
 	}
 	
 	public function combinedOptions () {
@@ -158,7 +186,8 @@ class SubPatternTest extends AbstractTest
 		$regex = REBuilder::create();
 		$regex
 				->addSubpattern(false)
-					->addControlChar(";");
-		$this->assertSame("/(?:\c;)/", $regex->render());
+					->addControlChar(";")
+						->setRepetition("+", true);
+		$this->assertSame("/(?:\c;+?)/", $regex . "");
 	}
 }

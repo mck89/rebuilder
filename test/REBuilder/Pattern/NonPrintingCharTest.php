@@ -63,7 +63,7 @@ class NonPrintingCharTest extends AbstractTest
 	public function testObjectGeneration ()
 	{
 		$regex = REBuilder::create();
-		$regex->addNonPrintingChar("a");
-		$this->assertSame("/\a/", $regex->render());
+		$regex->addNonPrintingChar("a")->setRepetition(2);
+		$this->assertSame("/\a{2}/", $regex->render());
 	}
 }

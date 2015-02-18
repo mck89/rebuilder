@@ -244,9 +244,7 @@ class REBuilder_Parser_Builder
 		switch ($lastToken->getType()) {
 			//Handle lazy repetition
 			case REBuilder_Parser_Token::TYPE_REPETITION:
-				$prevLastToken = $this->_tokensStack->offsetGet(
-					$this->_tokensStack->count() - 2
-				);
+				$prevLastToken = $this->_tokensStack->offsetGet(1);
 				//if this token is "?" and follows a repetition token that
 				//does not come after another repetition token set the lazy flag
 				if ($token->getIdentifier() === "?" &&

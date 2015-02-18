@@ -15,19 +15,28 @@ class HexCharTest extends AbstractTest
 		}
 	}
 	
+	public function invalidHexChars ()
+	{
+		return array(
+			array("z"),
+			array("abc")
+		);
+	}
+	
 	/**
+	 * @dataProvider invalidHexChars
      * @expectedException REBuilder_Exception_Generic
      */
-    public function testInvalidCharException ()
+    public function testInvalidCharException ($chars)
     {
 		$char = new REBuilder_Pattern_HexChar();
-		$char->setChar("z");
+		$char->setChar($chars);
     }
 	
 	public function testObjectGeneration ()
 	{
 		$regex = REBuilder::create();
-		$regex->addHexChar("aa");
-		$this->assertSame("/\\xaa/", $regex->render());
+		$regex->addHexChar("aa")->setRepetition(1, 2);
+		$this->assertSame("/\\xaa{1,2}/", $regex->render());
 	}
 }

@@ -12,6 +12,16 @@ class RegexTest extends AbstractTest
 		$this->assertSame("/a/i", $regex->render());
 	}
 	
+	public function testBracketStyledelimiters ()
+	{
+		$regex = REBuilder::parse("(a)i");
+		$this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+		$this->assertSame("(", $regex->getStartDelimiter());
+		$this->assertSame(")", $regex->getEndDelimiter());
+		$this->assertSame("i", $regex->getModifiers());
+		$this->assertSame("(a)i", $regex->render());
+	}
+	
 	public function invalidDelimitersProvider () {
 		return array(
 			array("\\"),
@@ -28,6 +38,22 @@ class RegexTest extends AbstractTest
     public function testInvalidDelimiterException ($delimiter)
     {
 		new REBuilder_Pattern_Regex("", $delimiter);
+    }
+	
+	/**
+     * @expectedException REBuilder_Exception_InvalidModifier
+     */
+    public function testInvalidModifierException ()
+    {
+		REBuilder::create("$");
+    }
+	
+	/**
+     * @expectedException REBuilder_Exception_InvalidRepetition
+     */
+    public function testNotSupportRepetitionException ()
+    {
+		REBuilder::create()->setRepetition("*");
     }
 	
 	public function testObjectGeneration ()

@@ -41,11 +41,35 @@ class RegexTest extends AbstractTest
     }
 	
 	/**
+     * @expectedException REBuilder_Exception_InvalidDelimiter
+     */
+    public function testMissingDelimiterException ()
+    {
+		REBuilder::parse("#a");
+    }
+	
+	/**
+     * @expectedException REBuilder_Exception_InvalidDelimiter
+     */
+    public function testEscapedDelimiterException ()
+    {
+		REBuilder::parse("#a\#");
+    }
+	
+	/**
      * @expectedException REBuilder_Exception_InvalidModifier
      */
     public function testInvalidModifierException ()
     {
 		REBuilder::create("$");
+    }
+	
+	/**
+     * @expectedException REBuilder_Exception_EmptyRegex
+     */
+    public function testEmptyRegexException ()
+    {
+		REBuilder::parse("");
     }
 	
 	/**

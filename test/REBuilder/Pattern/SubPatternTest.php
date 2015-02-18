@@ -107,6 +107,7 @@ class SubPatternTest extends AbstractTest
 	public function invalidSubpatterns () {
 		return array(
 			array("(a"),
+			array("a)"),
 			array("(?a)"),
 			array("(?1:a)"),
 			array("(?<invalid?>)"),
@@ -149,6 +150,15 @@ class SubPatternTest extends AbstractTest
 		REBuilder::create()
 				->addSubpattern()
 					->setModifiers("?");
+	}
+	
+	/**
+     * @expectedException BadMethodCallException
+     */
+	public function testCallUndefinedMethodException ()
+	{
+		$subpattern = new REBuilder_Pattern_SubPattern();
+		$subpattern->addUndefinedMethod();
 	}
 	
 	public function combinedOptions () {

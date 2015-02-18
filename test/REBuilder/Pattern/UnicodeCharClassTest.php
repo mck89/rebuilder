@@ -65,8 +65,8 @@ class UnicodeCharClassTest extends AbstractTest
 	
 	public function invalidRegexProvider () {
 		return array(
-			array("/\p/"),
-			array("/\p{C"),
+			array("\p"),
+			array("\p{C"),
 			array("\p{Invalid}")
 		);
 	}
@@ -75,9 +75,9 @@ class UnicodeCharClassTest extends AbstractTest
 	 * @dataProvider invalidRegexProvider
      * @expectedException REBuilder_Exception_Generic
      */
-    public function testInvalidRegexException ()
+    public function testInvalidRegexException ($invalid)
     {
-		$regex = REBuilder::parse("/\p/");
+		REBuilder::parse("/$invalid/");
     }
 	
 	public function testObjectGeneration ()

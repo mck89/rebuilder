@@ -73,6 +73,15 @@ class CharTest extends AbstractTest
 		$this->assertSame("/(?:abc)*/i", $regex->render());
 	}
 	
+	public function testMoveToDifferentParent ()
+	{
+		$regex = REBuilder::create();
+		$regex2 = REBuilder::create();
+		$char = $regex->addChar("a");
+		$regex2->addChild($char);
+		$this->assertSame($regex2, $char->getParent());
+	}
+	
 	public function testObjectGeneration ()
 	{
 		$regex = REBuilder::create("i");

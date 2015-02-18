@@ -39,4 +39,13 @@ class ZeroOrMoreTest extends AbstractTest
 	{
 		REBuilder::parse("/$pattern/");
 	}
+	
+	/**
+     * @expectedException REBuilder_Exception_InvalidRepetition
+     */
+	public function testInvalidRepetitionWithFunction ()
+	{
+		$char = new REBuilder_Pattern_Char();
+		$char->setRepetition("a");
+	}
 }

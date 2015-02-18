@@ -193,6 +193,7 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 	 * @param string $name	    Method name
 	 * @param array  $arguments Method arguments
 	 * @return mixed
+	 * @throws BadMethodCallException
 	 */
 	function __call ($name, $arguments)
 	{
@@ -203,17 +204,17 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 			if ($continue) {
 				$name = str_replace("AndContinue", "", $name);
 			}
-			$class = new ReflectionClass("REBuilder_Pattern_$name");
-			if (!$class->isAbstract() &&
-				$class->isSubclassOf("REBuilder_Pattern_Abstract")) {
-				$instance = $class->newInstanceArgs($arguments);
-				$this->addChild($instance);
-				return $continue ? $this : $instance;
+			$className = "REBuilder_Pattern_$name";
+			if (class_exists($className)) {
+				$class = new ReflectionClass($className);
+				if (!$class->isAbstract() &&
+					$class->isSubclassOf("REBuilder_Pattern_Abstract")) {
+					$instance = $class->newInstanceArgs($arguments);
+					$this->addChild($instance);
+					return $continue ? $this : $instance;
+				}
 			}
 		}
-		trigger_error(
-			"Call to undefined method " . __CLASS__ . "::$name()",
-			E_USER_ERROR
-		);
+		throw new BadMethodCallException();
 	}
 }

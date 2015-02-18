@@ -455,11 +455,12 @@ class REBuilder_Parser_Tokenizer
 				} else {
 					$ret .= $nextChar;
 				}
-				return $ret;
+				break;
 			} else {
 				$ret .= $nextChar;
 			}
 		}
+		return $ret;
 	}
 	
 	/**

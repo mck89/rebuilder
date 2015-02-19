@@ -5,7 +5,7 @@
  * @author Marco Marchiò
  * @link http://php.net/manual/en/regexp.reference.subpatterns.php
  */
-class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
+class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_AbstractContainer
 {
 	/**
 	 * Identifies if the subpattern is a capturing subpattern or a non capturing

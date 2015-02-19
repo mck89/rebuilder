@@ -5,7 +5,7 @@
  * 
  * @author Marco Marchiò
  */
-class REBuilder_Pattern_Regex extends REBuilder_Pattern_Container
+class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
 {
 	/**
 	 * Start delimiter

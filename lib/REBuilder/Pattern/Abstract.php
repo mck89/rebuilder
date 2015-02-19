@@ -10,7 +10,7 @@ abstract class REBuilder_Pattern_Abstract
 	/**
 	 * Parent
 	 * 
-	 * @var REBuilder_Pattern_Container 
+	 * @var REBuilder_Pattern_AbstractContainer 
 	 */
 	protected $_parent;
 	
@@ -24,10 +24,10 @@ abstract class REBuilder_Pattern_Abstract
 	/**
 	 * Sets the parent
 	 * 
-	 * @param REBuilder_Pattern_Container $parent Parent container
+	 * @param REBuilder_Pattern_AbstractContainer $parent Parent container
 	 * @return REBuilder_Pattern_Abstract
 	 */
-	public function setParent (REBuilder_Pattern_Container $parent)
+	public function setParent (REBuilder_Pattern_AbstractContainer $parent)
 	{
 		//Before proceed remove it from the previous parent container
 		if ($currentParent = $this->getParent()) {
@@ -40,7 +40,7 @@ abstract class REBuilder_Pattern_Abstract
 	/**
 	 * Returns the parent
 	 * 
-	 * @return REBuilder_Pattern_Container
+	 * @return REBuilder_Pattern_AbstractContainer
 	 */
 	public function getParent ()
 	{

@@ -9,7 +9,7 @@
  *		   Adds a new REBuilder_Pattern_Char class instance to this container
  *		   @see REBuilder_Pattern_Char::__construct
  * 
- * @method REBuilder_Pattern_Container addCharAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addCharAndContinue()
  *		   addCharAndContinue(string $char)
  *		   Same as addChar but it returns the current container
  *		   @see REBuilder_Pattern_Char::__construct
@@ -19,7 +19,7 @@
  *		   Adds a new REBuilder_Pattern_ControlChar class instance to this container
  *		   @see REBuilder_Pattern_ControlChar::__construct
  * 
- * @method REBuilder_Pattern_Container addControlCharAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addControlCharAndContinue()
  *		   addControlCharAndContinue(string $char)
  *		   Same as addControlChar but it returns the current container
  *		   @see REBuilder_Pattern_ControlChar::__construct
@@ -29,7 +29,7 @@
  *		   Adds a new REBuilder_Pattern_HexChar class instance to this container
  *		   @see REBuilder_Pattern_HexChar::__construct
  * 
- * @method REBuilder_Pattern_Container addHexCharAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addHexCharAndContinue()
  *		   addHexCharAndContinue(string $char)
  *		   Same as addHexChar but it returns the current container
  *		   @see REBuilder_Pattern_HexChar::__construct
@@ -39,7 +39,7 @@
  *		   Adds a new REBuilder_Pattern_GenericCharType class instance to this container
  *		   @see REBuilder_Pattern_GenericCharType::__construct
  * 
- * @method REBuilder_Pattern_Container addGenericCharTypeAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addGenericCharTypeAndContinue()
  *		   addGenericCharTypeAndContinue(string $identifier)
  *		   Same as addGenericCharType but it returns the current container
  *		   @see REBuilder_Pattern_GenericCharType::__construct
@@ -49,7 +49,7 @@
  *		   Adds a new REBuilder_Pattern_NonPrintingChar class instance to this container
  *		   @see REBuilder_Pattern_NonPrintingChar::__construct
  * 
- * @method REBuilder_Pattern_Container addNonPrintingCharAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addNonPrintingCharAndContinue()
  *		   addNonPrintingCharAndContinue(string $identifier)
  *		   Same as addNonPrintingChar but it returns the current container
  *		   @see REBuilder_Pattern_NonPrintingChar::__construct
@@ -59,7 +59,7 @@
  *		   Adds a new REBuilder_Pattern_SimpleAssertion class instance to this container
  *		   @see REBuilder_Pattern_SimpleAssertion::__construct
  * 
- * @method REBuilder_Pattern_Container addSimpleAssertionAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addSimpleAssertionAndContinue()
  *		   addSimpleAssertionAndContinue(string $identifier)
  *		   Same as addSimpleAssertion but it returns the current container
  *		   @see REBuilder_Pattern_SimpleAssertion::__construct
@@ -69,7 +69,7 @@
  *		   Adds a new REBuilder_Pattern_Dot class instance to this container
  *		   @see REBuilder_Pattern_Dot::__construct
  * 
- * @method REBuilder_Pattern_Container addDotAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addDotAndContinue()
  *		   addDotAndContinue()
  *		   Same as addDot but it returns the current container
  *		   @see REBuilder_Pattern_Dot::__construct
@@ -79,7 +79,7 @@
  *		   Adds a new REBuilder_Pattern_Byte class instance to this container
  *		   @see REBuilder_Pattern_Byte::__construct
  * 
- * @method REBuilder_Pattern_Container addByteAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addByteAndContinue()
  *		   addByteAndContinue()
  *		   Same as addByte but it returns the current container
  *		   @see REBuilder_Pattern_Byte::__construct
@@ -89,7 +89,7 @@
  *		   Adds a new REBuilder_Pattern_UnicodeCharClass class instance to this container
  *		   @see REBuilder_Pattern_UnicodeCharClass::__construct
  * 
- * @method REBuilder_Pattern_Container addUnicodeCharClassAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addUnicodeCharClassAndContinue()
  *		   addUnicodeCharClassAndContinue(string $class, bool $negate)
  *		   Same as addUnicodeCharClass but it returns the current container
  *		   @see REBuilder_Pattern_UnicodeCharClass::__construct
@@ -99,7 +99,7 @@
  *		   Adds a new REBuilder_Pattern_InternalOption class instance to this container
  *		   @see REBuilder_Pattern_InternalOption::__construct
  * 
- * @method REBuilder_Pattern_Container addInternalOptionAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addInternalOptionAndContinue()
  *		   addInternalOptionAndContinue(string $modifiers)
  *		   Same as addInternalOption but it returns the current container
  *		   @see REBuilder_Pattern_InternalOption::__construct
@@ -110,13 +110,13 @@
  *		   Adds a new REBuilder_Pattern_SubPattern class instance to this container
  *		   @see REBuilder_Pattern_SubPattern::__construct
  * 
- * @method REBuilder_Pattern_Container addSubPatternAndContinue()
+ * @method REBuilder_Pattern_AbstractContainer addSubPatternAndContinue()
  *		   addSubPatternAndContinue(bool $capture, string $name, string $modifiers,
  *									bool $groupMatches, bool $onceOnly)
  *		   Same as addSubPattern but it returns the current container
  *		   @see REBuilder_Pattern_SubPattern::__construct
  */
-abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
+abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abstract
 {
 	/**
 	 * Class children
@@ -129,7 +129,7 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 	 * Adds a child to the class
 	 * 
 	 * @param REBuilder_Pattern_Abstract $child Child to add
-	 * @return REBuilder_Pattern_Container
+	 * @return REBuilder_Pattern_AbstractContainer
 	 */
 	public function addChild (REBuilder_Pattern_Abstract $child)
 	{
@@ -142,7 +142,7 @@ abstract class REBuilder_Pattern_Container extends REBuilder_Pattern_Abstract
 	 * Removes a child from the class
 	 * 
 	 * @param REBuilder_Pattern_Abstract $child Child to remove
-	 * @return REBuilder_Pattern_Container
+	 * @return REBuilder_Pattern_AbstractContainer
 	 */
 	public function removeChild (REBuilder_Pattern_Abstract $child)
 	{

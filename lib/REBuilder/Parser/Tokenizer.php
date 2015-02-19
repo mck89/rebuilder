@@ -258,7 +258,7 @@ class REBuilder_Parser_Tokenizer
 				if ($nextChar === "?") {
 					//Check if the following characters represent subpattern
 					//modifiers and/or non capturing flag
-					if ($nextChars = $this->_consumeRegex("/^[a-z]*:/i")) {
+					if ($nextChars = $this->_consumeRegex("/^[a-z\-]*:/i")) {
 						//Emit a non capturing subpattern token
 						$groupModifiers = rtrim($nextChars, ":");
 						if ($groupModifiers) {

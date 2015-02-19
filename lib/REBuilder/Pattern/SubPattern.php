@@ -132,7 +132,10 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_Container
 	 */
 	public function setModifiers ($modifiers)
 	{
-		if (!REBuilder_Parser_Rules::validateModifiers($modifiers, $wrongModifier)) {
+		if (!REBuilder_Parser_Rules::validateModifiers(
+				str_replace("-", "", $modifiers),
+				$wrongModifier
+			)) {
 			throw new REBuilder_Exception_InvalidModifier(
 				"Invalid modifier '$wrongModifier'"
 			);

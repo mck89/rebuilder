@@ -87,6 +87,17 @@ class SubPatternTest extends AbstractTest
 		$this->assertSame("/(?>a)/", $regex->render());
 	}
 	
+	public function testSubtractModifiers ()
+	{
+		$regex = REBuilder::parse("/(?-i:a)/i");
+		$this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+		$children = $regex->getChildren();
+		$this->assertSame(1, count($children));
+		$this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+		$this->assertSame("-i", $children[0]->getModifiers());
+		$this->assertSame("/(?-i:a)/i", $regex->render());
+	}
+	
 	public function testNestedSubpatterns ()
 	{
 		$regex = REBuilder::parse("/(?:a(b))*/");

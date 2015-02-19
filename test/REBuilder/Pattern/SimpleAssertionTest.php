@@ -35,10 +35,9 @@ class SimpleAssertionTest extends AbstractTest
      */
     public function testValidIdentifierException ($identifier)
     {
-		$char = new REBuilder_Pattern_SimpleAssertion($identifier);
-		$this->assertSame($identifier, $char->getIdentifier());
+		$assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
+		$this->assertSame($identifier, $assertion->getIdentifier());
     }
-	
 	
 	public function invalidIdentifiersProvider () {
 		return array(
@@ -55,12 +54,12 @@ class SimpleAssertionTest extends AbstractTest
      */
     public function testInvalidIdentifierException ($identifier)
     {
-		$char = new REBuilder_Pattern_SimpleAssertion($identifier);
-		$char->render();
+		$assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
+		$assertion->render();
     }
 	
 	/**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder_Exception_InvalidRepetition
      */
 	public function testRepetitionNotAllowedOnParse ()
 	{
@@ -68,7 +67,7 @@ class SimpleAssertionTest extends AbstractTest
 	}
 	
 	/**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder_Exception_InvalidRepetition
      */
 	public function testRepetitionNotAllowedOnGeneration ()
 	{

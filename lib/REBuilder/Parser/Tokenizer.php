@@ -82,7 +82,7 @@ class REBuilder_Parser_Tokenizer
 		//Since delimiters are the only exception to the normal regex syntax and
 		//the tokenizer needs to know regex modifiers to handle some situations,
 		//parse them immediately and strip them from the regex
-		$endDelimiter = $this->_stripDelimitersAndModifiers();
+		list($endDelimiter, $rModifiers) = $this->_stripDelimitersAndModifiers();
 		
 		//Store regex length
 		$this->_length = strlen($this->_regex);
@@ -245,69 +245,7 @@ class REBuilder_Parser_Tokenizer
 			}
 			//If not escaped and it's an open round bracket
 			elseif (!$this->_escaped && $char === "(") {
-				//Emit a subpattern start token
-				$this->_emitToken(
-					REBuilder_Parser_Token::TYPE_SUBPATTERN_START,
-					$char
-				);
-				$this->_applyModifiers("");
-				$this->_openSubpatterns++;
-				$nextChar = $this->_consume();
-				//Check if the next character is a question mark that identifies
-				//group options
-				if ($nextChar === "?") {
-					//Check if the following characters represent subpattern
-					//modifiers and/or non capturing flag
-					if ($nextChars = $this->_consumeRegex("/^[a-z\-]*:/i")) {
-						//Emit a non capturing subpattern token
-						$groupModifiers = rtrim($nextChars, ":");
-						if ($groupModifiers) {
-							$this->_applyModifiers($groupModifiers);
-						}
-						$this->_emitToken(
-							REBuilder_Parser_Token::TYPE_SUBPATTERN_NON_CAPTURING,
-							":",
-							$groupModifiers
-						);
-					}
-					//Check if the following character is a pipe
-					elseif ($nextChar = $this->_consumeIfEquals("|")) {
-						//Emit a subpattern group matches token
-						$this->_emitToken(
-							REBuilder_Parser_Token::TYPE_SUBPATTERN_GROUP_MATCHES,
-							$nextChar
-						);
-					}
-					//Check if the following character represents the once only
-					//subpattern identifier
-					elseif ($nextChar = $this->_consumeIfEquals(">")) {
-						//Emit a subpattern once only token
-						$this->_emitToken(
-							REBuilder_Parser_Token::TYPE_SUBPATTERN_ONCE_ONLY,
-							$nextChar
-						);
-					}
-					//Check if the following characters represent subpattern
-					//name
-					elseif ($nextChars = $this->_consumeRegex(
-							"/^(?|P?<(\w+)>|'(\w+)')/", 1
-						)) {
-						//Emit a subpattern name token
-						$this->_emitToken(
-							REBuilder_Parser_Token::TYPE_SUBPATTERN_NAME,
-							"P",
-							$nextChars
-						);
-					}
-					//Syntax error
-					elseif (($nextChar = $this->_consume()) !== null) {
-						throw new REBuilder_Exception_Generic(
-							"Invalid char '$nextChar' in subpattern options"
-						);
-					}
-				} else {
-					$this->_unconsume();
-				}
+				$this->_handleSubpattern();
 			}
 			//If not escaped and it's a closed round bracket
 			elseif (!$this->_escaped && $char === ")") {
@@ -360,11 +298,105 @@ class REBuilder_Parser_Tokenizer
 		);
 		
 		//If regex modifiers were specified emit the token
-		if ($this->_modifiersStack->top()) {
+		if ($rModifiers) {
 			$this->_emitToken(
 				REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS,
-				$this->_modifiersStack->top()
+				$rModifiers
 			);
+		}
+	}
+	
+	/**
+	 * Handles every case that can happen after a open round bracket
+	 * 
+	 * @throws REBuilder_Exception_Generic
+	 */
+	protected function _handleSubpattern ()
+	{
+		//Don't emit the tokens immediately but store them in an array, in this
+		//way they can be handled before emitting
+		$tokens = array();
+		$tokens[] = array(
+			REBuilder_Parser_Token::TYPE_SUBPATTERN_START,
+			"("
+		);
+		$this->_applyModifiers("");
+		$this->_openSubpatterns++;
+		$nextChar = $this->_consume();
+		//Check if the next character is a question mark that identifies
+		//group options
+		if ($nextChar === "?") {
+			//Check if the following characters represent subpattern
+			//modifiers and/or non capturing flag
+			if ($nextChars = $this->_consumeRegex("/^[a-z\-]*:/i")) {
+				//Store a non capturing subpattern token
+				$groupModifiers = rtrim($nextChars, ":");
+				if ($groupModifiers) {
+					$this->_applyModifiers($groupModifiers);
+				}
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_SUBPATTERN_NON_CAPTURING,
+					":",
+					$groupModifiers
+				);
+			}
+			//Check if the following character is a pipe
+			elseif ($nextChar = $this->_consumeIfEquals("|")) {
+				//Store a subpattern group matches token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_SUBPATTERN_GROUP_MATCHES,
+					$nextChar
+				);
+			}
+			//Check if the following character represents the once only
+			//subpattern identifier
+			elseif ($nextChar = $this->_consumeIfEquals(">")) {
+				//Store a subpattern once only token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_SUBPATTERN_ONCE_ONLY,
+					$nextChar
+				);
+			}
+			//Check if the following characters represent subpattern
+			//name
+			elseif ($nextChars = $this->_consumeRegex(
+					"/^(?|P?<(\w+)>|'(\w+)')/", 1
+				)) {
+				//Store a subpattern name token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_SUBPATTERN_NAME,
+					"P",
+					$nextChars
+				);
+			}
+			//Check if the following characters represent a list of modifiers
+			//and followed by a closed round bracket
+			elseif ($nextChars = $this->_consumeRegex("/^[a-z\-]*\)/i")) {
+				//Remove current tokens, decrement open subpattern
+				//count and apply the specified modifiers
+				$tokens = array();
+				$nextChars = str_replace(")", "", $nextChars);
+				$this->_applyModifiers($nextChars);
+				$this->_openSubpatterns--;
+				//Store an internal option token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_INTERNAL_OPTION,
+					"?",
+					$nextChars
+				);
+			}
+			//Syntax error
+			elseif (($nextChar = $this->_consume()) !== null) {
+				throw new REBuilder_Exception_Generic(
+					"Invalid char '$nextChar' in subpattern options"
+				);
+			}
+		} else {
+			$this->_unconsume();
+		}
+		//Emit the tokens in order
+		foreach ($tokens as $token) {
+			call_user_func_array(array($this, "_emitToken"), $token);
 		}
 	}
 	
@@ -482,10 +514,11 @@ class REBuilder_Parser_Tokenizer
 	}
 	
 	/**
-	 * Strip regex delimiters and modifiers and returns the end delimiter
+	 * Strip regex delimiters and modifiers and returns the end delimiter and
+	 * the regex modifiers
 	 * 
 	 * @throws REBuilder_Exception_InvalidDelimiter
-	 * @return string
+	 * @return array
 	 */
 	protected function _stripDelimitersAndModifiers ()
 	{
@@ -511,7 +544,7 @@ class REBuilder_Parser_Tokenizer
 		$this->_regex = substr($this->_regex, 0, $endDelimiterPos);
 		$this->_modifiersStack->push($modifiers);
 		
-		return $endDelimiter;
+		return array($endDelimiter, $modifiers);
 	}
 	
 	/**

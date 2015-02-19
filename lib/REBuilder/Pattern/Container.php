@@ -94,6 +94,16 @@
  *		   Same as addUnicodeCharClass but it returns the current container
  *		   @see REBuilder_Pattern_UnicodeCharClass::__construct
  * 
+ * @method REBuilder_Pattern_InternalOption addInternalOption()
+ *		   addInternalOption(string $modifiers)
+ *		   Adds a new REBuilder_Pattern_InternalOption class instance to this container
+ *		   @see REBuilder_Pattern_InternalOption::__construct
+ * 
+ * @method REBuilder_Pattern_Container addInternalOptionAndContinue()
+ *		   addInternalOptionAndContinue(string $modifiers)
+ *		   Same as addInternalOption but it returns the current container
+ *		   @see REBuilder_Pattern_InternalOption::__construct
+ * 
  * @method REBuilder_Pattern_SubPattern addSubPattern()
  *		   addSubPattern(bool $capture, string $name, string $modifiers,
  *						 bool $groupMatches, bool $onceOnly)

@@ -108,6 +108,11 @@ class REBuilder_Parser_Token
 	Const TYPE_SUBPATTERN_ONCE_ONLY = 20;
 	
 	/**
+	 * Internal option identifier
+	 */
+	Const TYPE_INTERNAL_OPTION = 21;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

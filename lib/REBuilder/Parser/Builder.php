@@ -214,6 +214,14 @@ class REBuilder_Parser_Builder
 				//Set the subpattern name
 				$this->_containersStack->top()->setName($token->getSubject());
 			break;
+			//Internal option identifier
+			case REBuilder_Parser_Token::TYPE_INTERNAL_OPTION:
+				//Create an internal option and add it to the current container
+				$this->_containersStack->top()->addChild(
+					new REBuilder_Pattern_InternalOption($token->getSubject())
+				);
+				$this->_currentItem = null;
+			break;
 			//Repetition identifier
 			case REBuilder_Parser_Token::TYPE_REPETITION:
 				$this->_handleRepetition($token);

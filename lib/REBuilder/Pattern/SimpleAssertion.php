@@ -9,6 +9,13 @@
 class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_AbstractIdentifier
 {
 	/**
+	 * Flag that identifies if the pattern supports repetitions
+	 * 
+	 * @var bool
+	 */
+	protected $_supportsRepetition = false;
+	
+	/**
 	 * Sets the identifier. It can be one of the following:
 	 * "b", "B", "A", "Z", "z", "g", "Q", "E", "K"
 	 * 
@@ -24,20 +31,5 @@ class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_AbstractIdenti
 			);
 		}
 		return parent::setIdentifier($identifier);
-	}
-	
-	/**
-	 * Sets the repetition. This class cannot handle repetitions so this
-	 * method will throw an exception
-	 * 
-	 * @param mixed $repetition Repetition. 
-	 * @param mixed $max		Max repetition
-	 * @throws REBuilder_Exception_Generic
-	 */
-	public function setRepetition ($repetition, $max = null)
-	{
-		throw new REBuilder_Exception_InvalidRepetition(
-			"Simple assertions cannot handle repetitions"
-		);
 	}
 }

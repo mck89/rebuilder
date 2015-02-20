@@ -17,6 +17,13 @@ class REBuilder_Pattern_InternalOption extends REBuilder_Pattern_Abstract
 	protected $_modifiers = "";
 	
 	/**
+	 * Flag that identifies if the pattern supports repetitions
+	 * 
+	 * @var bool
+	 */
+	protected $_supportsRepetition = false;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param string $modifiers    Internal option modifiers
@@ -57,21 +64,6 @@ class REBuilder_Pattern_InternalOption extends REBuilder_Pattern_Abstract
 	public function getModifiers ()
 	{
 		return $this->_modifiers;
-	}
-	
-	/**
-	 * Sets the repetition. This class cannot handle repetitions so this
-	 * method will throw an exception
-	 * 
-	 * @param mixed $repetition Repetition. 
-	 * @param mixed $max		Max repetition
-	 * @throws REBuilder_Exception_Generic
-	 */
-	public function setRepetition ($repetition, $max = null)
-	{
-		throw new REBuilder_Exception_InvalidRepetition(
-			"Simple assertions cannot handle repetitions"
-		);
 	}
 	
 	/**

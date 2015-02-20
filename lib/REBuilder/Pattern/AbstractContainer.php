@@ -139,6 +139,20 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
 	}
 	
 	/**
+	 * Adds an array of children to the class
+	 * 
+	 * @param array $children Array of children to add
+	 * @return REBuilder_Pattern_AbstractContainer
+	 */
+	public function addChildren ($children)
+	{
+		foreach ($children as $child) {
+			$this->addChild($child);
+		}
+		return $this;
+	}
+	
+	/**
 	 * Removes a child from the class
 	 * 
 	 * @param REBuilder_Pattern_Abstract $child Child to remove

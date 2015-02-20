@@ -15,9 +15,16 @@ abstract class REBuilder_Pattern_Abstract
 	protected $_parent;
 	
 	/**
+	 * Flag that identifies if the pattern supports repetitions
+	 * 
+	 * @var bool
+	 */
+	protected $_supportsRepetition = true;
+	
+	/**
 	 * Repetition
 	 * 
-	 * @var REBuilder_Pattern_Repetition_Abstract 
+	 * @var REBuilder_Pattern_Repetition_Abstract
 	 */
 	protected $_repetition;
 	
@@ -61,7 +68,18 @@ abstract class REBuilder_Pattern_Abstract
 	}
 	
 	/**
-	 * Sets the repetition
+	 * Returns true if the pattern supports repetition, otherwise false
+	 * 
+	 * @return bool
+	 */
+	public function supportsRepetition ()
+	{
+		return $this->_supportsRepetition;
+	}
+	
+	/**
+	 * Sets the repetition. This function throws an exception if the current
+	 * class does not handle repetition
 	 * 
 	 * @param mixed $repetition Repetition. It can be an instance of any class
 	 *							that extends REBuilder_Pattern_Repetition_Abstract.
@@ -78,9 +96,16 @@ abstract class REBuilder_Pattern_Abstract
 	 *							a number a REBuilder_Pattern_Repetition_Range
 	 *							will be used
 	 * @return REBuilder_Pattern_Abstract
+	 * @throws REBuilder_Exception_Generic
 	 */
 	public function setRepetition ($repetition, $max = null)
 	{
+		if (!$this->supportsRepetition()) {
+			$classParts = explode("_", get_class($this));
+			throw new REBuilder_Exception_InvalidRepetition(
+				$classParts[count($classParts) - 1] . " cannot handle repetition"
+			);
+		}
 		if (!$repetition instanceof REBuilder_Pattern_Repetition_Abstract) {
 			if ($repetition === "*") {
 				$repetition = new REBuilder_Pattern_Repetition_ZeroOrMore(

@@ -29,6 +29,13 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
 	protected $_modifiers;
 	
 	/**
+	 * Flag that identifies if the pattern supports repetitions
+	 * 
+	 * @var bool
+	 */
+	protected $_supportsRepetition = false;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param string $modifiers Regex modifiers
@@ -103,21 +110,6 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
 	public function getModifiers ()
 	{
 		return $this->_modifiers;
-	}
-	
-	/**
-	 * Sets the repetition. This class cannot handle repetitions so this
-	 * method will throw an exception
-	 * 
-	 * @param mixed $repetition Repetition. 
-	 * @param mixed $max		Max repetition
-	 * @throws REBuilder_Exception_Generic
-	 */
-	public function setRepetition ($repetition, $max = null)
-	{
-		throw new REBuilder_Exception_InvalidRepetition(
-			"Regex container cannot handle repetitions"
-		);
 	}
 	
 	/**

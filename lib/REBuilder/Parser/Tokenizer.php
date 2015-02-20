@@ -146,6 +146,14 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
+			//If not escaped and it's a pipe
+			elseif (!$this->_escaped && $char === "|") {
+				//Emit an alternation identifier token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_ALTERNATION,
+					$char
+				);
+			}
 			//If escaped and it's the unicode character class identifier
 			elseif ($this->_escaped && ($char === "p" || $char === "P")) {
 				//Take the next character

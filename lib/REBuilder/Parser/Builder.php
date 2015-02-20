@@ -169,6 +169,13 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
+			//Alternation identifier
+			case REBuilder_Parser_Token::TYPE_ALTERNATION:
+				//Create an alternation identifier
+				$alternation = new REBuilder_Pattern_Alternation;
+				$this->_containersStack->top()->addChild($alternation);
+				$this->_currentItem = null;
+			break;
 			//Subpattern start character
 			case REBuilder_Parser_Token::TYPE_SUBPATTERN_START:
 				//Create a new subpattern and add it to the container stack

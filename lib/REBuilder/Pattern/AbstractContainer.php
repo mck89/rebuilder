@@ -104,6 +104,16 @@
  *		   Same as addInternalOption but it returns the current container
  *		   @see REBuilder_Pattern_InternalOption::__construct
  * 
+ * @method REBuilder_Pattern_Alternation addAlternation()
+ *		   addAlternation()
+ *		   Adds a new REBuilder_Pattern_Alternation class instance to this container
+ *		   @see REBuilder_Pattern_Alternation::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addAlternationAndContinue()
+ *		   addAlternationAndContinue()
+ *		   Same as addAlternation but it returns the current container
+ *		   @see REBuilder_Pattern_Alternation::__construct
+ * 
  * @method REBuilder_Pattern_SubPattern addSubPattern()
  *		   addSubPattern(bool $capture, string $name, string $modifiers,
  *						 bool $groupMatches, bool $onceOnly)

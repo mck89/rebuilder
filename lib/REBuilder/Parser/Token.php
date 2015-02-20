@@ -113,6 +113,11 @@ class REBuilder_Parser_Token
 	Const TYPE_INTERNAL_OPTION = 21;
 	
 	/**
+	 * Alternation identifier
+	 */
+	Const TYPE_ALTERNATION = 22;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

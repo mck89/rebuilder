@@ -125,6 +125,16 @@
  *									bool $groupMatches, bool $onceOnly)
  *		   Same as addSubPattern but it returns the current container
  *		   @see REBuilder_Pattern_SubPattern::__construct
+ * 
+ * @method REBuilder_Pattern_Assertion addAssertion()
+ *		   addAssertion(bool $lookahead, bool $negate)
+ *		   Adds a new REBuilder_Pattern_Assertion class instance to this container
+ *		   @see REBuilder_Pattern_Assertion::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addAssertionAndContinue()
+ *		   addAssertion(bool $lookahead, bool $negate)
+ *		   Same as addAssertion but it returns the current container
+ *		   @see REBuilder_Pattern_Assertion::__construct
  */
 abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abstract
 {

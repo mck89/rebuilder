@@ -118,6 +118,16 @@ class REBuilder_Parser_Token
 	Const TYPE_ALTERNATION = 22;
 	
 	/**
+	 * Lookahead assertion identifier
+	 */
+	Const TYPE_LOOKAHEAD_ASSERTION = 23;
+	
+	/**
+	 * Lookbehind assertion identifier
+	 */
+	Const TYPE_LOOKBEHIND_ASSERTION = 24;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

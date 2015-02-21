@@ -389,8 +389,28 @@ class REBuilder_Parser_Tokenizer
 				//Store an internal option token
 				$tokens[] = array(
 					REBuilder_Parser_Token::TYPE_INTERNAL_OPTION,
-					"?",
+					"(?",
 					$nextChars
+				);
+			}
+			//Check if the following character represent a lookahead assertion
+			elseif ($nextChar = $this->_consumeIfEquals(array("=", "!"))) {
+				//Remove current tokens
+				$tokens = array();
+				//Store a lookahead assertion token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_LOOKAHEAD_ASSERTION,
+					"(" . $nextChar
+				);
+			}
+			//Check if the following character represent a lookbehind assertion
+			elseif ($nextChars = $this->_consumeRegex("/^<[=!]/")) {
+				//Remove current tokens
+				$tokens = array();
+				//Store a lookbehind assertion token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_LOOKBEHIND_ASSERTION,
+					"(" . $nextChars
 				);
 			}
 			//Syntax error

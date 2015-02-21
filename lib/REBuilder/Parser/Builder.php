@@ -229,6 +229,17 @@ class REBuilder_Parser_Builder
 				);
 				$this->_currentItem = null;
 			break;
+			//Assertion identifier
+			case REBuilder_Parser_Token::TYPE_LOOKAHEAD_ASSERTION:
+			case REBuilder_Parser_Token::TYPE_LOOKBEHIND_ASSERTION:
+				$assertion = new REBuilder_Pattern_Assertion(
+					strpos($token->getIdentifier(), "<") === false,
+					strpos($token->getIdentifier(), "!") !== false
+				);
+				$this->_containersStack->top()->addChild($assertion);
+				$this->_containersStack->push($assertion);
+				$this->_currentItem = null;
+			break;
 			//Repetition identifier
 			case REBuilder_Parser_Token::TYPE_REPETITION:
 				$this->_handleRepetition($token);

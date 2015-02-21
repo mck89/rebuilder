@@ -240,6 +240,13 @@ class REBuilder_Parser_Builder
 				$this->_containersStack->push($assertion);
 				$this->_currentItem = null;
 			break;
+			//Comment
+			case REBuilder_Parser_Token::TYPE_COMMENT:
+				//Create comment and add it to the current container
+				$this->_containersStack->top()->addChild(
+					new REBuilder_Pattern_Comment($token->getSubject())
+				);
+			break;
 			//Repetition identifier
 			case REBuilder_Parser_Token::TYPE_REPETITION:
 				$this->_handleRepetition($token);
@@ -300,6 +307,7 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_DOT:
 			case REBuilder_Parser_Token::TYPE_BYTE:
 			case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
+			case REBuilder_Parser_Token::TYPE_COMMENT:
 			break;
 			//When simple characters are grouped, repetition is valid only
 			//for the last one, so it needs to be splitted so that the last

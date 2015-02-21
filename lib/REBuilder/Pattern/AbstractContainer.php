@@ -104,6 +104,16 @@
  *		   Same as addInternalOption but it returns the current container
  *		   @see REBuilder_Pattern_InternalOption::__construct
  * 
+ * @method REBuilder_Pattern_Comment addComment()
+ *		   addComment(string $comment)
+ *		   Adds a new REBuilder_Pattern_Comment class instance to this container
+ *		   @see REBuilder_Pattern_Comment::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addCommentAndContinue()
+ *		  addCommentAndContinue(string $comment)
+ *		   Same as addComment but it returns the current container
+ *		   @see REBuilder_Pattern_Comment::__construct
+ * 
  * @method REBuilder_Pattern_Alternation addAlternation()
  *		   addAlternation()
  *		   Adds a new REBuilder_Pattern_Alternation class instance to this container
@@ -241,6 +251,7 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
 	 */
 	function __call ($name, $arguments)
 	{
+        $error = true;
 		//Add entity shortcut
 		if (strpos($name, "add") === 0) {
 			$name = str_replace("add", "", $name);
@@ -255,10 +266,14 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
 					$class->isSubclassOf("REBuilder_Pattern_Abstract")) {
 					$instance = $class->newInstanceArgs($arguments);
 					$this->addChild($instance);
-					return $continue ? $this : $instance;
+                    $error = false;
+                    $ret = $continue ? $this : $instance;
 				}
 			}
 		}
-		throw new BadMethodCallException();
+        if ($error) {
+            throw new BadMethodCallException();
+        }
+		return $ret;
 	}
 }

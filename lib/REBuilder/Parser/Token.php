@@ -128,6 +128,11 @@ class REBuilder_Parser_Token
 	Const TYPE_LOOKBEHIND_ASSERTION = 24;
 	
 	/**
+	 * Comment
+	 */
+	Const TYPE_COMMENT = 25;
+	
+	/**
 	 * Token's type
 	 * 
 	 * @var int

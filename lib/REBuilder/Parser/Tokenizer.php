@@ -273,6 +273,28 @@ class REBuilder_Parser_Tokenizer
 			}
 			//If it does not fall in any of the cases above
 			else {
+				//If the character is not escaped and the "x" modifier is active
+				if (!$this->_escaped &&
+					strpos($this->_modifiersStack->top(), "x") !== false) {
+					//If it is a "#"
+					if ($char === "#") {
+						//Emit a comment token
+						$nextChars = $this->_consumeUntil("\n");
+						if ($nextChars === null) {
+							$nextChars = $this->_consumeRemaining();
+						}
+						$this->_emitToken(
+							REBuilder_Parser_Token::TYPE_COMMENT,
+							$char,
+							$nextChars
+						);
+						continue;
+					}
+					//If it is a whitespace ignore it
+					elseif (preg_match("/\s/", $char)) {
+						continue;
+					}
+				}
 				//Emit the character as a simple pattern token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_CHAR,
@@ -400,7 +422,7 @@ class REBuilder_Parser_Tokenizer
 				//Store a lookahead assertion token
 				$tokens[] = array(
 					REBuilder_Parser_Token::TYPE_LOOKAHEAD_ASSERTION,
-					"(" . $nextChar
+					"(?" . $nextChar
 				);
 			}
 			//Check if the following character represent a lookbehind assertion
@@ -410,7 +432,27 @@ class REBuilder_Parser_Tokenizer
 				//Store a lookbehind assertion token
 				$tokens[] = array(
 					REBuilder_Parser_Token::TYPE_LOOKBEHIND_ASSERTION,
-					"(" . $nextChars
+					"(?" . $nextChars
+				);
+			}
+			//Check if the following character is a "#"
+			elseif ($nextChar = $this->_consumeIfEquals("#")) {
+				//Get the complete comment
+				$nextChars = $this->_consumeUntil(")", true);
+				//If the closing bracket has not been found, throw an exception
+				if ($nextChars === null) {
+					throw new REBuilder_Exception_Generic(
+						"Unclosed comment"
+					);
+				}
+				//Remove current tokens
+				$tokens = array();
+				$this->_openSubpatterns--;
+				//Store a comment token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_COMMENT,
+					"(?" . $nextChar,
+					rtrim($nextChars, ")")
 				);
 			}
 			//Syntax error
@@ -462,6 +504,18 @@ class REBuilder_Parser_Tokenizer
 	}
 	
 	/**
+	 * Consumes the rest of the regex
+	 * 
+	 * @return string
+	 */
+	protected function _consumeRemaining ()
+	{
+		$ret = substr($this->_regex, $this->_index);
+		$this->_index = $this->_length;
+		return $ret === false ? "" : $ret;
+	}
+	
+	/**
 	 * Consumes next character ignoring the escape
 	 * 
 	 * @return string|null
@@ -507,7 +561,7 @@ class REBuilder_Parser_Tokenizer
 			$nextChar = $this->_consume();
 			//If there are no more characters reset the index and return null
 			if ($nextChar === null) {
-				$this->_unconsume($number);
+				$this->_unconsume($number - 1);
 				return null;
 			} elseif ($nextChar === $char) {
 				if (!$includeChar) {

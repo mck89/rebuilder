@@ -114,15 +114,15 @@
  *		   Same as addComment but it returns the current container
  *		   @see REBuilder_Pattern_Comment::__construct
  * 
- * @method REBuilder_Pattern_Alternation addAlternation()
- *		   addAlternation()
- *		   Adds a new REBuilder_Pattern_Alternation class instance to this container
- *		   @see REBuilder_Pattern_Alternation::__construct
+ * @method REBuilder_Pattern_AlternationGroup addAlternationGroup()
+ *		   addAlternationGroup()
+ *		   Adds a new REBuilder_Pattern_AlternationGroup class instance to this container
+ *		   @see REBuilder_Pattern_AlternationGroup::__construct
  * 
- * @method REBuilder_Pattern_AbstractContainer addAlternationAndContinue()
- *		   addAlternationAndContinue()
- *		   Same as addAlternation but it returns the current container
- *		   @see REBuilder_Pattern_Alternation::__construct
+ * @method REBuilder_Pattern_AlternationGroup addAlternationGroupAndContinue()
+ *		   addAlternationGroupAndContinue()
+ *		   Same as addAlternationGroup but it returns the current container
+ *		   @see REBuilder_Pattern_AlternationGroup::__construct
  * 
  * @method REBuilder_Pattern_SubPattern addSubPattern()
  *		   addSubPattern(bool $capture, string $name, string $modifiers,
@@ -272,7 +272,9 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
 			}
 		}
         if ($error) {
-            throw new BadMethodCallException();
+            throw new BadMethodCallException(
+               "Undefined method: $name"
+            );
         }
 		return $ret;
 	}

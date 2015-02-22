@@ -171,9 +171,26 @@ class REBuilder_Parser_Builder
 			break;
 			//Alternation identifier
 			case REBuilder_Parser_Token::TYPE_ALTERNATION:
-				//Create an alternation identifier
-				$alternation = new REBuilder_Pattern_Alternation;
-				$this->_containersStack->top()->addChild($alternation);
+                if ($this->_containersStack->top() instanceof REBuilder_Pattern_Alternation) {
+                    //If already inside an alternation group, create a new
+                    //alternation
+                    $currentAlternation = $this->_containersStack->pop();
+                    $newAlternation = new REBuilder_Pattern_Alternation;
+                    $currentAlternation->getParent()->addChild($newAlternation);
+                } else {
+                    //Create a new alternation and move all the children from
+                    //the current container to the new alternation
+                    $currentContainer = $this->_containersStack->top();
+                    $children = $currentContainer->getChildren();
+                    $alternationGroup = new REBuilder_Pattern_AlternationGroup;
+                    $alternation = new REBuilder_Pattern_Alternation;
+                    $alternation->addChildren($children);
+                    $alternationGroup->addChild($alternation);
+                    $currentContainer->addChild($alternationGroup);
+                    $newAlternation = new REBuilder_Pattern_Alternation;
+                    $alternationGroup->addChild($newAlternation);
+                }
+                $this->_containersStack->push($newAlternation);
 				$this->_currentItem = null;
 			break;
 			//Subpattern start character
@@ -186,6 +203,10 @@ class REBuilder_Parser_Builder
 			break;
 			//Subpattern end character
 			case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
+                //If the current container is an alternation remove it first
+                if ($this->_containersStack->top() instanceof REBuilder_Pattern_Alternation) {
+                    $this->_containersStack->pop();
+                }
 				//Remove the subpattern from the container stack and make it
 				//the current item
 				$this->_currentItem = $this->_containersStack->pop();

@@ -22,14 +22,16 @@ class CommentTest extends AbstractTest
 		$regex = REBuilder::parse($pattern);
 		$this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
 		$children = $regex->getChildren();
-		$this->assertSame(3, count($children));
+		$this->assertSame(4, count($children));
 		$this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
-		$this->assertSame("abcd", $children[0]->getChar());
+		$this->assertSame("ab", $children[0]->getChar());
 		$this->assertInstanceOf("REBuilder_Pattern_Comment", $children[1]);
 		$this->assertSame("comment 1", $children[1]->getComment());
-		$this->assertInstanceOf("REBuilder_Pattern_Comment", $children[2]);
-		$this->assertSame("comment 2", $children[2]->getComment());
-		$this->assertSame("/abcd(?#comment 1)(?#comment 2)/x", $regex->render());
+		$this->assertInstanceOf("REBuilder_Pattern_Char", $children[2]);
+		$this->assertSame("cd", $children[2]->getChar());
+		$this->assertInstanceOf("REBuilder_Pattern_Comment", $children[3]);
+		$this->assertSame("comment 2", $children[3]->getComment());
+		$this->assertSame("/ab(?#comment 1)cd(?#comment 2)/x", $regex->render());
 	}
 	
 	/**

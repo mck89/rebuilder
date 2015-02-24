@@ -79,7 +79,8 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_CHAR:
 				//If the current item is already a char append data to it
 				if ($this->_currentItem &&
-					$this->_currentItem instanceof REBuilder_Pattern_Char) {
+					$this->_currentItem instanceof REBuilder_Pattern_Char &&
+                    $this->_tokensStack->top()->getType() !== REBuilder_Parser_Token::TYPE_COMMENT) {
 					$this->_currentItem->setChar(
 						$this->_currentItem->getChar() . $token->getIdentifier()
 					);

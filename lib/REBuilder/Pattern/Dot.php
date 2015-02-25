@@ -8,13 +8,13 @@
  */
 class REBuilder_Pattern_Dot extends REBuilder_Pattern_Abstract
 {
-	/**
-	 * Returns the string representation of the class
-	 * 
-	 * @return string
-	 */
-	public function render ()
-	{
-		return "." . $this->_renderRepetition();
-	}
+    /**
+     * Returns the string representation of the class
+     * 
+     * @return string
+     */
+    public function render ()
+    {
+        return "." . $this->_renderRepetition();
+    }
 }

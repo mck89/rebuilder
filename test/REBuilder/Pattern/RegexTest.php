@@ -55,6 +55,14 @@ class RegexTest extends AbstractTest
     {
 		REBuilder::parse("#a\#");
     }
+    
+    /**
+     * @expectedException REBuilder_Exception_InvalidDelimiter
+     */
+    public function testUnescapedDelimiterInsideRegexException ()
+    {
+		REBuilder::parse("#a#b#");
+    }
 	
 	/**
      * @expectedException REBuilder_Exception_InvalidModifier

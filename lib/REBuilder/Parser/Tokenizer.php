@@ -82,7 +82,8 @@ class REBuilder_Parser_Tokenizer
 		//Since delimiters are the only exception to the normal regex syntax and
 		//the tokenizer needs to know regex modifiers to handle some situations,
 		//parse them immediately and strip them from the regex
-		list($endDelimiter, $rModifiers) = $this->_stripDelimitersAndModifiers();
+		list($delimiter, $endDelimiter, $rModifiers) = $this->_stripDelimitersAndModifiers();
+        $checkEndDelimiter = $delimiter === $endDelimiter;
 		
 		//Store regex length
 		$this->_length = strlen($this->_regex);
@@ -271,6 +272,14 @@ class REBuilder_Parser_Tokenizer
 				$this->_openSubpatterns--;
 				$this->_modifiersStack->pop();
 			}
+            //If not escaped and it's the end delimiter
+            elseif (!$this->_escaped && $checkEndDelimiter &&
+                    $char === $endDelimiter) {
+                //Throw an exception
+                throw new REBuilder_Exception_InvalidDelimiter(
+                    "Unescaped end delimiter '$char' inside regex"
+                );
+            }
 			//If it does not fall in any of the cases above
 			else {
 				//If the character is not escaped and the "x" modifier is active
@@ -596,8 +605,7 @@ class REBuilder_Parser_Tokenizer
 	}
 	
 	/**
-	 * Strip regex delimiters and modifiers and returns the end delimiter and
-	 * the regex modifiers
+	 * Strip regex delimiters and modifiers and returns delimiters and modifiers
 	 * 
 	 * @throws REBuilder_Exception_InvalidDelimiter
 	 * @return array
@@ -626,7 +634,7 @@ class REBuilder_Parser_Tokenizer
 		$this->_regex = substr($this->_regex, 0, $endDelimiterPos);
 		$this->_modifiersStack->push($modifiers);
 		
-		return array($endDelimiter, $modifiers);
+		return array($delimiter, $endDelimiter, $modifiers);
 	}
 	
 	/**

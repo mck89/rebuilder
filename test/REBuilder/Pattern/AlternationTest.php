@@ -1,5 +1,5 @@
 <?php
-class AlternationTest extends AbstractTest
+class AlternationTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

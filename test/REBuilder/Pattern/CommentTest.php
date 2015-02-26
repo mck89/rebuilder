@@ -1,5 +1,5 @@
 <?php
-class CommentTest extends AbstractTest
+class CommentTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

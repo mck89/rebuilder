@@ -1,5 +1,5 @@
 <?php
-class ZeroOrMoreTest extends AbstractTest
+class ZeroOrMoreTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

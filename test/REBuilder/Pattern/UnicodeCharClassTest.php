@@ -1,5 +1,5 @@
 <?php
-class UnicodeCharClassTest extends AbstractTest
+class UnicodeCharClassTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

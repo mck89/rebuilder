@@ -1,5 +1,5 @@
 <?php
-class SubPatternTest extends AbstractTest
+class SubPatternTest extends PHPUnit_Framework_TestCase
 {
     public function testSimpleSubpattern ()
     {

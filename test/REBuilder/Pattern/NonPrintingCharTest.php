@@ -1,5 +1,5 @@
 <?php
-class NonPrintingCharTest extends AbstractTest
+class NonPrintingCharTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

@@ -1,5 +1,5 @@
 <?php
-class ByteTest extends AbstractTest
+class ByteTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

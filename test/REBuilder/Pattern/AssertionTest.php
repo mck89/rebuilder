@@ -1,5 +1,5 @@
 <?php
-class AssertionTest extends AbstractTest
+class AssertionTest extends PHPUnit_Framework_TestCase
 {
     public function testLookaheadAssertion ()
     {

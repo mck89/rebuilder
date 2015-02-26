@@ -1,5 +1,5 @@
 <?php
-class SimpleAssertionTest extends AbstractTest
+class SimpleAssertionTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

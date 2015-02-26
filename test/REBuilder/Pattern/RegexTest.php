@@ -1,5 +1,5 @@
 <?php
-class RegexTest extends AbstractTest
+class RegexTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

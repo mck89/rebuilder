@@ -1,5 +1,5 @@
 <?php
-class NumberTest extends AbstractTest
+class NumberTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

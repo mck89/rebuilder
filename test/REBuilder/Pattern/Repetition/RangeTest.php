@@ -1,5 +1,5 @@
 <?php
-class RangeTest extends AbstractTest
+class RangeTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

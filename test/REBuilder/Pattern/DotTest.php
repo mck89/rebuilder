@@ -1,5 +1,5 @@
 <?php
-class DotTest extends AbstractTest
+class DotTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {

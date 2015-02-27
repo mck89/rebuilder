@@ -39,6 +39,6 @@ class REBuilder_Pattern_HexChar extends REBuilder_Pattern_AbstractChar
 	 */
 	public function render ()
 	{
-		return "\x" . $this->_char . $this->_renderRepetition();
+		return "\x" . $this->getChar() . $this->_renderRepetition();
 	}
 }

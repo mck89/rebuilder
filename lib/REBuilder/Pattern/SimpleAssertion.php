@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents simple assertions: \b, \B, \A, \Z, \z, \g, \Q, \E, \K
+ * Represents simple assertions: \b, \B, \A, \Z, \z, \G, \Q, \E, \K
  * 
  * @author Marco Marchiò
  * @abstract
@@ -17,7 +17,7 @@ class REBuilder_Pattern_SimpleAssertion extends REBuilder_Pattern_AbstractIdenti
 	
 	/**
 	 * Sets the identifier. It can be one of the following:
-	 * "b", "B", "A", "Z", "z", "g", "Q", "E", "K"
+	 * "b", "B", "A", "Z", "z", "G", "Q", "E", "K"
 	 * 
 	 * @param string $identifier Identifier to match
 	 * @return REBuilder_Pattern_SimpleAssertion

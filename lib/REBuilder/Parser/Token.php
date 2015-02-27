@@ -131,6 +131,16 @@ class REBuilder_Parser_Token
 	 * Comment
 	 */
 	Const TYPE_COMMENT = 25;
+    
+	/**
+	 * Backreference
+	 */
+	Const TYPE_BACK_REFERENCE = 26;
+    
+	/**
+	 * Octal code character
+	 */
+	Const TYPE_OCTAL_CHAR = 27;
 	
 	/**
 	 * Token's type

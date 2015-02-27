@@ -110,9 +110,29 @@
  *		   @see REBuilder_Pattern_Comment::__construct
  * 
  * @method REBuilder_Pattern_AbstractContainer addCommentAndContinue()
- *		  addCommentAndContinue(string $comment)
+ *		   addCommentAndContinue(string $comment)
  *		   Same as addComment but it returns the current container
  *		   @see REBuilder_Pattern_Comment::__construct
+ * 
+ * @method REBuilder_Pattern_OctalChar addOctalChar()
+ *		   addOctalChar(string $char)
+ *		   Adds a new REBuilder_Pattern_OctalChar class instance to this container
+ *		   @see REBuilder_Pattern_OctalChar::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addOctalCharAndContinue()
+ *		   addOctalCharAndContinue(string $char)
+ *		   Same as addOctalChar but it returns the current container
+ *		   @see REBuilder_Pattern_OctalChar::__construct
+ * 
+ * @method REBuilder_Pattern_BackReference addBackReference()
+ *		   addBackReference(string $reference)
+ *		   Adds a new REBuilder_Pattern_BackReference class instance to this container
+ *		   @see REBuilder_Pattern_BackReference::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addBackReferenceAndContinue()
+ *		   addBackReferenceAndContinue(string $reference)
+ *		   Same as addBackReference but it returns the current container
+ *		   @see REBuilder_Pattern_BackReference::__construct
  * 
  * @method REBuilder_Pattern_AlternationGroup addAlternationGroup()
  *		   addAlternationGroup()

@@ -52,7 +52,7 @@ class REBuilder_Parser_Rules
 	 * @static
 	 */
 	protected static $_simpleAssertions = array(
-		"b", "B", "A", "Z", "z", "g", "Q", "E", "K"
+		"b", "B", "A", "Z", "z", "G", "Q", "E", "K"
 	);
 	
 	/**

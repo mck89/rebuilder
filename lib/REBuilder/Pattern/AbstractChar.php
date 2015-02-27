@@ -55,15 +55,15 @@ abstract class REBuilder_Pattern_AbstractChar extends REBuilder_Pattern_Abstract
 	 */
 	public function render ()
 	{
-		if ($this->_char === null || $this->_char === "") {
+		if ($this->getChar() === null || $this->getChar() === "") {
 			throw new REBuilder_Exception_Generic(
 				"No character has been set"
 			);
 		}
 		if ($parentRegex = $this->getParentRegex()) {
-			return $parentRegex->quote($this->_char);
+			return $parentRegex->quote($this->getChar());
 		} else {
-			return preg_quote($this->_char);
+			return preg_quote($this->getChar());
 		}
 	}
 }

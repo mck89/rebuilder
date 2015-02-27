@@ -40,6 +40,13 @@ class REBuilder_Parser_Tokenizer
 	 * @var int
 	 */
 	protected $_index = 0;
+    
+	/**
+	 * Array of subpattern names
+	 * 
+	 * @var array
+	 */
+	protected $_matches = array();
 	
 	/**
 	 * Regex length
@@ -88,7 +95,7 @@ class REBuilder_Parser_Tokenizer
 		$this->_length = strlen($this->_regex);
 		
 		//Loop regex characters
-		while ($char = $this->_consume()) {
+		while (($char = $this->_consume()) !== null) {
 			//If character is backslash and it's not escaped
 			if ($char === "\\" && !$this->_escaped) {
 				//Set escaped flag to true
@@ -271,6 +278,77 @@ class REBuilder_Parser_Tokenizer
 				$this->_openSubpatterns--;
 				$this->_modifiersStack->pop();
 			}
+            //If escaped and it's g or k
+			elseif ($this->_escaped && ($char === "g" || $char === "k")) {
+				//It's a back reference. Check for the reference identifier
+				if ($char === "g") {
+                    $testPattern = "(?|(\d+)|\{(-?\d+|\w+)\})";
+                } else {
+                    $testPattern = "(<\w+>|'\w+'|\{\w+\})";
+                }
+                $nextChars = $this->_consumeRegex("/^$testPattern/", 1);
+                if ($nextChars === null) {
+                    throw new REBuilder_Exception_Generic(
+                        "Invalid backreference"
+                    );
+                }
+                if ($char === "k") {
+                    $nextChars = substr($nextChars, 1, -1);
+                }
+                //Check reference validity
+                if (!$this->_checkValidReference($nextChars)) {
+                    throw new REBuilder_Exception_Generic(
+                        "Reference to non-existent subpattern '$nextChars'"
+                    );
+                }
+                //Emit a backreference token
+                $this->_emitToken(
+                    REBuilder_Parser_Token::TYPE_BACK_REFERENCE,
+                    $char,
+                    $nextChars
+                );
+			}
+			//If escaped and it's a number
+            elseif ($this->_escaped && is_numeric($char)) {
+                //If the character is a 0 consume up to 2 octal digits,
+                //otherwise consume all the following digits
+                if ($char === "0") {
+                    $testPattern = "^[0-7]{1,2}";
+                } else {
+                    $testPattern = "^\d+";
+                }
+                //Consume following numbers
+                $nextChars = $this->_consumeRegex("/^$testPattern/");
+                if ($nextChars !== null) {
+                    $char .= $nextChars;
+                }
+                //If the first digit is 0 or its a valid octal number and there
+                //are not enough back references
+                $hasReference = $this->_checkValidReference($char);
+                if ($char[0] === "0" ||
+                    (preg_match("/^[0-7]{2,3}$/", $char) && !$hasReference)) {
+                    $this->_emitToken(
+                        REBuilder_Parser_Token::TYPE_OCTAL_CHAR,
+                        $char
+                    );
+                }
+                //If there number corresponds to a subpattern
+                elseif ($hasReference) {
+                    //Emit a backreference token
+                    $this->_emitToken(
+                        REBuilder_Parser_Token::TYPE_BACK_REFERENCE,
+                        "\\",
+                        $char
+                    );
+                }
+                //Otherwise the character does not match any subpattern so
+                //throw an exception
+                else {
+                    throw new REBuilder_Exception_Generic(
+                        "Reference to non-existent subpattern '$char'"
+                    );
+                }
+            }
 			//If it does not fall in any of the cases above
 			else {
 				//If the character is not escaped and the "x" modifier is active
@@ -392,6 +470,7 @@ class REBuilder_Parser_Tokenizer
 			elseif ($nextChars = $this->_consumeRegex(
 					"/^(?|P?<(\w+)>|'(\w+)')/", 1
 				)) {
+                $this->_matches[] = $nextChars;
 				//Store a subpattern name token
 				$tokens[] = array(
 					REBuilder_Parser_Token::TYPE_SUBPATTERN_NAME,
@@ -415,7 +494,7 @@ class REBuilder_Parser_Tokenizer
 					$nextChars
 				);
 			}
-			//Check if the following character represent a lookahead assertion
+            //Check if the following character represent a lookahead assertion
 			elseif ($nextChar = $this->_consumeIfEquals(array("=", "!"))) {
 				//Remove current tokens
 				$tokens = array();
@@ -423,6 +502,24 @@ class REBuilder_Parser_Tokenizer
 				$tokens[] = array(
 					REBuilder_Parser_Token::TYPE_LOOKAHEAD_ASSERTION,
 					"(?" . $nextChar
+				);
+			}
+			//Check if the following character represent a back reference
+			elseif ($nextChars = $this->_consumeRegex("/^P=(\w+)\)/", 1)) {
+                //Check reference validity
+                if (!$this->_checkValidReference($nextChars)) {
+                    throw new REBuilder_Exception_Generic(
+                        "Reference to non-existent subpattern '$nextChars'"
+                    );
+                }
+				//Remove current tokens, decrement open subpattern
+				//count and emit a back reference token
+				$tokens = array();
+				$this->_openSubpatterns--;
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_BACK_REFERENCE,
+					"(?P=",
+					$nextChars
 				);
 			}
 			//Check if the following character represent a lookbehind assertion
@@ -462,12 +559,26 @@ class REBuilder_Parser_Tokenizer
 				);
 			}
 		} else {
+            $this->_matches[] = "";
 			$this->_unconsume();
 		}
 		//Emit the tokens in order
 		foreach ($tokens as $token) {
 			call_user_func_array(array($this, "_emitToken"), $token);
 		}
+	}
+    
+	/**
+	 * Check if the given string is a valid reference in the regex
+	 * 
+	 * @return bool
+	 */
+	protected function _checkValidReference ($char)
+	{
+        if (is_numeric($char)) {
+            return count($this->_matches) >= abs($char);
+        }
+        return in_array($char, $this->_matches);
 	}
 	
 	/**

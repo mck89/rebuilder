@@ -170,6 +170,24 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
+			//Octal character identifier
+			case REBuilder_Parser_Token::TYPE_OCTAL_CHAR:
+				//Create a octal character identifier and add it to the
+				//current container
+				$this->_currentItem = new REBuilder_Pattern_OctalChar(
+					$token->getSubject()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
+			//Back reference identifier
+			case REBuilder_Parser_Token::TYPE_BACK_REFERENCE:
+				//Create a back reference identifier and add it to the
+				//current container
+				$this->_currentItem = new REBuilder_Pattern_BackReference(
+					$token->getSubject()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
 			//Alternation identifier
 			case REBuilder_Parser_Token::TYPE_ALTERNATION:
                 if ($this->_containersStack->top() instanceof REBuilder_Pattern_Alternation) {
@@ -330,6 +348,8 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_BYTE:
 			case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
 			case REBuilder_Parser_Token::TYPE_COMMENT:
+			case REBuilder_Parser_Token::TYPE_OCTAL_CHAR:
+			case REBuilder_Parser_Token::TYPE_BACK_REFERENCE:
 			break;
 			//When simple characters are grouped, repetition is valid only
 			//for the last one, so it needs to be splitted so that the last

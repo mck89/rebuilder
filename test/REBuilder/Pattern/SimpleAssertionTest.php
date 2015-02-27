@@ -23,7 +23,7 @@ class SimpleAssertionTest extends AbstractTest
 			array("A"),
 			array("Z"),
 			array("z"),
-			array("g"),
+			array("G"),
 			array("Q"),
 			array("E"),
 			array("K")

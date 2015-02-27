@@ -1,5 +1,5 @@
 <?php
-class BackReferenceTest extends AbstractTest
+class BackReferenceTest extends PHPUnit_Framework_TestCase
 {
 	public function validBackReferences () {
 		return array(

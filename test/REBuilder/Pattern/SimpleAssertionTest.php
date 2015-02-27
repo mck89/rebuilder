@@ -1,5 +1,5 @@
 <?php
-class SimpleAssertionTest extends AbstractTest
+class SimpleAssertionTest extends PHPUnit_Framework_TestCase
 {
 	public function testGeneratedStructure ()
 	{
@@ -35,61 +35,61 @@ class SimpleAssertionTest extends AbstractTest
      */
     public function testValidIdentifierException ($identifier)
     {
-		$assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
-		$this->assertSame($identifier, $assertion->getIdentifier());
+        $assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
+        $this->assertSame($identifier, $assertion->getIdentifier());
     }
-	
-	public function invalidIdentifiersProvider () {
-		return array(
-			array("a"),
-			array("2"),
-			array("."),
-			array("@")
-		);
-	}
-	
-	/**
-	 * @dataProvider invalidIdentifiersProvider
+
+    public function invalidIdentifiersProvider () {
+        return array(
+            array("a"),
+            array("2"),
+            array("."),
+            array("@")
+        );
+    }
+
+    /**
+     * @dataProvider invalidIdentifiersProvider
      * @expectedException REBuilder_Exception_Generic
      */
     public function testInvalidIdentifierException ($identifier)
     {
-		$assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
-		$assertion->render();
+        $assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
+        $assertion->render();
     }
-	
-	/**
+
+    /**
      * @expectedException REBuilder_Exception_InvalidRepetition
      */
-	public function testRepetitionNotAllowedOnParse ()
-	{
-		REBuilder::parse("/\b*/i");
-	}
-	
-	/**
+    public function testRepetitionNotAllowedOnParse ()
+    {
+        REBuilder::parse("/\b*/i");
+    }
+
+    /**
      * @expectedException REBuilder_Exception_InvalidRepetition
      */
-	public function testRepetitionNotAllowedOnGeneration ()
-	{
-		$assertion = new REBuilder_Pattern_SimpleAssertion("b");
-		$assertion->setRepetition("*");
-	}
-	
-	/**
+    public function testRepetitionNotAllowedOnGeneration ()
+    {
+        $assertion = new REBuilder_Pattern_SimpleAssertion("b");
+        $assertion->setRepetition("*");
+    }
+
+    /**
      * @expectedException REBuilder_Exception_Generic
      */
-	public function testExceptionMissingIdentifier ()
-	{
-		$assertion = new REBuilder_Pattern_SimpleAssertion();
-		$assertion->render();
-	}
-	
-	public function testObjectGeneration ()
-	{
-		$regex = REBuilder::create();
-		$regex
-				->addSimpleAssertionAndContinue("b")
-				->addChar("abc");
-		$this->assertSame("/\babc/", $regex->render());
-	}
+    public function testExceptionMissingIdentifier ()
+    {
+        $assertion = new REBuilder_Pattern_SimpleAssertion();
+        $assertion->render();
+    }
+
+    public function testObjectGeneration ()
+    {
+        $regex = REBuilder::create();
+        $regex
+                ->addSimpleAssertionAndContinue("b")
+                ->addChar("abc");
+        $this->assertSame("/\babc/", $regex->render());
+    }
 }

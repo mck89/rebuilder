@@ -1,5 +1,5 @@
 <?php
-class OctalCharTest extends AbstractTest
+class OctalCharTest extends PHPUnit_Framework_TestCase
 {
 	public function testGeneratedStructure ()
 	{

@@ -6,80 +6,80 @@
  */
 class REBuilder_Parser_Builder
 {
-	/**
-	 * Regex main container
-	 * 
-	 * @var REBuilder_Pattern_Regex 
-	 */
-	protected $_regexContainer;
-	
-	/**
-	 * Containers stack
-	 * 
-	 * @var SplStack 
-	 */
-	protected $_containersStack;
-	
-	/**
-	 * Tokens stack
-	 * 
-	 * @var SplStack 
-	 */
-	protected $_tokensStack;
-	
-	/**
-	 * Current item
-	 * 
-	 * @var REBuilder_Pattern_Abstract 
-	 */
-	protected $_currentItem;
-	
-	/**
-	 * Constructor
-	 */
-	public function __construct ()
-	{
-		$this->_containersStack = new SplStack();
-		$this->_tokensStack = new SplStack();
-	}
-	
-	/**
-	 * This functions receive a token and handles it to build the structure
-	 * 
-	 * @param REBuilder_Parser_Token $token Token
-	 */
-	public function receiveToken (REBuilder_Parser_Token $token)
-	{
-		switch ($token->getType()) {
-			//Regex start delimiter
-			case REBuilder_Parser_Token::TYPE_REGEX_START_DELIMITER:
-				//Create the regex container if it does not exists
-				if (!$this->_regexContainer) {
-					$this->_regexContainer = new REBuilder_Pattern_Regex;
-					$this->_containersStack->push($this->_regexContainer);
-				}
-				//Set the delimiter
-				$this->_regexContainer->setDelimiter(
-					$token->getIdentifier()
-				);
-				$this->_currentItem = null;
-			break;
-			//Regex end delimiter
-			case REBuilder_Parser_Token::TYPE_REGEX_END_DELIMITER:
-				//No need to handle this token
-			break;
-			//Regex modifiers
-			case REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS:
-				//Set the modifiers
-				$this->_regexContainer->setModifiers(
-					$token->getIdentifier()
-				);
-			break;
-			//Simple character
-			case REBuilder_Parser_Token::TYPE_CHAR:
-				//If the current item is already a char append data to it
-				if ($this->_currentItem &&
-					$this->_currentItem instanceof REBuilder_Pattern_Char &&
+    /**
+     * Regex main container
+     * 
+     * @var REBuilder_Pattern_Regex 
+     */
+    protected $_regexContainer;
+
+    /**
+     * Containers stack
+     * 
+     * @var SplStack 
+     */
+    protected $_containersStack;
+
+    /**
+     * Tokens stack
+     * 
+     * @var SplStack 
+     */
+    protected $_tokensStack;
+
+    /**
+     * Current item
+     * 
+     * @var REBuilder_Pattern_Abstract 
+     */
+    protected $_currentItem;
+
+    /**
+     * Constructor
+     */
+    public function __construct ()
+    {
+        $this->_containersStack = new SplStack();
+        $this->_tokensStack = new SplStack();
+    }
+
+    /**
+     * This functions receive a token and handles it to build the structure
+     * 
+     * @param REBuilder_Parser_Token $token Token
+     */
+    public function receiveToken (REBuilder_Parser_Token $token)
+    {
+        switch ($token->getType()) {
+            //Regex start delimiter
+            case REBuilder_Parser_Token::TYPE_REGEX_START_DELIMITER:
+                //Create the regex container if it does not exists
+                if (!$this->_regexContainer) {
+                    $this->_regexContainer = new REBuilder_Pattern_Regex;
+                    $this->_containersStack->push($this->_regexContainer);
+                }
+                //Set the delimiter
+                $this->_regexContainer->setDelimiter(
+                    $token->getIdentifier()
+                );
+                $this->_currentItem = null;
+            break;
+            //Regex end delimiter
+            case REBuilder_Parser_Token::TYPE_REGEX_END_DELIMITER:
+                //No need to handle this token
+            break;
+            //Regex modifiers
+            case REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS:
+                //Set the modifiers
+                $this->_regexContainer->setModifiers(
+                    $token->getIdentifier()
+                );
+            break;
+            //Simple character
+            case REBuilder_Parser_Token::TYPE_CHAR:
+                //If the current item is already a char append data to it
+                if ($this->_currentItem &&
+                    $this->_currentItem instanceof REBuilder_Pattern_Char &&
                     $this->_tokensStack->top()->getType() !== REBuilder_Parser_Token::TYPE_COMMENT) {
 					$this->_currentItem->setChar(
 						$this->_currentItem->getChar() . $token->getIdentifier()
@@ -210,18 +210,18 @@ class REBuilder_Parser_Builder
                     $alternationGroup->addChild($newAlternation);
                 }
                 $this->_containersStack->push($newAlternation);
-				$this->_currentItem = null;
-			break;
-			//Subpattern start character
-			case REBuilder_Parser_Token::TYPE_SUBPATTERN_START:
-				//Create a new subpattern and add it to the container stack
-				$subPattern = new REBuilder_Pattern_SubPattern;
-				$this->_containersStack->top()->addChild($subPattern);
-				$this->_containersStack->push($subPattern);
-				$this->_currentItem = null;
-			break;
-			//Subpattern end character
-			case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
+                $this->_currentItem = null;
+            break;
+            //Subpattern start character
+            case REBuilder_Parser_Token::TYPE_SUBPATTERN_START:
+                //Create a new subpattern and add it to the container stack
+                $subPattern = new REBuilder_Pattern_SubPattern;
+                $this->_containersStack->top()->addChild($subPattern);
+                $this->_containersStack->push($subPattern);
+                $this->_currentItem = null;
+            break;
+            //Subpattern end character
+            case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
                 //If the current container is an alternation remove it first
                 if ($this->_containersStack->top() instanceof REBuilder_Pattern_Alternation) {
                     $this->_containersStack->pop();
@@ -397,18 +397,18 @@ class REBuilder_Parser_Builder
 				}
 			break;
 		}
-
-		//Set the repetition on the current item
-		$this->_currentItem->setRepetition($repetition);
-	}
-	
-	/**
-	 * Returns the regex main container
-	 * 
-	 * @return REBuilder_Pattern_Regex
-	 */
-	public function getRegexContainer ()
-	{
-		return $this->_regexContainer;
-	}
+        
+        //Set the repetition on the current item
+        $this->_currentItem->setRepetition($repetition);
+    }
+    
+    /**
+     * Returns the regex main container
+     * 
+     * @return REBuilder_Pattern_Regex
+     */
+    public function getRegexContainer ()
+    {
+        return $this->_regexContainer;
+    }
 }

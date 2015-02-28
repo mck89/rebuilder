@@ -21,6 +21,31 @@ class RegexTest extends PHPUnit_Framework_TestCase
         $this->assertSame("i", $regex->getModifiers());
         $this->assertSame("(a)i", $regex->render());
     }
+    
+    public function anchoredRegex ()
+    {
+        return array(
+            array("^abc", true, false),
+            array("abc$", false, true),
+            array("^abc$", true, true),
+            array('$abc', false, false),
+            array('abc^', false, false),
+            array('ab$c', false, false)
+        );
+    }
+    
+    /**
+     * @dataProvider anchoredRegex
+     */
+    public function testRegexWithAnchors ($pattern, $start, $end)
+    {
+        $regex = REBuilder::parse("/$pattern/");
+        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $this->assertSame($start, $regex->getStartAnchored());
+        $this->assertSame($end, $regex->getEndAnchored());
+        $render = $start || $end ? $pattern : "abc";
+        $this->assertSame("/$render/", $regex->render());
+    }
 
     public function invalidDelimitersProvider () {
         return array(

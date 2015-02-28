@@ -154,6 +154,16 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
+			//If not escaped and it's an anchor
+			elseif (!$this->_escaped && ($char === "^" || $char === "$")) {
+				//Emit an anchor token
+				$this->_emitToken(
+					$char === "^" ? 
+                        REBuilder_Parser_Token::TYPE_START_ANCHOR :
+                        REBuilder_Parser_Token::TYPE_END_ANCHOR,
+					$char
+				);
+			}
 			//If not escaped and it's a pipe
 			elseif (!$this->_escaped && $char === "|") {
 				//Emit an alternation identifier token

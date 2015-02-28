@@ -9,30 +9,37 @@ class REBuilder_Parser_Builder
     /**
      * Regex main container
      * 
-     * @var REBuilder_Pattern_Regex 
+     * @var REBuilder_Pattern_Regex
      */
     protected $_regexContainer;
 
     /**
      * Containers stack
      * 
-     * @var SplStack 
+     * @var SplStack
      */
     protected $_containersStack;
 
     /**
      * Tokens stack
      * 
-     * @var SplStack 
+     * @var SplStack
      */
     protected $_tokensStack;
 
     /**
      * Current item
      * 
-     * @var REBuilder_Pattern_Abstract 
+     * @var REBuilder_Pattern_Abstract
      */
     protected $_currentItem;
+    
+    /**
+     * Flag that indicates if an end anchor must be added
+     * 
+     * @var bool
+     */
+    protected $_pendingEndAnchor = false;
 
     /**
      * Constructor
@@ -66,7 +73,10 @@ class REBuilder_Parser_Builder
             break;
             //Regex end delimiter
             case REBuilder_Parser_Token::TYPE_REGEX_END_DELIMITER:
-                //No need to handle this token
+                //Anchor the regex if required
+                if ($this->_pendingEndAnchor) {
+                    $this->_containersStack->top()->setEndAnchored(true);
+                }
             break;
             //Regex modifiers
             case REBuilder_Parser_Token::TYPE_REGEX_MODIFIERS:
@@ -196,11 +206,16 @@ class REBuilder_Parser_Builder
                     $currentAlternation = $this->_containersStack->pop();
                     $newAlternation = new REBuilder_Pattern_Alternation;
                     $currentAlternation->getParent()->addChild($newAlternation);
+                    //Anchor the current alternation if required
+                    if ($this->_pendingEndAnchor) {
+                        $currentAlternation->setEndAnchored(true);
+                    }
                 } else {
                     //Create a new alternation and move all the children from
                     //the current container to the new alternation
                     $currentContainer = $this->_containersStack->top();
                     $children = $currentContainer->getChildren();
+                    //Create the alternation group structure
                     $alternationGroup = new REBuilder_Pattern_AlternationGroup;
                     $alternation = new REBuilder_Pattern_Alternation;
                     $alternation->addChildren($children);
@@ -208,6 +223,12 @@ class REBuilder_Parser_Builder
                     $currentContainer->addChild($alternationGroup);
                     $newAlternation = new REBuilder_Pattern_Alternation;
                     $alternationGroup->addChild($newAlternation);
+                    //Move the start anchor from the container to the
+                    //alternation that contains its children
+                    if ($currentContainer->getStartAnchored()) {
+                        $currentContainer->setStartAnchored(false);
+                        $alternation->setStartAnchored(true);
+                    }
                 }
                 $this->_containersStack->push($newAlternation);
                 $this->_currentItem = null;
@@ -222,6 +243,10 @@ class REBuilder_Parser_Builder
             break;
             //Subpattern end character
             case REBuilder_Parser_Token::TYPE_SUBPATTERN_END:
+                //Anchor the container if required
+                if ($this->_pendingEndAnchor) {
+                    $this->_containersStack->top()->setEndAnchored(true);
+                }
                 //If the current container is an alternation remove it first
                 if ($this->_containersStack->top() instanceof REBuilder_Pattern_Alternation) {
                     $this->_containersStack->pop();
@@ -291,10 +316,30 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_REPETITION:
 				$this->_handleRepetition($token);
 			break;
+			//Start anchor identifier
+			case REBuilder_Parser_Token::TYPE_START_ANCHOR:
+                //Ignore if the container already contains children
+                if (!$this->_containersStack->top()->hasChildren()) {
+                    $this->_containersStack->top()->setStartAnchored(true);
+                }
+				$this->_currentItem = null;
+			break;
+			//End anchor identifier
+			case REBuilder_Parser_Token::TYPE_END_ANCHOR:
+                //Set only the pending end anchor flag. It will be unset when
+                //another token is emitted and it will be evaluated only when
+                //a container is closed
+                $this->_pendingEndAnchor = true;
+            break;
 		}
 		
 		//Push the token in the tokens stack
 		$this->_tokensStack->push($token);
+        
+        //Unset the pending end anchor flag if the token is not an end anchor
+        if ($token->getType() !== REBuilder_Parser_Token::TYPE_END_ANCHOR) {
+            $this->_pendingEndAnchor = false;
+        }
 	}
 	
 	/**

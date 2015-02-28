@@ -37,6 +37,41 @@ class AlternationTest extends PHPUnit_Framework_TestCase
         $this->assertSame(1, count($children[1]->getChildren()));
         $this->assertSame("/((?:a|b))/", $regex->render());
     }
+    
+    public function testAlternationWithAnchors ()
+    {
+        $regex = REBuilder::parse("/^a|b$|^c$/");
+        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $children = $regex->getChildren();
+        $this->assertSame(1, count($children));
+        $children = $children[0]->getChildren();
+        $this->assertSame(3, count($children));
+        $this->assertSame(true, $children[0]->getStartAnchored());
+        $this->assertSame(false, $children[0]->getEndAnchored());
+        $this->assertSame(false, $children[1]->getStartAnchored());
+        $this->assertSame(true, $children[1]->getEndAnchored());
+        $this->assertSame(true, $children[2]->getStartAnchored());
+        $this->assertSame(true, $children[2]->getEndAnchored());
+        $this->assertSame("/(?:^a|b$|^c$)/", $regex->render());
+    }
+    
+    public function invalidAnchorMethods ()
+    {
+        return array(
+            array("setStartAnchored"),
+            array("setEndAnchored"),
+        );
+    }
+    
+    /**
+     * @dataProvider invalidAnchorMethods
+     * @expectedException REBuilder_Exception_Generic
+     */
+    public function testAlternationGroupNotSupportsAnchors ($fn)
+    {
+        $group = new REBuilder_Pattern_AlternationGroup();
+        $group->$fn(true);
+    }
 
     /**
      * @expectedException REBuilder_Exception_InvalidRepetition

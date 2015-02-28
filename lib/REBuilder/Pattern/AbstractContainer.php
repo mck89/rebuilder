@@ -174,6 +174,27 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
      * @var array
      */
     protected $_children = array();
+    
+    /**
+     * Flag that indicates if the container is anchored to the start
+     *
+     * @var bool
+     */
+    protected $_startAnchored = false;
+    
+    /**
+     * Flag that indicates if the container is anchored to the end
+     *
+     * @var bool
+     */
+    protected $_endAnchored = false;
+    
+    /**
+     * Flag that indicates if the container supports anchors
+     *
+     * @var bool
+     */
+    protected $_supportsAnchors = true;
 
     /**
      * Adds a child to the class
@@ -252,13 +273,86 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
      */
     public function renderChildren ()
     {
-        $ret = "";
+        $ret = $this->getStartAnchored() ? "^" : "";
         if ($this->hasChildren()) {
             foreach ($this->getChildren() as $child) {
                 $ret .= $child->render();
             }
         }
+        if ($this->getEndAnchored()) {
+            $ret .= "$";
+        }
         return $ret;
+    }
+    
+    /**
+     * Returns true if the pattern supports anchors, otherwise false
+     * 
+     * @return bool
+     */
+    public function supportsAnchors ()
+    {
+        return $this->_supportsAnchors;
+    }
+    
+    /**
+     * Sets or unsets the start anchor
+     * 
+     * @param bool $startAnchored Boolean that indicates if the container is
+     *                            start anchored
+     * @return REBuilder_Pattern_AbstractContainer
+     * @throws REBuilder_Exception_Generic
+     */
+    public function setStartAnchored ($startAnchored)
+    {
+        if (!$this->supportsAnchors()) {
+            $classParts = explode("_", get_class($this));
+            throw new REBuilder_Exception_Generic(
+                $classParts[count($classParts) - 1] . " cannot handle anchors"
+            );
+        }
+        $this->_startAnchored = (bool) $startAnchored;
+        return $this;
+    }
+    
+    /**
+     * Returns true if the container is anchored to the start, otherwise false
+     * 
+     * @return bool
+     */
+    public function getStartAnchored ()
+    {
+        return $this->_startAnchored;
+    }
+    
+    /**
+     * Sets or unsets the end anchor
+     * 
+     * @param bool $endAnchored Boolean that indicates if the container is
+     *                          end anchored
+     * @return REBuilder_Pattern_AbstractContainer
+     * @throws REBuilder_Exception_Generic
+     */
+    public function setEndAnchored ($endAnchored)
+    {
+        if (!$this->supportsAnchors()) {
+            $classParts = explode("_", get_class($this));
+            throw new REBuilder_Exception_Generic(
+                $classParts[count($classParts) - 1] . " cannot handle anchors"
+            );
+        }
+        $this->_endAnchored = (bool) $endAnchored;
+        return $this;
+    }
+    
+    /**
+     * Returns true if the container is anchored to the end, otherwise false
+     * 
+     * @return bool
+     */
+    public function getEndAnchored ()
+    {
+        return $this->_endAnchored;
     }
 
     /**

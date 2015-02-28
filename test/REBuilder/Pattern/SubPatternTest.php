@@ -39,6 +39,33 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
         $this->assertSame("i", $children[0]->getModifiers());
         $this->assertSame("/(?i:a)*/", $regex->render());
     }
+    
+    public function anchoredSubpatterns ()
+    {
+        return array(
+            array("(^a)", true, false),
+            array("(a$)", false, true),
+            array("(^a$)", true, true),
+            array('($a)', false, false),
+            array('(a^)', false, false)
+        );
+    }
+    
+    /**
+     * @dataProvider anchoredSubpatterns
+     */
+    public function testSubpatternWithAnchors ($pattern, $start, $end)
+    {
+        $regex = REBuilder::parse("/$pattern/");
+        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $children = $regex->getChildren();
+        $this->assertSame(1, count($children));
+        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertSame($start, $children[0]->getStartAnchored());
+        $this->assertSame($end, $children[0]->getEndAnchored());
+        $render = $start || $end ? $pattern : "(a)";
+        $this->assertSame("/$render/", $regex->render());
+    }
 
     public function validNamedSubpatterns () {
         return array(

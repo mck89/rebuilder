@@ -19,6 +19,13 @@
 class REBuilder_Pattern_AlternationGroup extends REBuilder_Pattern_AbstractContainer
 {
     /**
+     * Flag that indicates if the container supports anchors
+     *
+     * @var bool
+     */
+    protected $_supportsAnchors = false;
+    
+    /**
      * Adds a child to the class
      * 
      * @param REBuilder_Pattern_Abstract $child Child to add

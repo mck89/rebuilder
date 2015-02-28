@@ -141,6 +141,16 @@ class REBuilder_Parser_Token
 	 * Octal code character
 	 */
 	Const TYPE_OCTAL_CHAR = 27;
+    
+	/**
+	 * Start anchor identifier
+	 */
+	Const TYPE_START_ANCHOR = 28;
+    
+	/**
+	 * End anchor identifier
+	 */
+	Const TYPE_END_ANCHOR = 29;
 	
 	/**
 	 * Token's type

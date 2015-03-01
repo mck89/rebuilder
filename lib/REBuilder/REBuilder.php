@@ -36,6 +36,7 @@ class REBuilder
      * Registers the class autoloader
      * 
      * @static
+     * @codeCoverageIgnore
      */
     public static function registerAutoloader ()
     {

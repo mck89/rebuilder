@@ -31,4 +31,34 @@ class REBuilder
     {
         return new REBuilder_Pattern_Regex($modifiers, $delimiter);
     }
+    
+    /**
+     * Registers the class autoloader
+     * 
+     * @static
+     */
+    public static function registerAutoloader ()
+    {
+        spl_autoload_register(array(__CLASS__, "loadClass"));
+    }
+    
+    /**
+     * This method is used by autoloader to include class files according
+     * to the given class name
+     * 
+     * @param string $className Class name to load
+     * @static
+     */
+    public static function loadClass ($className)
+    {
+        $parts = explode("_", $className);
+        $base = array_shift($parts);
+        if ($base === __CLASS__) {
+            $file = __DIR__ . DIRECTORY_SEPARATOR .
+                    implode(DIRECTORY_SEPARATOR, $parts) . ".php";
+            if (file_exists($file)) {
+                require_once $file;
+            }
+        }
+    }
 }

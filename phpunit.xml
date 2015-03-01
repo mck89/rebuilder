@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="test/bootstrap.php">
+<phpunit
+	bootstrap="test/bootstrap.php"
+	backupGlobals="false"
+	backupStaticAttributes="false">
     <testsuites>
-        <testsuite name="REBuilder">
+        <testsuite name="REBuilderTestSuite">
             <directory>test</directory>
         </testsuite>
     </testsuites>

@@ -151,6 +151,21 @@ class REBuilder_Parser_Token
 	 * End anchor identifier
 	 */
 	Const TYPE_END_ANCHOR = 29;
+    
+	/**
+	 * Character class start identifier
+	 */
+	Const TYPE_CHAR_CLASS_START = 30;
+    
+	/**
+	 * Character class end identifier
+	 */
+	Const TYPE_CHAR_CLASS_END = 31;
+    
+	/**
+	 * Character class negation identifier
+	 */
+	Const TYPE_CHAR_CLASS_NEGATE = 32;
 	
 	/**
 	 * Token's type

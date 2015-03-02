@@ -63,7 +63,8 @@ class UnicodeCharClassTest extends PHPUnit_Framework_TestCase
         $char->render();
     }
 
-    public function invalidRegexProvider () {
+    public function invalidRegexProvider ()
+    {
         return array(
             array("\p"),
             array("\p{C"),

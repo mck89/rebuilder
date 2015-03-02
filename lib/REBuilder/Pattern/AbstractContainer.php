@@ -165,6 +165,16 @@
  *         addAssertion(bool $lookahead, bool $negate)
  *         Same as addAssertion but it returns the current container
  *         @see REBuilder_Pattern_Assertion::__construct
+ * 
+ * @method REBuilder_Pattern_Assertion addCharClass()
+ *         addCharClass(bool $negate)
+ *         Adds a new REBuilder_Pattern_CharClass class instance to this container
+ *         @see REBuilder_Pattern_CharClass::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addCharClassAndContinue()
+ *         addCharClassAndContinue(bool $negate)
+ *         Same as addCharClass but it returns the current container
+ *         @see REBuilder_Pattern_CharClass::__construct
  */
 abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abstract
 {

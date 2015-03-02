@@ -67,7 +67,8 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
         $this->assertSame("/$render/", $regex->render());
     }
 
-    public function validNamedSubpatterns () {
+    public function validNamedSubpatterns ()
+    {
         return array(
             array("P<name>"),
             array("<name>"),
@@ -142,7 +143,8 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
         $this->assertSame("/(?:a(b))*/", $regex->render());
     }
 
-    public function invalidSubpatterns () {
+    public function invalidSubpatterns ()
+    {
         return array(
             array("(a"),
             array("a)"),
@@ -199,7 +201,8 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
         $subpattern->addUndefinedMethod();
     }
 
-    public function combinedOptions () {
+    public function combinedOptions ()
+    {
         return array(
             array(true, "name", "", false, false, "(?<name>a)"),
             array(false, "name", "", false, false, "(?:a)"),

@@ -20,6 +20,13 @@ abstract class REBuilder_Pattern_Abstract
      * @var bool
      */
     protected $_supportsRepetition = true;
+    
+    /**
+     * Flag that identifies if the pattern can be added to character classes
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClass = false;
 
     /**
      * Repetition
@@ -75,6 +82,16 @@ abstract class REBuilder_Pattern_Abstract
     public function supportsRepetition ()
     {
         return $this->_supportsRepetition;
+    }
+    
+    /**
+     * Returns true if the pattern can be added to character classes
+     * 
+     * @return bool
+     */
+    public function canBeAddedToCharClass ()
+    {
+        return $this->_canBeAddedToCharClass;
     }
 
     /**

@@ -1,7 +1,8 @@
 <?php
 class BackReferenceTest extends PHPUnit_Framework_TestCase
 {
-	public function validBackReferences () {
+	public function validBackReferences ()
+    {
 		return array(
 			array('\1', '1'),
 			array('\g1', '1'),
@@ -29,7 +30,8 @@ class BackReferenceTest extends PHPUnit_Framework_TestCase
 		$this->assertSame("/(?<ref>a)\g{" . $reference . "}/", $regex->render());
 	}
     
-	public function invalidBackReferences () {
+	public function invalidBackReferences ()
+    {
 		return array(
 			array('\2'),
 			array('\g'),

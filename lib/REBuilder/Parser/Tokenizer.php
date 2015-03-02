@@ -33,6 +33,13 @@ class REBuilder_Parser_Tokenizer
 	 * @var bool
 	 */
 	protected $_escaped = false;
+    
+	/**
+	 * Flag that identifies if the tokenizer is inside a character class
+	 * 
+	 * @var bool
+	 */
+	protected $_inCharClass = false;
 	
 	/**
 	 * Current index in the regexp
@@ -103,8 +110,8 @@ class REBuilder_Parser_Tokenizer
 				$this->_escaped  = true;
 				continue;
 			}
-			//If not escaped and it's a dot
-			elseif (!$this->_escaped && $char === ".") {
+			//If not in char class and not escaped and it's a dot
+			elseif (!$this->_inCharClass && !$this->_escaped && $char === ".") {
 				//Emit a dot token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_DOT,
@@ -120,8 +127,8 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
-			//If escaped and it's a simple assertion identifier
-			elseif ($this->_escaped &&
+			//If not in char class and escaped and it's a simple assertion identifier
+			elseif (!$this->_inCharClass && $this->_escaped &&
 					REBuilder_Parser_Rules::validateSimpleAssertion($char)) {
 				//Emit a simple assertion token
 				$this->_emitToken(
@@ -138,24 +145,26 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
-			//If escaped and it's the extended unicode sequence identifier
-			elseif ($this->_escaped && $char === "X") {
+			//If not in char class and escaped and it's the extended unicode
+            //sequence identifier
+			elseif (!$this->_inCharClass && $this->_escaped && $char === "X") {
 				//Emit a extended unicode sequence token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_EXT_UNICODE_SEQUENCE,
 					$char
 				);
 			}
-			//If escaped and it's a single byte identifier
-			elseif ($this->_escaped && $char === "C") {
+			//If not in char class and escaped and it's a single byte identifier
+			elseif (!$this->_inCharClass && $this->_escaped && $char === "C") {
 				//Emit a single byte identifier token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_BYTE,
 					$char
 				);
 			}
-			//If not escaped and it's an anchor
-			elseif (!$this->_escaped && ($char === "^" || $char === "$")) {
+			//If not in char class and not escaped and it's an anchor
+			elseif (!$this->_inCharClass && !$this->_escaped &&
+                    ($char === "^" || $char === "$")) {
 				//Emit an anchor token
 				$this->_emitToken(
 					$char === "^" ? 
@@ -164,16 +173,18 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
 			}
-			//If not escaped and it's a pipe
-			elseif (!$this->_escaped && $char === "|") {
+			//If not in char class and not escaped and it's a pipe
+			elseif (!$this->_inCharClass && !$this->_escaped && $char === "|") {
 				//Emit an alternation identifier token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_ALTERNATION,
 					$char
 				);
 			}
-			//If escaped and it's the unicode character class identifier
-			elseif ($this->_escaped && ($char === "p" || $char === "P")) {
+			//If not in char class and escaped and it's the unicode character
+            //class identifier
+			elseif (!$this->_inCharClass && $this->_escaped &&
+                    ($char === "p" || $char === "P")) {
 				//Take the next character
 				$nextChar = $this->_consume();
 				//If there are no characters left throw an exception
@@ -211,7 +222,7 @@ class REBuilder_Parser_Tokenizer
 					}
 				}
 			}
-			//If escaped and it's the hexadecimal  character identifier "x"
+			//If escaped and it's the hexadecimal character identifier "x"
 			elseif ($this->_escaped && $char === "x") {
 				//Find following hexadecimal digits
 				$tokenSubject = "";
@@ -249,18 +260,18 @@ class REBuilder_Parser_Tokenizer
 					$nextChar
 				);
 			}
-			//If not escaped and it's a valid repetition identifier
-			elseif (!$this->_escaped && ($char === "*" || $char === "+" ||
-					$char === "?")) {
+			//If not in char class and not escaped and it's a valid repetition identifier
+			elseif (!$this->_inCharClass && !$this->_escaped &&
+                    ($char === "*" || $char === "+" || $char === "?")) {
 				//Emit a repetition token
 				$this->_emitToken(
 					REBuilder_Parser_Token::TYPE_REPETITION,
 					$char
 				);
 			}
-			//If not escaped and it's an open curly brace and the following
-			//text identifies a repetition
-			elseif (!$this->_escaped && $char === "{" &&
+			//If not in char class and not escaped and it's an open curly brace
+            //and the following text identifies a repetition
+			elseif (!$this->_inCharClass && !$this->_escaped && $char === "{" &&
 					$nextChars = $this->_consumeRegex("/^\d+(?:,\d*)?\}/")) {
 				//Emit a repetition token
 				$this->_emitToken(
@@ -269,12 +280,12 @@ class REBuilder_Parser_Tokenizer
 					rtrim($nextChars, "}")
 				);
 			}
-			//If not escaped and it's an open round bracket
-			elseif (!$this->_escaped && $char === "(") {
+			//If not in char class and not escaped and it's an open round bracket
+			elseif (!$this->_inCharClass && !$this->_escaped && $char === "(") {
 				$this->_handleSubpattern();
 			}
-			//If not escaped and it's a closed round bracket
-			elseif (!$this->_escaped && $char === ")") {
+			//If not in char class and not escaped and it's a closed round bracket
+			elseif (!$this->_inCharClass && !$this->_escaped && $char === ")") {
 				//Throw exception if there are no open subpatterns
 				if (!$this->_openSubpatterns) {
 					throw new REBuilder_Exception_Generic(
@@ -289,8 +300,48 @@ class REBuilder_Parser_Tokenizer
 				$this->_openSubpatterns--;
 				$this->_modifiersStack->pop();
 			}
-            //If escaped and it's g or k
-			elseif ($this->_escaped && ($char === "g" || $char === "k")) {
+            //If not in char class and not escaped and it's an open square bracket
+			elseif (!$this->_inCharClass && !$this->_escaped && $char === "[") {
+				//Emit a char class start token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_CHAR_CLASS_START,
+					$char
+				);
+                $this->_inCharClass = true;
+                //Consume next char
+                $char = $this->_consume();
+                //If the character is a char class negation
+                if ($char === "^") {
+                    //Emit the char class negate token
+                    $this->_emitToken(
+                        REBuilder_Parser_Token::TYPE_CHAR_CLASS_NEGATE,
+                        $char
+                    );
+                    $char = $this->_consume();
+                }
+                //If the first char in a char class is a closed square bracket
+                if ($char === "]") {
+                    //Emit the bracket as char token
+                    $this->_emitToken(
+                        REBuilder_Parser_Token::TYPE_CHAR,
+                        $char
+                    );
+                } else {
+                    $this->_unconsume();
+                }
+			}
+            //If in char class and not escaped and it's a closed square bracket
+			elseif ($this->_inCharClass && !$this->_escaped && $char === "]") {
+				//Emit a char class end token
+				$this->_emitToken(
+					REBuilder_Parser_Token::TYPE_CHAR_CLASS_END,
+					$char
+				);
+                $this->_inCharClass = false;
+			}
+            //If not in char class and escaped and it's g or k
+			elseif (!$this->_inCharClass && $this->_escaped &&
+                    ($char === "g" || $char === "k")) {
 				//It's a back reference. Check for the reference identifier
 				if ($char === "g") {
                     $testPattern = "(?|(\d+)|\{(-?\d+|\w+)\})";
@@ -321,9 +372,16 @@ class REBuilder_Parser_Tokenizer
 			}
 			//If escaped and it's a number
             elseif ($this->_escaped && is_numeric($char)) {
+                //Char class does not handle back references so if the character
+                //is not octal process the character again without the escape
+                if ($this->_inCharClass && $char > 7) {
+                    $this->_unconsume();
+                    $this->_escaped = false;
+                    continue;
+                }
                 //If the character is a 0 consume up to 2 octal digits,
                 //otherwise consume all the following digits
-                if ($char === "0") {
+                if ($char === "0" || $this->_inCharClass) {
                     $testPattern = "^[0-7]{1,2}";
                 } else {
                     $testPattern = "^\d+";
@@ -336,7 +394,7 @@ class REBuilder_Parser_Tokenizer
                 //If the first digit is 0 or its a valid octal number and there
                 //are not enough back references
                 $hasReference = $this->_checkValidReference($char);
-                if ($char[0] === "0" ||
+                if ($char[0] === "0" || $this->_inCharClass ||
                     (preg_match("/^[0-7]{2,3}$/", $char) && !$hasReference)) {
                     $this->_emitToken(
                         REBuilder_Parser_Token::TYPE_OCTAL_CHAR,
@@ -417,6 +475,13 @@ class REBuilder_Parser_Tokenizer
 				"The regex contains unclosed subpatterns"
 			);
 		}
+        
+		//Throw exception if there are unclosed char classes
+        if ($this->_inCharClass) {
+            throw new REBuilder_Exception_Generic(
+				"The regex contains unclosed character classes"
+			);
+        }
 		
 		//Emit the end delimiter token
 		$this->_emitToken(

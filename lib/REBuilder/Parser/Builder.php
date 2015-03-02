@@ -90,9 +90,9 @@ class REBuilder_Parser_Builder
                 //If the current item is already a char append data to it
                 if ($this->_currentItem &&
                     $this->_currentItem instanceof REBuilder_Pattern_Char &&
-                    $this->_tokensStack->top()->getType() !== REBuilder_Parser_Token::TYPE_COMMENT) {
+                    $this->_tokensStack->top()->getType() === REBuilder_Parser_Token::TYPE_CHAR) {
 					$this->_currentItem->setChar(
-						$this->_currentItem->getChar() . $token->getIdentifier()
+						$this->_currentItem->getChar() . $token->getSubject()
 					);
 				} else {
 					//Otherwise create a simple character and add it to the
@@ -331,6 +331,25 @@ class REBuilder_Parser_Builder
                 //a container is closed
                 $this->_pendingEndAnchor = true;
             break;
+			//Start char class identifier
+			case REBuilder_Parser_Token::TYPE_CHAR_CLASS_START:
+                //Create a new character class and add it to the container stack
+                $charClass = new REBuilder_Pattern_CharClass;
+                $this->_containersStack->top()->addChild($charClass);
+                $this->_containersStack->push($charClass);
+                $this->_currentItem = null;
+            break;
+			//Char class negation identifier
+            case REBuilder_Parser_Token::TYPE_CHAR_CLASS_NEGATE:
+				//Negate the current char class
+				$this->_containersStack->top()->setNegate(true);
+			break;
+			//End char class identifier
+            case REBuilder_Parser_Token::TYPE_CHAR_CLASS_END:
+				//Remove the char class from the container stack and make it
+				//the current item
+				$this->_currentItem = $this->_containersStack->pop();
+			break;
 		}
 		
 		//Push the token in the tokens stack
@@ -395,6 +414,7 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_COMMENT:
 			case REBuilder_Parser_Token::TYPE_OCTAL_CHAR:
 			case REBuilder_Parser_Token::TYPE_BACK_REFERENCE:
+			case REBuilder_Parser_Token::TYPE_CHAR_CLASS_END:
 			break;
 			//When simple characters are grouped, repetition is valid only
 			//for the last one, so it needs to be splitted so that the last

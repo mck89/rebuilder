@@ -36,7 +36,8 @@ class OctalCharTest extends PHPUnit_Framework_TestCase
 		$this->assertSame('/\0111/', $regex->render());
 	}
 	
-	public function invalidCharsProvider () {
+	public function invalidCharsProvider ()
+    {
 		return array(
 			array("2"),
 			array("789"),

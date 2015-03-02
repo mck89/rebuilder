@@ -47,7 +47,8 @@ class RegexTest extends PHPUnit_Framework_TestCase
         $this->assertSame("/$render/", $regex->render());
     }
 
-    public function invalidDelimitersProvider () {
+    public function invalidDelimitersProvider ()
+    {
         return array(
             array("\\"),
             array("1"),

@@ -11,7 +11,8 @@ class NonPrintingCharTest extends PHPUnit_Framework_TestCase
         $this->assertSame("a", $children[0]->getIdentifier());
     }
 
-    public function validIdentifiersProvider () {
+    public function validIdentifiersProvider ()
+    {
         return array(
             array("a"),
             array("e"),
@@ -32,7 +33,8 @@ class NonPrintingCharTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function invalidIdentifiersProvider () {
+    public function invalidIdentifiersProvider ()
+    {
         return array(
             array("A"),
             array("2"),

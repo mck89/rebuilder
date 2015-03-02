@@ -9,6 +9,13 @@
 class REBuilder_Pattern_ControlChar extends REBuilder_Pattern_AbstractChar
 {
     /**
+     * Flag that identifies if the pattern can be added to character classes
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClass = true;
+    
+    /**
      * Sets the character to match. It can be any character
      * 
      * @param string $char Character to match

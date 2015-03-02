@@ -16,7 +16,8 @@ class SimpleAssertionTest extends PHPUnit_Framework_TestCase
 		$this->assertSame("/\bword\b/i", $regex->render());
 	}
 	
-	public function validIdentifiersProvider () {
+	public function validIdentifiersProvider ()
+    {
 		return array(
 			array("b"),
 			array("B"),
@@ -39,7 +40,8 @@ class SimpleAssertionTest extends PHPUnit_Framework_TestCase
         $this->assertSame($identifier, $assertion->getIdentifier());
     }
 
-    public function invalidIdentifiersProvider () {
+    public function invalidIdentifiersProvider ()
+    {
         return array(
             array("a"),
             array("2"),

@@ -43,7 +43,6 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
      * supported for extended unicode sequence (\X)
      * 
      * @param bool $negate True to negate the match
-     * @throws REBuilder_Exception_Generic
      */
     public function setNegate ($negate)
     {

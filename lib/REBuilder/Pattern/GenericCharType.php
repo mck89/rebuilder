@@ -9,6 +9,13 @@
 class REBuilder_Pattern_GenericCharType extends REBuilder_Pattern_AbstractIdentifier
 {
     /**
+     * Flag that identifies if the pattern can be added to character classes
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClass = true;
+    
+    /**
      * Sets the identifier. It can be one of the following:
      * "d", "D", "h", "H", "s", "S", "v", "V", "w", "W"
      * 

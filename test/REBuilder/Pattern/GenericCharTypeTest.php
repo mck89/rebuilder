@@ -16,7 +16,8 @@ class GenericCharTypeTest extends PHPUnit_Framework_TestCase
         $this->assertSame("/\d\w\s/i", $regex->render());
     }
 
-    public function validIdentifiersProvider () {
+    public function validIdentifiersProvider ()
+    {
         return array(
             array("d"),
             array("D"),
@@ -40,7 +41,8 @@ class GenericCharTypeTest extends PHPUnit_Framework_TestCase
         $this->assertSame($identifier, $char->getIdentifier());
     }
 
-    public function invalidIdentifiersProvider () {
+    public function invalidIdentifiersProvider ()
+    {
         return array(
             array("a"),
             array("2"),

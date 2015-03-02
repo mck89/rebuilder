@@ -8,6 +8,13 @@
  */
 class REBuilder_Pattern_HexChar extends REBuilder_Pattern_AbstractChar
 {
+    /**
+     * Flag that identifies if the pattern can be added to character classes
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClass = true;
+    
 	/**
 	 * Sets the character code . It can be 0, 1 or 2 hexadecimal digits
 	 * that represent a character code

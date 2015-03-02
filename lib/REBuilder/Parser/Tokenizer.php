@@ -339,6 +339,18 @@ class REBuilder_Parser_Tokenizer
 				);
                 $this->_inCharClass = false;
 			}
+            //If in char class and it's a open square bracket and it's followed
+            //by the posix char class definition
+            elseif ($this->_inCharClass && !$this->_escaped && $char === "[" &&
+                    ($nextChars = $this->_consumeRegex("/^:\^?[a-z]+:\]/"))) {
+                //Emit a posix char class token
+                $subject = str_replace(array(":", "]"), "", $nextChars);
+                $this->_emitToken(
+					REBuilder_Parser_Token::TYPE_POSIX_CHAR_CLASS,
+					$char . $nextChars,
+                    $subject
+				);
+            }
             //If not in char class and escaped and it's g or k
 			elseif (!$this->_inCharClass && $this->_escaped &&
                     ($char === "g" || $char === "k")) {

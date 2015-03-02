@@ -166,6 +166,11 @@ class REBuilder_Parser_Token
 	 * Character class negation identifier
 	 */
 	Const TYPE_CHAR_CLASS_NEGATE = 32;
+    
+	/**
+	 * Posix char class
+	 */
+	Const TYPE_POSIX_CHAR_CLASS = 33;
 	
 	/**
 	 * Token's type

@@ -3,7 +3,6 @@
  * Represents unicode character classes: \p, \P, \X
  * 
  * @author Marco Marchiò
- * @abstract
  * @link http://php.net/manual/en/regexp.reference.unicode.php
  */
 class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract

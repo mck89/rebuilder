@@ -96,6 +96,17 @@ class REBuilder_Parser_Rules
 	);
 	
 	/**
+	 * Array of supported POSIX character classes
+	 * 
+	 * @var array
+	 * @static
+	 */
+	protected static $_posixCharClasses = array(
+		"alnum", "alpha", "ascii", "blank", "cntrl", "digit", "graph", "lower",
+        "print", "punct", "space", "upper", "word", "xdigit"
+	);
+	
+	/**
 	 * Return true if the given string is a valid delimiter, otherwise false
 	 * 
 	 * @param string $delimiter Delimiter to check
@@ -224,5 +235,18 @@ class REBuilder_Parser_Rules
 	public static function validateHexString ($str)
 	{
 		return preg_match("#^[0-9a-f]+$#i", $str) === 1;
+	}
+    
+    /**
+	 * Return true if the given string is a valid POSIX character class,
+     * otherwise false
+	 * 
+	 * @param string $str String to check
+	 * @return string
+	 * @static
+	 */
+	public static function validatePosixCharClass ($str)
+	{
+		return in_array($str, self::$_posixCharClasses);
 	}
 }

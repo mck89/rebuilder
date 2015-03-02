@@ -4,6 +4,16 @@
  * 
  * @author Marco Marchiò
  * @link http://php.net/manual/en/regexp.reference.character-classes.php
+ * 
+ * @method REBuilder_Pattern_PosixCharClass addPosixCharClass()
+ *         addPosixCharClass(string $class, bool $negate)
+ *         Adds a new REBuilder_Pattern_PosixCharClass class instance to this container
+ *         @see REBuilder_Pattern_PosixCharClass::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addPosixCharClassAndContinue()
+ *         addPosixCharClassAndContinue(string $class, bool $negate)
+ *         Same as addPosixCharClass but it returns the current container
+ *         @see REBuilder_Pattern_PosixCharClass::__construct
  */
 class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
 {

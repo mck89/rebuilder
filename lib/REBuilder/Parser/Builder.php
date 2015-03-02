@@ -350,6 +350,21 @@ class REBuilder_Parser_Builder
 				//the current item
 				$this->_currentItem = $this->_containersStack->pop();
 			break;
+			//Posix char class identifier
+            case REBuilder_Parser_Token::TYPE_POSIX_CHAR_CLASS:
+				//Remove the char class from the container stack and make it
+				//the current item
+                $negate = false;
+                $class = $token->getSubject();
+                if (strpos($class, "^") === 0) {
+                    $negate = true;
+                    $class = ltrim($class, "^");
+                }
+				//Create a posix char class and add it to the current container
+				$this->_containersStack->top()->addChild(
+					new REBuilder_Pattern_PosixCharClass($class, $negate)
+				);
+			break;
 		}
 		
 		//Push the token in the tokens stack

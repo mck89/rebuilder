@@ -14,22 +14,14 @@ class REBuilder_Pattern_Alternation extends REBuilder_Pattern_AbstractContainer
      * @var bool
      */
     protected $_supportsRepetition = false;
-
+    
     /**
-     * Sets the parent
+     * If this property is not empty the current class can be added only
+     * to containers of the given instance
      * 
-     * @param REBuilder_Pattern_AbstractContainer $parent Parent container
-     * @return REBuilder_Pattern_Abstract
+     * @var string
      */
-    public function setParent (REBuilder_Pattern_AbstractContainer $parent)
-    {
-        if (!$parent instanceof REBuilder_Pattern_AlternationGroup) {
-            throw new REBuilder_Exception_Generic(
-                "Alternations can be added only to alternation groups"
-            );
-        }
-        return parent::setParent($parent);
-    }
+    protected $_limitParent = "REBuilder_Pattern_AlternationGroup";
 
     /**
      * Returns the string representation of the class

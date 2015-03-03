@@ -35,22 +35,14 @@ class REBuilder_Pattern_PosixCharClass extends REBuilder_Pattern_Abstract
      * @var bool
      */
     protected $_negate = false;
-
+    
     /**
-     * Sets the parent
+     * If this property is not empty the current class can be added only
+     * to containers of the given instance
      * 
-     * @param REBuilder_Pattern_AbstractContainer $parent Parent container
-     * @return REBuilder_Pattern_Abstract
+     * @var string
      */
-    public function setParent (REBuilder_Pattern_AbstractContainer $parent)
-    {
-        if (!$parent instanceof REBuilder_Pattern_CharClass) {
-            throw new REBuilder_Exception_Generic(
-                "POSIX character classes can be added only to character classes"
-            );
-        }
-        return parent::setParent($parent);
-    }
+    protected $_limitParent = "REBuilder_Pattern_CharClass";
     
     /**
      * Constructor

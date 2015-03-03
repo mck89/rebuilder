@@ -71,9 +71,8 @@ class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
     public function addChild (REBuilder_Pattern_Abstract $child)
     {
         if (!$child->canBeAddedToCharClass()) {
-            $classParts = explode("_", get_class($child));
             throw new REBuilder_Exception_InvalidRepetition(
-                $classParts[count($classParts) - 1] . " cannot be added to character classes"
+                $this->_getClassName($child) . " cannot be added to character classes"
             );
         }
         return parent::addChild($child);

@@ -316,9 +316,8 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
     public function setStartAnchored ($startAnchored)
     {
         if (!$this->supportsAnchors()) {
-            $classParts = explode("_", get_class($this));
             throw new REBuilder_Exception_Generic(
-                $classParts[count($classParts) - 1] . " cannot handle anchors"
+                $this->_getClassName() . " cannot handle anchors"
             );
         }
         $this->_startAnchored = (bool) $startAnchored;
@@ -346,9 +345,8 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
     public function setEndAnchored ($endAnchored)
     {
         if (!$this->supportsAnchors()) {
-            $classParts = explode("_", get_class($this));
             throw new REBuilder_Exception_Generic(
-                $classParts[count($classParts) - 1] . " cannot handle anchors"
+                $this->_getClassName() . " cannot handle anchors"
             );
         }
         $this->_endAnchored = (bool) $endAnchored;

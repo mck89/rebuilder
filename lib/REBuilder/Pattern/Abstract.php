@@ -27,6 +27,14 @@ abstract class REBuilder_Pattern_Abstract
      * @var bool
      */
     protected $_canBeAddedToCharClass = false;
+    
+    /**
+     * If this property is not empty the current class can be added only
+     * to containers of the given instance
+     * 
+     * @var string
+     */
+    protected $_limitParent = "";
 
     /**
      * Repetition
@@ -43,6 +51,14 @@ abstract class REBuilder_Pattern_Abstract
      */
     public function setParent (REBuilder_Pattern_AbstractContainer $parent)
     {
+        //Throw exception if the parent of this type is not supported
+        if ($this->_limitParent && !$parent instanceof $this->_limitParent) {
+            $thisClass = $this->_getClassName();
+            $parentClass = $this->_getClassName($this->_limitParent);
+            throw new REBuilder_Exception_Generic(
+                "$thisClass can be added only to $parentClass"
+            );
+        }
         //Before proceed remove it from the previous parent container
         if ($currentParent = $this->getParent()) {
             $currentParent->removeChild($this);
@@ -118,9 +134,8 @@ abstract class REBuilder_Pattern_Abstract
     public function setRepetition ($repetition, $max = null)
     {
         if (!$this->supportsRepetition()) {
-            $classParts = explode("_", get_class($this));
             throw new REBuilder_Exception_InvalidRepetition(
-                $classParts[count($classParts) - 1] . " cannot handle repetition"
+                $this->_getClassName() . " cannot handle repetition"
             );
         }
         if (!$repetition instanceof REBuilder_Pattern_Repetition_Abstract) {
@@ -149,6 +164,24 @@ abstract class REBuilder_Pattern_Abstract
         }
         $this->_repetition = $repetition;
         return $this;
+    }
+    
+    /**
+     * Returns a readable version of the current class
+     * 
+     * @param REBuilder_Pattern_Abstract $obj If an object is given the function
+     *                                        returns the class of that object
+     * @return string
+     */
+    protected function _getClassName ($obj = null)
+    {
+        if ($obj) {
+            $className = is_string($obj) ? $obj : get_class($obj);
+        } else {
+            $className = get_class($this);
+        }
+        $classParts = explode("_", $className);
+        return $classParts[count($classParts) - 1];
     }
 
     /**

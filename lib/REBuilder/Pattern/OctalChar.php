@@ -15,6 +15,13 @@ class REBuilder_Pattern_OctalChar extends REBuilder_Pattern_AbstractChar
      */
     protected $_canBeAddedToCharClass = true;
     
+    /**
+     * Flag that identifies if the pattern can be added to character class ranges
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClassRange = true;
+    
 	/**
 	 * Sets the character code . It can be 0, 1 or 2 digits that represents
 	 * the octal number that identifies the character

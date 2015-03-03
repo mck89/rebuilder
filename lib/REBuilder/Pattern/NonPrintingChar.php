@@ -16,6 +16,13 @@ class REBuilder_Pattern_NonPrintingChar extends REBuilder_Pattern_AbstractIdenti
     protected $_canBeAddedToCharClass = true;
     
     /**
+     * Flag that identifies if the pattern can be added to character class ranges
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClassRange = true;
+    
+    /**
      * Sets the identifier. It can be one of the following:
      * "a", "e", "f", "n", "r", "t".
      * 

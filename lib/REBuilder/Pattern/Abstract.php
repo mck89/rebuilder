@@ -29,6 +29,13 @@ abstract class REBuilder_Pattern_Abstract
     protected $_canBeAddedToCharClass = false;
     
     /**
+     * Flag that identifies if the pattern can be added to character class ranges
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClassRange = false;
+    
+    /**
      * If this property is not empty the current class can be added only
      * to containers of the given instance
      * 
@@ -108,6 +115,16 @@ abstract class REBuilder_Pattern_Abstract
     public function canBeAddedToCharClass ()
     {
         return $this->_canBeAddedToCharClass;
+    }
+    
+    /**
+     * Returns true if the pattern can be added to character class ranges
+     * 
+     * @return bool
+     */
+    public function canBeAddedToCharClassRange ()
+    {
+        return $this->_canBeAddedToCharClassRange;
     }
 
     /**

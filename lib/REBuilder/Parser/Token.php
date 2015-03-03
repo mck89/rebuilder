@@ -171,6 +171,11 @@ class REBuilder_Parser_Token
 	 * Posix char class
 	 */
 	Const TYPE_POSIX_CHAR_CLASS = 33;
+    
+	/**
+	 * Char class range
+	 */
+	Const TYPE_CHAR_CLASS_RANGE = 34;
 	
 	/**
 	 * Token's type

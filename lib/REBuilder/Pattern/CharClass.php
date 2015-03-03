@@ -14,6 +14,16 @@
  *         addPosixCharClassAndContinue(string $class, bool $negate)
  *         Same as addPosixCharClass but it returns the current container
  *         @see REBuilder_Pattern_PosixCharClass::__construct
+ * 
+ * @method REBuilder_Pattern_CharClassRange addCharClassRange()
+ *         addCharClassRange()
+ *         Adds a new REBuilder_Pattern_CharClassRange class instance to this container
+ *         @see REBuilder_Pattern_CharClassRange::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addCharClassRangeAndContinue()
+ *         addCharClassRangeAndContinue()
+ *         Same as addCharClassRange but it returns the current container
+ *         @see REBuilder_Pattern_CharClassRange::__construct
  */
 class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
 {
@@ -67,11 +77,12 @@ class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
      * 
      * @param REBuilder_Pattern_Abstract $child Child to add
      * @return REBuilder_Pattern_CharClass
+     * @throw REBuilder_Exception_Generic
      */
     public function addChild (REBuilder_Pattern_Abstract $child)
     {
         if (!$child->canBeAddedToCharClass()) {
-            throw new REBuilder_Exception_InvalidRepetition(
+            throw new REBuilder_Exception_Generic(
                 $this->_getClassName($child) . " cannot be added to character classes"
             );
         }

@@ -365,6 +365,17 @@ class REBuilder_Parser_Builder
 					new REBuilder_Pattern_PosixCharClass($class, $negate)
 				);
 			break;
+			//Char class range identifier
+            case REBuilder_Parser_Token::TYPE_CHAR_CLASS_RANGE:
+				//Create a new character class range and add it to the
+                //container stack, move the last inserted item to the range
+                $currentChildren = $this->_containersStack->top()->getChildren();
+                $range = new REBuilder_Pattern_CharClassRange;
+                $range->addChild($currentChildren[count($currentChildren) - 1]);
+                $this->_containersStack->top()->addChild($range);
+                $this->_containersStack->push($range);
+                $this->_currentItem = null;
+			break;
 		}
 		
 		//Push the token in the tokens stack
@@ -373,6 +384,13 @@ class REBuilder_Parser_Builder
         //Unset the pending end anchor flag if the token is not an end anchor
         if ($token->getType() !== REBuilder_Parser_Token::TYPE_END_ANCHOR) {
             $this->_pendingEndAnchor = false;
+        }
+        //If the current container is a character class range and the current
+        //token is not the char class range identifier, remove the char class
+        //range from the container stack
+        if ($this->_containersStack->top() instanceof REBuilder_Pattern_CharClassRange &&
+                $token->getType() !== REBuilder_Parser_Token::TYPE_CHAR_CLASS_RANGE) {
+            $this->_containersStack->pop();
         }
 	}
 	

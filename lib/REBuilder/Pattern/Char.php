@@ -4,7 +4,6 @@
  * are, like "a" and "bc" in /a.bc/
  * 
  * @author Marco Marchiò
- * @abstract
  */
 class REBuilder_Pattern_Char extends REBuilder_Pattern_AbstractChar
 {
@@ -14,6 +13,13 @@ class REBuilder_Pattern_Char extends REBuilder_Pattern_AbstractChar
      * @var bool
      */
     protected $_canBeAddedToCharClass = true;
+    
+    /**
+     * Flag that identifies if the pattern can be added to character class ranges
+     * 
+     * @var bool
+     */
+    protected $_canBeAddedToCharClassRange = true;
     
     /**
      * Returns the string representation of the class

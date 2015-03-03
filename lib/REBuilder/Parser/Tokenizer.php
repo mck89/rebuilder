@@ -40,6 +40,26 @@ class REBuilder_Parser_Tokenizer
 	 * @var bool
 	 */
 	protected $_inCharClass = false;
+    
+	/**
+	 * Flag that identifies if the tokenizer after a character class range dash
+	 * 
+	 * @var bool
+	 */
+	protected $_afterCharClassRange = false;
+    
+    /**
+     * Array of token types valid for a character class range
+     * 
+     * @var array
+     */
+    protected $_allowedInCharClassRange = array(
+        REBuilder_Parser_Token::TYPE_CHAR,
+        REBuilder_Parser_Token::TYPE_CONTROL_CHAR,
+        REBuilder_Parser_Token::TYPE_HEX_CHAR,
+        REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR,
+        REBuilder_Parser_Token::TYPE_OCTAL_CHAR,
+    );
 	
 	/**
 	 * Current index in the regexp
@@ -54,6 +74,13 @@ class REBuilder_Parser_Tokenizer
 	 * @var array
 	 */
 	protected $_matches = array();
+    
+	/**
+	 * Last emitted token
+	 * 
+	 * @var REBuilder_Parser_Token
+	 */
+	protected $_lastToken;
 	
 	/**
 	 * Regex length
@@ -338,6 +365,14 @@ class REBuilder_Parser_Tokenizer
 					$char
 				);
                 $this->_inCharClass = false;
+			}
+            //If in char class and it's not escaped and it's a dash, check if
+            //last token type is one of the allowed ones to make a char class
+            //range
+			elseif ($this->_inCharClass && !$this->_escaped && $char === "-" &&
+                    in_array($this->_lastToken->getType(), $this->_allowedInCharClassRange)) {
+                //Enable the after char class range mode
+                $this->_afterCharClassRange = true;
 			}
             //If in char class and it's a open square bracket and it's followed
             //by the posix char class definition
@@ -884,7 +919,30 @@ class REBuilder_Parser_Tokenizer
 	 */
 	protected function _emitToken ($type, $identifier, $subject = null)
 	{
+        //If in after char class range mode
+        if ($this->_afterCharClassRange) {
+            $this->_afterCharClassRange = false;
+            //If the dash is followed by a closed square bracket, emit the dash
+            //as simple character
+            if ($type === REBuilder_Parser_Token::TYPE_CHAR_CLASS_END) {
+                //Emit the dash as simple character
+                $this->_emitToken(REBuilder_Parser_Token::TYPE_CHAR, "-");
+            }
+            //If it's followed by an invalid token, throw an exception
+            elseif (!in_array($type, $this->_allowedInCharClassRange)) {
+                throw new REBuilder_Exception_Generic(
+                    "Invalid range in character class"
+                );
+            }
+            //Otherwise emit the token as a char class range
+            else {
+                $this->_emitToken(REBuilder_Parser_Token::TYPE_CHAR_CLASS_RANGE, "-");
+            }
+        }
+        
+        //Emit the token
 		$token = new REBuilder_Parser_Token($type, $identifier, $subject);
 		call_user_func($this->_receiver, $token);
+        $this->_lastToken = $token;
 	}
 }

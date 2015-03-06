@@ -61,9 +61,12 @@ abstract class REBuilder_Pattern_AbstractChar extends REBuilder_Pattern_Abstract
 			);
 		}
 		if ($parentRegex = $this->getParentRegex()) {
-			return $parentRegex->quote($this->getChar());
+			$ret = $parentRegex->quote($this->getChar());
 		} else {
-			return preg_quote($this->getChar());
+			$ret = preg_quote($this->getChar());
 		}
+        //Escape whitespaces is required to match spaces or newlines in extended
+        //mode
+        return preg_replace("/(\s)/", "\\\\$1", $ret);
 	}
 }

@@ -17,7 +17,7 @@ class CommentTest extends PHPUnit_Framework_TestCase
     public function testGeneratedStructureWithExtendedModifier ()
     {
         $pattern = "/a b #comment 1
-                    c d#comment 2/x";
+                    c\ d#comment 2/x";
         $pattern = str_replace("\r", "", $pattern);
         $regex = REBuilder::parse($pattern);
         $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
@@ -28,10 +28,10 @@ class CommentTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf("REBuilder_Pattern_Comment", $children[1]);
         $this->assertSame("comment 1", $children[1]->getComment());
         $this->assertInstanceOf("REBuilder_Pattern_Char", $children[2]);
-        $this->assertSame("cd", $children[2]->getChar());
+        $this->assertSame("c d", $children[2]->getChar());
         $this->assertInstanceOf("REBuilder_Pattern_Comment", $children[3]);
         $this->assertSame("comment 2", $children[3]->getComment());
-        $this->assertSame("/ab(?#comment 1)cd(?#comment 2)/x", $regex->render());
+        $this->assertSame("/ab(?#comment 1)c\ d(?#comment 2)/x", $regex->render());
     }
 
     /**

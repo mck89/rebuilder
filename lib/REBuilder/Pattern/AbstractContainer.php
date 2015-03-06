@@ -134,6 +134,16 @@
  *		   Same as addBackReference but it returns the current container
  *		   @see REBuilder_Pattern_BackReference::__construct
  * 
+ * @method REBuilder_Pattern_RecursivePattern addRecursivePattern()
+ *		   addRecursivePattern(string $reference)
+ *		   Adds a new REBuilder_Pattern_RecursivePattern class instance to this container
+ *		   @see REBuilder_Pattern_RecursivePattern::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addRecursivePatternAndContinue()
+ *		   addRecursivePatternAndContinue(string $reference)
+ *		   Same as addRecursivePattern but it returns the current container
+ *		   @see REBuilder_Pattern_RecursivePattern::__construct
+ * 
  * @method REBuilder_Pattern_AlternationGroup addAlternationGroup()
  *         addAlternationGroup()
  *         Adds a new REBuilder_Pattern_AlternationGroup class instance to this container

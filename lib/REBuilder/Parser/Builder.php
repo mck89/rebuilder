@@ -198,6 +198,15 @@ class REBuilder_Parser_Builder
 				);
 				$this->_containersStack->top()->addChild($this->_currentItem);
 			break;
+			//Recursive pattern identifier
+			case REBuilder_Parser_Token::TYPE_RECURSIVE_PATTERN:
+				//Create a recursive pattern identifier and add it to the
+				//current container
+				$this->_currentItem = new REBuilder_Pattern_RecursivePattern(
+					$token->getSubject()
+				);
+				$this->_containersStack->top()->addChild($this->_currentItem);
+			break;
 			//Alternation identifier
 			case REBuilder_Parser_Token::TYPE_ALTERNATION:
                 if ($this->_containersStack->top() instanceof REBuilder_Pattern_Alternation) {

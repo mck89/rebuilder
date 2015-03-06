@@ -609,6 +609,49 @@ class REBuilder_Parser_Tokenizer
 					$nextChars
 				);
 			}
+            //Check if the following characters represent a recursive pattern
+            elseif ($nextChars = $this->_consumeRegex("/^(R|\-?\d+)\)/", 1)) {
+                //Check reference validity
+                if ($nextChars === "R") {
+                    if (!count($this->_matches)) {
+                        throw new REBuilder_Exception_Generic(
+                            "Reference to non-existent subpattern '$nextChars'"
+                        );
+                    }
+                } elseif (!$this->_checkValidReference($nextChars)) {
+                    throw new REBuilder_Exception_Generic(
+                        "Reference to non-existent subpattern '$nextChars'"
+                    );
+                }
+				//Remove current tokens
+				$tokens = array();
+				$this->_openSubpatterns--;
+				//Store a recursive pattern token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_RECURSIVE_PATTERN,
+					"(?$nextChars)",
+                    $nextChars
+				);
+			}
+            //Check if the following characters represent a named recursive
+            //pattern
+            elseif ($nextChars = $this->_consumeRegex("/^(?:P>|&)(\w+)\)/", 1)) {
+                //Check reference validity
+                if (!$this->_checkValidReference($nextChars)) {
+                    throw new REBuilder_Exception_Generic(
+                        "Reference to non-existent subpattern '$nextChars'"
+                    );
+                }
+				//Remove current tokens
+				$tokens = array();
+				$this->_openSubpatterns--;
+				//Store a recursive pattern token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_RECURSIVE_PATTERN,
+					"(P>$nextChars)",
+                    $nextChars
+				);
+			}
 			//Check if the following characters represent a list of modifiers
 			//and followed by a closed round bracket
 			elseif ($nextChars = $this->_consumeRegex("/^[a-z\-]*\)/i")) {
@@ -635,7 +678,7 @@ class REBuilder_Parser_Tokenizer
 					"(?" . $nextChar
 				);
 			}
-			//Check if the following character represent a back reference
+			//Check if the following characters represent a back reference
 			elseif ($nextChars = $this->_consumeRegex("/^P=(\w+)\)/", 1)) {
                 //Check reference validity
                 if (!$this->_checkValidReference($nextChars)) {
@@ -653,7 +696,7 @@ class REBuilder_Parser_Tokenizer
 					$nextChars
 				);
 			}
-			//Check if the following character represent a lookbehind assertion
+			//Check if the following characters represent a lookbehind assertion
 			elseif ($nextChars = $this->_consumeRegex("/^<[=!]/")) {
 				//Remove current tokens
 				$tokens = array();

@@ -176,6 +176,11 @@ class REBuilder_Parser_Token
 	 * Char class range
 	 */
 	Const TYPE_CHAR_CLASS_RANGE = 34;
+    
+	/**
+	 * Recursive pattern
+	 */
+	Const TYPE_RECURSIVE_PATTERN = 35;
 	
 	/**
 	 * Token's type

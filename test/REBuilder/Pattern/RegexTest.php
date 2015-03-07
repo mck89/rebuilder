@@ -117,6 +117,9 @@ class RegexTest extends PHPUnit_Framework_TestCase
     public function testObjectGeneration ()
     {
         $regex = REBuilder::create("i", "#");
-        $this->assertSame("##i", $regex->render());
+        $regex->addChar("a");
+        $this->assertSame("#a#i", $regex->render());
+        $regex->addChildAt(new REBuilder_Pattern_Char("b"), 0);
+        $this->assertSame("#ba#i", $regex->render());
     }
 }

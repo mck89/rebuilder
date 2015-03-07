@@ -73,20 +73,21 @@ class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
     }
     
     /**
-     * Adds a child to the class
+     * Adds a child to the class at the given index
      * 
      * @param REBuilder_Pattern_Abstract $child Child to add
+     * @param int                        $index Index
      * @return REBuilder_Pattern_CharClass
      * @throw REBuilder_Exception_Generic
      */
-    public function addChild (REBuilder_Pattern_Abstract $child)
+    public function addChildAt (REBuilder_Pattern_Abstract $child, $index = null)
     {
         if (!$child->canBeAddedToCharClass()) {
             throw new REBuilder_Exception_Generic(
                 $this->_getClassName($child) . " cannot be added to character classes"
             );
         }
-        return parent::addChild($child);
+        return parent::addChildAt($child, $index);
     }
 
     /**

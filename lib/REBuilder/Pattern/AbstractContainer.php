@@ -4,6 +4,7 @@
  * 
  * @author Marco Marchiò
  * @abstract
+ * 
  * @method REBuilder_Pattern_Char addChar()
  *         addChar(string $char)
  *         Adds a new REBuilder_Pattern_Char class instance to this container
@@ -224,8 +225,27 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
      */
     public function addChild (REBuilder_Pattern_Abstract $child)
     {
+        return $this->addChildAt($child);
+    }
+    
+    /**
+     * Adds a child to the class at the given index
+     * 
+     * @param REBuilder_Pattern_Abstract $child Child to add
+     * @param int                        $index Index
+     * @return REBuilder_Pattern_AbstractContainer
+     */
+    public function addChildAt (REBuilder_Pattern_Abstract $child, $index = null)
+    {
         $child->setParent($this);
-        $this->_children[] = $child;
+        if ($index === null) {
+            $this->_children[] = $child;
+        } elseif (isset($this->_children[$index])) {
+            array_splice($this->_children, $index, 0, array($child));
+        } else {
+            $this->_children[$index] = $child;
+            ksort($this->_children);
+        }
         return $this;
     }
 
@@ -251,17 +271,28 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
      */
     public function removeChild (REBuilder_Pattern_Abstract $child)
     {
+        $index = null;
         if ($this->hasChildren()) {
-            $index = null;
             foreach ($this->getChildren() as $k => $c) {
                 if (spl_object_hash($c) === spl_object_hash($child)) {
                     $index = $k;
                     break;
                 }
             }
-            if ($index !== null) {
-                array_splice($this->_children, $index, 1);
-            }
+        }
+        return $index !== null ? $this->removeChildAt($index) : $this;
+    }
+    
+    /**
+     * Removes the child at the given index
+     * 
+     * @param int $index Index of the child to remove
+     * @return REBuilder_Pattern_AbstractContainer
+     */
+    public function removeChildAt ($index)
+    {
+        if (isset($this->_children[$index])) {
+            array_splice($this->_children, $index, 1);
         }
         return $this;
     }
@@ -374,7 +405,7 @@ abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abs
     }
 
     /**
-     * Allow to call function in the form of addClass and addClassAndContinue
+     * Allows to call functions in the form of addClass and addClassAndContinue
      * 
      * @param string $name      Method name
      * @param array  $arguments Method arguments

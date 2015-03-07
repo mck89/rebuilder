@@ -100,6 +100,41 @@ class CharClassRangeTest extends PHPUnit_Framework_TestCase
         $range->render();
     }
     
+    public function testEndStart ()
+    {
+        $regex = REBuilder::create();
+        $range = $regex
+                        ->addCharClass()
+                            ->addCharClassRange();
+        $char1 = new REBuilder_Pattern_Char("a");
+        $char2 = new REBuilder_Pattern_Char("b");
+        $this->assertSame(null, $range->getEnd());
+        $range->setEnd($char2);
+        $this->assertSame(null, $range->getStart());
+        $range->setStart($char1);
+        $this->assertSame($char1->getChar(), $range->getStart()->getChar());
+        $this->assertSame($char2->getChar(), $range->getEnd()->getChar());
+        $this->assertSame("/[a-b]/", $regex->render());
+    }
+
+    /**
+     * @expectedException REBuilder_Exception_Generic
+     */
+    public function testInvalidStart ()
+    {
+        $range = new REBuilder_Pattern_CharClassRange();
+        $range->setStart("a");
+    }
+
+    /**
+     * @expectedException REBuilder_Exception_Generic
+     */
+    public function testInvalidStartPattern ()
+    {
+        $range = new REBuilder_Pattern_CharClassRange();
+        $range->setStart(new REBuilder_Pattern_GenericCharType);
+    }
+    
     public function testObjectGeneration ()
     {
         $regex = REBuilder::create();

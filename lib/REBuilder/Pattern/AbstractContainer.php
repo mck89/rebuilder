@@ -177,7 +177,7 @@
  *         Same as addAssertion but it returns the current container
  *         @see REBuilder_Pattern_Assertion::__construct
  * 
- * @method REBuilder_Pattern_Assertion addCharClass()
+ * @method REBuilder_Pattern_CharClass addCharClass()
  *         addCharClass(bool $negate)
  *         Adds a new REBuilder_Pattern_CharClass class instance to this container
  *         @see REBuilder_Pattern_CharClass::__construct
@@ -186,6 +186,16 @@
  *         addCharClassAndContinue(bool $negate)
  *         Same as addCharClass but it returns the current container
  *         @see REBuilder_Pattern_CharClass::__construct
+ * 
+ * @method REBuilder_Pattern_ConditionalSubPattern addConditionalSubPattern()
+ *         addConditionalSubPattern()
+ *         Adds a new REBuilder_Pattern_ConditionalSubPattern class instance to this container
+ *         @see REBuilder_Pattern_ConditionalSubPattern::__construct
+ * 
+ * @method REBuilder_Pattern_AbstractContainer addConditionalSubPatternAndContinue()
+ *         addConditionalSubPatternAndContinue(bool $negate)
+ *         Same as addConditionalSubPattern but it returns the current container
+ *         @see REBuilder_Pattern_ConditionalSubPattern::__construct
  */
 abstract class REBuilder_Pattern_AbstractContainer extends REBuilder_Pattern_Abstract
 {

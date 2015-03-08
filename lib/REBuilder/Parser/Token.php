@@ -181,6 +181,11 @@ class REBuilder_Parser_Token
 	 * Recursive pattern
 	 */
 	Const TYPE_RECURSIVE_PATTERN = 35;
+    
+	/**
+	 * Conditional subpattern
+	 */
+	Const TYPE_CONDITIONAL_SUBPATTERN = 36;
 	
 	/**
 	 * Token's type

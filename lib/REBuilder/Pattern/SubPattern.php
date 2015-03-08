@@ -1,6 +1,6 @@
 <?php
 /**
- * Represent a capturing or non capturing subpattern.
+ * Represents a capturing or non capturing subpattern.
  * 
  * @author Marco Marchiò
  * @link http://php.net/manual/en/regexp.reference.subpatterns.php

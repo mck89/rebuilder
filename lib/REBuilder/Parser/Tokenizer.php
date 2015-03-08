@@ -596,6 +596,20 @@ class REBuilder_Parser_Tokenizer
 					$nextChar
 				);
 			}
+			//Check if the following character represents the conditional
+			//subpattern identifier
+			elseif ($nextChar = $this->_consumeIfEquals("(")) {
+				//Remove current tokens
+				$tokens = array();
+				//Store a conditional subpattern token
+				$tokens[] = array(
+					REBuilder_Parser_Token::TYPE_CONDITIONAL_SUBPATTERN,
+					"(?"
+				);
+                //Unconsume the last character so that it will be processed
+                //again
+                $this->_unconsume();
+			}
 			//Check if the following characters represent subpattern
 			//name
 			elseif ($nextChars = $this->_consumeRegex(

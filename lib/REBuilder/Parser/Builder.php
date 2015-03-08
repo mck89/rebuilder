@@ -219,7 +219,15 @@ class REBuilder_Parser_Builder
                     if ($this->_pendingEndAnchor) {
                         $currentAlternation->setEndAnchored(true);
                     }
-                } else {
+                }
+                //If inside a conditional subpattern
+                elseif ($this->_containersStack->top() instanceof REBuilder_Pattern_ConditionalThen) {
+                    //Remove the "then" part and add the "else" part
+                    $this->_containersStack->pop();
+                    $newAlternation = new REBuilder_Pattern_ConditionalElse;
+                    $this->_containersStack->top()->addChild($newAlternation);
+                }
+                else {
                     //Create a new alternation and move all the children from
                     //the current container to the new alternation
                     $currentContainer = $this->_containersStack->top();
@@ -263,6 +271,21 @@ class REBuilder_Parser_Builder
 				//Remove the subpattern from the container stack and make it
 				//the current item
 				$this->_currentItem = $this->_containersStack->pop();
+                //If inside a conditional subpattern
+                if ($this->_containersStack->top() instanceof REBuilder_Pattern_ConditionalSubPattern) {
+                    //If the pattern was an assertion
+                    if ($this->_currentItem instanceof REBuilder_Pattern_Assertion) {
+                        //Add the "then" part
+                        $then = new REBuilder_Pattern_ConditionalThen;
+                        $this->_containersStack->top()->addChild($then);
+                        $this->_containersStack->push($then);
+                        $this->_currentItem = null;
+                    }
+                    //Othwerwise remove the conditional subpattern too
+                    else {
+                        $this->_currentItem = $this->_containersStack->pop();
+                    }
+                }
 			break;
 			//Subpattern non capturing flag and modifiers
 			case REBuilder_Parser_Token::TYPE_SUBPATTERN_NON_CAPTURING:
@@ -385,6 +408,15 @@ class REBuilder_Parser_Builder
                 $this->_containersStack->push($range);
                 $this->_currentItem = null;
 			break;
+            //Conditional subpattern identifier
+            case REBuilder_Parser_Token::TYPE_CONDITIONAL_SUBPATTERN:
+                //Create a new conditional subpattern and add it to the
+                //container stack
+                $subPattern = new REBuilder_Pattern_ConditionalSubPattern;
+                $this->_containersStack->top()->addChild($subPattern);
+                $this->_containersStack->push($subPattern);
+                $this->_currentItem = null;
+            break;
 		}
 		
 		//Push the token in the tokens stack
@@ -457,6 +489,7 @@ class REBuilder_Parser_Builder
 			case REBuilder_Parser_Token::TYPE_OCTAL_CHAR:
 			case REBuilder_Parser_Token::TYPE_BACK_REFERENCE:
 			case REBuilder_Parser_Token::TYPE_CHAR_CLASS_END:
+			case REBuilder_Parser_Token::TYPE_RECURSIVE_PATTERN:
 			break;
 			//When simple characters are grouped, repetition is valid only
 			//for the last one, so it needs to be splitted so that the last

@@ -472,9 +472,6 @@ class REBuilder_Parser_Builder
 					);
 				}
 			break;
-			//@TODO add allowed tokens
-			//@TODO emit repetition as simple character if inside a character class
-			//@TODO do not render repetition if character is inside a character class
 			//Tokens that can handle the repetition
 			case REBuilder_Parser_Token::TYPE_NON_PRINTING_CHAR:
 			case REBuilder_Parser_Token::TYPE_GENERIC_CHAR_TYPE:

@@ -121,6 +121,88 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
     {
         return preg_quote($str, $this->_startDelimiter);
     }
+    
+    /**
+     * Test if the regex matches the given string
+     * 
+     * @param string $str    Test string
+     * @return bool
+     */
+    public function test ($str)
+    {
+        return preg_match($this->render(), $str) === 1;
+    }
+    
+    /**
+     * Executes the regex on the given string and return the matches array or
+     * null if the string does not match
+     * 
+     * @param string $str           The string to match
+     * @param bool   $setOrder      True to group the matches in sets
+     * @param bool   $captureOffset True to capture matches offset too
+     * @return array|null
+     */
+    public function exec ($str, $setOrder = false, $captureOffset = false)
+    {
+        if ($setOrder) {
+            $flags = PREG_SET_ORDER;
+        } else {
+            $flags = PREG_PATTERN_ORDER;
+        }
+        if ($captureOffset) {
+            $flags = $flags | PREG_OFFSET_CAPTURE;
+        }
+        if (preg_match_all($this->render(), $str, $matches, $flags)) {
+            return $matches;
+        }
+        return null;
+    }
+    
+    /**
+     * Filters an array by removing values that do not match the regex
+     * 
+     * @param array $array  Array to filter
+     * @param bool  $invert If true the behaviour is inverted and this function
+     *                      filters out values that match the regex
+     * @return array
+     */
+    public function grep ($array, $invert = false)
+    {
+        $flags = $invert ? PREG_GREP_INVERT : 0;
+        return preg_grep($this->render(), $array, $flags);
+    }
+    
+    /**
+     * Splits the given string using the regex
+     * 
+     * @param string $str           The string to split
+     * @param int    $limit         Maximum number of substrings to return
+     * @param bool   $noEmpty       If true only non empty substrings are
+     *                              returned
+     * @param bool   $captureDelim  If true also capturing pattern in the
+     *                              delimiter are returned
+     * @param bool   $captureOffset If true the offset of each substring is
+     *                              returned
+     * @return array
+     */
+    public function split ($str, $limit = null, $noEmpty = false,
+                           $captureDelim = false, $captureOffset = false)
+    {
+        $flags = 0;
+        if ($noEmpty) {
+            $flags = $flags | PREG_SPLIT_NO_EMPTY;
+        }
+        if ($captureDelim) {
+            $flags = $flags | PREG_SPLIT_DELIM_CAPTURE;
+        }
+        if ($captureOffset) {
+            $flags = $flags | PREG_SPLIT_OFFSET_CAPTURE;
+        }
+        if ($limit === null) {
+            $limit = -1;
+        }
+        return preg_split($this->render(), $str, $limit, $flags);
+    }
 
     /**
      * Returns the string representation of the class

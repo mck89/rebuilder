@@ -203,6 +203,25 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
         }
         return preg_split($this->render(), $str, $limit, $flags);
     }
+    
+    /**
+     * Replaces the matched pattern with the given replacement
+     * 
+     * @param string|callable $replace Replacement string or callback that will
+     *                                 will be executed on every pattern match
+     *                                 to get the replacement
+     * @param string          $str     Subject string
+     * @param int             $limit   Maximum number of replacements
+     * @return string
+     */
+    public function replace ($replace, $str, $limit = null)
+    {
+        if ($limit === null) {
+            $limit = -1;
+        }
+        $fn = is_callable($replace) ? "preg_replace_callback" : "preg_replace";
+        return $fn($this->render(), $replace, $str, $limit);
+    }
 
     /**
      * Returns the string representation of the class

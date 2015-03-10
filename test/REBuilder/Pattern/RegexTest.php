@@ -206,4 +206,21 @@ class RegexTest extends PHPUnit_Framework_TestCase
         $this->assertSame(array("this", " ", "is", " ", "a", " ", "test", " "), $regex->split("this is a test ", null, true, true));
         $this->assertSame(array(array("test", 0), array("me", 5)), $regex->split("test me", null, false, false, true));
     }
+    
+    public function testReplaceMethod ()
+    {
+        $regex = REBuilder::create();
+        $regex
+                ->addGenericCharType("w");
+        
+        $this->assertSame("/\w/", $regex->render());
+
+        $this->assertSame("111", $regex->replace("1", "abc"));
+        $this->assertSame("1bc", $regex->replace("1", "abc", 1));
+        $count = 0;
+        $this->assertSame("123", $regex->replace(function () use (&$count) {
+            $count++;
+            return "$count";
+        }, "abc"));
+    }
 }

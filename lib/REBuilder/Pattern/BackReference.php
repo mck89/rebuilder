@@ -1,64 +1,78 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a back reference
  * 
- * @author Marco Marchiò
- * @abstract
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.back-references.php
  */
-class REBuilder_Pattern_BackReference extends REBuilder_Pattern_Abstract
-{	
-	/**
-	 * Reference
-	 * 
-	 * @var string
-	 */
-	protected $_reference = "";
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param string $reference Reference
-	 */
-	public function __construct ($reference = "")
-	{
-		$this->setReference($reference);
-	}
-	
-	/**
-	 * Sets the reference. It can be the index of a subpattern or its name
-	 * 
-	 * @param string $reference Reference
-	 * @return REBuilder_Pattern_BackReference
-	 */
-	public function setReference ($reference)
-	{
-		$this->_reference = $reference;
-		return $this;
-	}
-	
-	/**
-	 * Returns the reference
-	 * 
-	 * @return string
-	 */
-	public function getReference ()
-	{
-		return $this->_reference;
-	}
-	
-	/**
-	 * Returns the string representation of the class
-	 * 
-	 * @return string
-	 */
-	public function render ()
-	{
+class BackReference extends AbstractPattern
+{
+    /**
+     * Reference
+     * 
+     * @var string
+     */
+    protected $_reference = "";
+
+    /**
+     * Constructor
+     * 
+     * @param string $reference Reference
+     */
+    public function __construct ($reference = "")
+    {
+        $this->setReference($reference);
+    }
+
+    /**
+     * Sets the reference. It can be the index of a subpattern or its name
+     * 
+     * @param string $reference Reference
+     * 
+     * @return BackReference
+     */
+    public function setReference ($reference)
+    {
+        $this->_reference = $reference;
+        return $this;
+    }
+
+    /**
+     * Returns the reference
+     * 
+     * @return string
+     */
+    public function getReference ()
+    {
+        return $this->_reference;
+    }
+
+    /**
+     * Returns the string representation of the class
+     * 
+     * @return string
+     * 
+     * @throws \REBuilder\Exception\Generic
+     */
+    public function render ()
+    {
         if ($this->getReference() === "") {
-			throw new REBuilder_Exception_Generic(
-				"Empty back reference"
-			);
-		}
-		return "\g{" . $this->getReference() . "}" . $this->_renderRepetition();
-	}
+            throw new \REBuilder\Exception\Generic(
+                "Empty back reference"
+            );
+        }
+        return "\g{" . $this->getReference() . "}" . $this->_renderRepetition();
+    }
 }

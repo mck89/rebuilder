@@ -3,16 +3,16 @@ class AlternationTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {
-        $regex = REBuilder::parse("/a|b|c/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/a|b|c/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_AlternationGroup", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\AlternationGroup", $children[0]);
         $children = $children[0]->getChildren();
         $this->assertSame(3, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_Alternation", $children[0]);
-        $this->assertInstanceOf("REBuilder_Pattern_Alternation", $children[1]);
-        $this->assertInstanceOf("REBuilder_Pattern_Alternation", $children[2]);
+        $this->assertInstanceOf("REBuilder\Pattern\Alternation", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\Alternation", $children[1]);
+        $this->assertInstanceOf("REBuilder\Pattern\Alternation", $children[2]);
         $this->assertSame(1, count($children[0]->getChildren()));
         $this->assertSame(1, count($children[1]->getChildren()));
         $this->assertSame(1, count($children[2]->getChildren()));
@@ -21,18 +21,18 @@ class AlternationTest extends PHPUnit_Framework_TestCase
 
     public function testAlternationInSubpattern ()
     {
-        $regex = REBuilder::parse("/(a|b)/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(a|b)/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $children = $children[0]->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_AlternationGroup", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\AlternationGroup", $children[0]);
         $children = $children[0]->getChildren();
         $this->assertSame(2, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_Alternation", $children[0]);
-        $this->assertInstanceOf("REBuilder_Pattern_Alternation", $children[1]);
+        $this->assertInstanceOf("REBuilder\Pattern\Alternation", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\Alternation", $children[1]);
         $this->assertSame(1, count($children[0]->getChildren()));
         $this->assertSame(1, count($children[1]->getChildren()));
         $this->assertSame("/((?:a|b))/", $regex->render());
@@ -40,8 +40,8 @@ class AlternationTest extends PHPUnit_Framework_TestCase
     
     public function testAlternationWithAnchors ()
     {
-        $regex = REBuilder::parse("/^a|b$|^c$/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/^a|b$|^c$/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
         $children = $children[0]->getChildren();
@@ -65,53 +65,53 @@ class AlternationTest extends PHPUnit_Framework_TestCase
     
     /**
      * @dataProvider invalidAnchorMethods
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testAlternationGroupNotSupportsAnchors ($fn)
     {
-        $group = new REBuilder_Pattern_AlternationGroup();
+        $group = new REBuilder\Pattern\AlternationGroup();
         $group->$fn(true);
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testNotSupportsReptetitionOnParse ()
     {
-        REBuilder::parse("/a|*/");
+        REBuilder\REBuilder::parse("/a|*/");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testNotSupportsReptetition ()
     {
-        $alternation = new REBuilder_Pattern_Alternation;
+        $alternation = new REBuilder\Pattern\Alternation;
         $alternation->setRepetition("*");
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testAlternationNotInAlternationGroupException ()
     {
-        $alternation = new REBuilder_Pattern_Alternation;
-        $subpattern = new REBuilder_Pattern_SubPattern;
+        $alternation = new REBuilder\Pattern\Alternation;
+        $subpattern = new REBuilder\Pattern\SubPattern;
         $subpattern->addChild($alternation);
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testAlternationGroupCanContainOnlyAlternations ()
     {
-        $alternationGroup = new REBuilder_Pattern_AlternationGroup;
-        $alternationGroup->addChild(new REBuilder_Pattern_Char);
+        $alternationGroup = new REBuilder\Pattern\AlternationGroup;
+        $alternationGroup->addChild(new REBuilder\Pattern\Char);
     }
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex->addAlternationGroup()
                     ->addAlternation()
                         ->addCharAndContinue("a")

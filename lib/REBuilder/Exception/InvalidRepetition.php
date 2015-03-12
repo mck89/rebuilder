@@ -1,9 +1,20 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Exception;
+
+/**
  * Invalid repetition exception
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
  */
-class REBuilder_Exception_InvalidRepetition extends REBuilder_Exception_Generic
+class InvalidRepetition extends Generic
 {
 }

@@ -1,11 +1,23 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents unicode character classes: \p, \P, \X
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.unicode.php
  */
-class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
+class UnicodeCharClass extends AbstractPattern
 {
     /**
      * Character class to match
@@ -24,8 +36,8 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
     /**
      * Constructor
      * 
-     * @param string $class   Character class to match
-     * @param string $negate  True to create a negative match
+     * @param string $class  Character class to match
+     * @param string $negate True to create a negative match
      */
     public function __construct ($class = null, $negate = false)
     {
@@ -42,10 +54,13 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
      * supported for extended unicode sequence (\X)
      * 
      * @param bool $negate True to negate the match
+     * 
+     * @return UnicodeCharClass
      */
     public function setNegate ($negate)
     {
         $this->_negate = $negate;
+        return $this;
     }
 
     /**
@@ -63,20 +78,24 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
      * or script. If "X" it will be used as extended unicode sequence (\X)
      * 
      * @param string $class Character class to match
-     * @return REBuilder_Pattern_UnicodeCharClass
-     * @throws REBuilder_Exception_Generic
+     * 
+     * @return UnicodeCharClass
+     * 
+     * @throws \REBuilder\Exception\Generic
+     * 
      * @link http://php.net/manual/en/regexp.reference.escape.php
      */
     public function setClass ($class)
     {
         if ($class !== "X" &&
-            !REBuilder_Parser_Rules::validateUnicodePropertyCode($class) &&
-            !REBuilder_Parser_Rules::validateUnicodeScript($class)) {
-            throw new REBuilder_Exception_Generic(
+            !\REBuilder\Parser\Rules::validateUnicodePropertyCode($class) &&
+            !\REBuilder\Parser\Rules::validateUnicodeScript($class)) {
+            throw new \REBuilder\Exception\Generic(
                 "Unknow unicode character class '$class'"
             );
         }
         $this->_class = $class;
+        return $this;
     }
 
     /**
@@ -93,25 +112,27 @@ class REBuilder_Pattern_UnicodeCharClass extends REBuilder_Pattern_Abstract
      * Returns the string representation of the class
      * 
      * @return string
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     public function render ()
     {
-        if ($this->_class === null) {
-            throw new REBuilder_Exception_Generic(
+        if ($this->getClass() === null) {
+            throw new \REBuilder\Exception\Generic(
                 "No character class has been set"
             );
         }
         $ret = "";
-        if ($this->_class === "X") {
-            if ($this->_negate) {
-                throw new REBuilder_Exception_Generic(
+        if ($this->getClass() === "X") {
+            if ($this->getNegate()) {
+                throw new \REBuilder\Exception\Generic(
                     "Negation is not supported for \X"
                 );
             }
             $ret = "\X";
         } else {
-            $ret = "\\" . ($this->_negate ? "P" : "p") .
-                   "{" . $this->_class . "}";
+            $ret = "\\" . ($this->getNegate() ? "P" : "p") .
+                   "{" . $this->getClass() . "}";
         }
         $ret .= $this->_renderRepetition();
         return $ret;

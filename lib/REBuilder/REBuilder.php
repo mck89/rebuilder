@@ -1,8 +1,19 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder;
+
+/**
  * Main class of REBuilder library
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
  */
 class REBuilder
 {
@@ -10,30 +21,36 @@ class REBuilder
      * Parses the given regular expression and returns its structure
      * 
      * @param string $regex The regular expression to parse
-     * @return REBuilder_Pattern_Regex
+     * 
+     * @return Pattern\Regex
+     * 
      * @static
      */
     public static function parse ($regex)
     {
-        $parser = new REBuilder_Parser_Parser($regex);
+        $parser = new Parser\Parser($regex);
         return $parser->parse();
     }
 
     /**
-     * Returns a new regex object
+     * Returns a new empty regex object
      * 
      * @param string $modifiers Regex modifiers
      * @param string $delimiter Regex delimiter
-     * @return REBuilder_Pattern_Regex
+     * 
+     * @return Pattern\Regex
+     * 
      * @static
      */
     public static function create ($modifiers = "", $delimiter = "/")
     {
-        return new REBuilder_Pattern_Regex($modifiers, $delimiter);
+        return new Pattern\Regex($modifiers, $delimiter);
     }
     
     /**
      * Registers the class autoloader
+     * 
+     * @return void
      * 
      * @static
      * @codeCoverageIgnore
@@ -48,17 +65,20 @@ class REBuilder
      * to the given class name
      * 
      * @param string $className Class name to load
+     * 
+     * @return void
+     * 
      * @static
      */
     public static function loadClass ($className)
     {
-        $parts = explode("_", $className);
+        $parts = explode("\\", $className);
         $base = array_shift($parts);
-        if ($base === __CLASS__) {
+        if ($base === "REBuilder") {
             $file = __DIR__ . DIRECTORY_SEPARATOR .
                     implode(DIRECTORY_SEPARATOR, $parts) . ".php";
             if (file_exists($file)) {
-                require_once $file;
+                include_once $file;
             }
         }
     }

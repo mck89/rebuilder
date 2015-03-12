@@ -3,9 +3,9 @@ class RegexTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {
-        $regex = REBuilder::parse("/a/i");
+        $regex = REBuilder\REBuilder::parse("/a/i");
 
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $this->assertSame("/", $regex->getStartDelimiter());
         $this->assertSame("/", $regex->getEndDelimiter());
         $this->assertSame("i", $regex->getModifiers());
@@ -14,8 +14,8 @@ class RegexTest extends PHPUnit_Framework_TestCase
 
     public function testBracketStyledelimiters ()
     {
-        $regex = REBuilder::parse("(a)i");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("(a)i");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $this->assertSame("(", $regex->getStartDelimiter());
         $this->assertSame(")", $regex->getEndDelimiter());
         $this->assertSame("i", $regex->getModifiers());
@@ -39,8 +39,8 @@ class RegexTest extends PHPUnit_Framework_TestCase
      */
     public function testRegexWithAnchors ($pattern, $start, $end)
     {
-        $regex = REBuilder::parse("/$pattern/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/$pattern/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $this->assertSame($start, $regex->getStartAnchored());
         $this->assertSame($end, $regex->getEndAnchored());
         $render = $start || $end ? $pattern : "abc";
@@ -59,73 +59,73 @@ class RegexTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidDelimitersProvider
-     * @expectedException REBuilder_Exception_InvalidDelimiter
+     * @expectedException REBuilder\Exception\InvalidDelimiter
      */
     public function testInvalidDelimiterException ($delimiter)
     {
-        new REBuilder_Pattern_Regex("", $delimiter);
+        new REBuilder\Pattern\Regex("", $delimiter);
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidDelimiter
+     * @expectedException REBuilder\Exception\InvalidDelimiter
      */
     public function testMissingDelimiterException ()
     {
-        REBuilder::parse("#a");
+        REBuilder\REBuilder::parse("#a");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidDelimiter
+     * @expectedException REBuilder\Exception\InvalidDelimiter
      */
     public function testEscapedDelimiterException ()
     {
-        REBuilder::parse("#a\#");
+        REBuilder\REBuilder::parse("#a\#");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidDelimiter
+     * @expectedException REBuilder\Exception\InvalidDelimiter
      */
     public function testUnescapedDelimiterInsideRegexException ()
     {
-        REBuilder::parse("#a#b#");
+        REBuilder\REBuilder::parse("#a#b#");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidModifier
+     * @expectedException REBuilder\Exception\InvalidModifier
      */
     public function testInvalidModifierException ()
     {
-        REBuilder::create("$");
+        REBuilder\REBuilder::create("$");
     }
 
     /**
-     * @expectedException REBuilder_Exception_EmptyRegex
+     * @expectedException REBuilder\Exception\EmptyRegex
      */
     public function testEmptyRegexException ()
     {
-        REBuilder::parse("");
+        REBuilder\REBuilder::parse("");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testNotSupportRepetitionException ()
     {
-        REBuilder::create()->setRepetition("*");
+        REBuilder\REBuilder::create()->setRepetition("*");
     }
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create("i", "#");
+        $regex = REBuilder\REBuilder::create("i", "#");
         $regex->addChar("a");
         $this->assertSame("#a#i", $regex->render());
-        $regex->addChildAt(new REBuilder_Pattern_Char("b"), 0);
+        $regex->addChildAt(new REBuilder\Pattern\Char("b"), 0);
         $this->assertSame("#ba#i", $regex->render());
     }
     
     public function testTestMethod ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->setStartAnchored(true)
                 ->setEndAnchored(true)
@@ -141,7 +141,7 @@ class RegexTest extends PHPUnit_Framework_TestCase
     
     public function testExecMethod ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->setStartAnchored(true)
                 ->setEndAnchored(true)
@@ -176,7 +176,7 @@ class RegexTest extends PHPUnit_Framework_TestCase
     
     public function testGrepMethod ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->setStartAnchored(true)
                 ->setEndAnchored(true)
@@ -192,7 +192,7 @@ class RegexTest extends PHPUnit_Framework_TestCase
     
     public function testSplitMethod ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->addSubPattern()
                     ->addGenericCharType("s")
@@ -209,7 +209,7 @@ class RegexTest extends PHPUnit_Framework_TestCase
     
     public function testReplaceMethod ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->addGenericCharType("w");
         

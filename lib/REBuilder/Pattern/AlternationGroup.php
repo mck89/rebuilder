@@ -1,22 +1,34 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a group of alternations. This container can accept only
  * alternations
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.alternation.php
  * 
- * @method REBuilder_Pattern_Alternation addAlternation()
+ * @method Alternation addAlternation()
  *         addAlternation()
- *         Adds a new REBuilder_Pattern_Alternation class instance to this container
- *         @see REBuilder_Pattern_Alternation::__construct
+ *         Adds a new alternation
+ *         @see Alternation::__construct
  * 
- * @method REBuilder_Pattern_Alternation addAlternationAndContinue()
+ * @method Alternation addAlternationAndContinue()
  *         addAlternationAndContinue()
  *         Same as addAlternation but it returns the current container
- *         @see REBuilder_Pattern_Alternation::__construct
+ *         @see Alternation::__construct
  */
-class REBuilder_Pattern_AlternationGroup extends REBuilder_Pattern_AbstractContainer
+class AlternationGroup extends AbstractContainer
 {
     /**
      * Flag that indicates if the container supports anchors
@@ -28,15 +40,18 @@ class REBuilder_Pattern_AlternationGroup extends REBuilder_Pattern_AbstractConta
     /**
      * Adds a child to the class at the given index
      * 
-     * @param REBuilder_Pattern_Abstract $child Child to add
-     * @param int                        $index Index
-     * @return REBuilder_Pattern_CharClass
-     * @throw REBuilder_Exception_Generic
+     * @param AbstractPattern $child Child to add
+     * 
+     * @param int             $index Index
+     * 
+     * @return AlternationGroup
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
-    public function addChildAt (REBuilder_Pattern_Abstract $child, $index = null)
+    public function addChildAt (AbstractPattern $child, $index = null)
     {
-        if (!$child instanceof REBuilder_Pattern_Alternation) {
-            throw new REBuilder_Exception_Generic(
+        if (!$child instanceof Alternation) {
+            throw new \REBuilder\Exception\Generic(
                 "Alternation groups can contain only alternations"
             );
         }

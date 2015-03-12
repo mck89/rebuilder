@@ -1,27 +1,39 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a range of characters in a character class
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.character-classes.php
  * 
- * @method REBuilder_Pattern_Abstract getStart()
+ * @method AbstractPattern getStart()
  *         getStart()
  *         Returns the start pattern of the range
  * 
- * @method REBuilder_Pattern_CharClassRange setStart()
- *         setStart(REBuilder_Pattern_Abstract $pattern)
+ * @method CharClassRange setStart()
+ *         setStart(AbstractPattern $pattern)
  *         Sets the start pattern of the range
  * 
- * @method REBuilder_Pattern_Abstract getEnd()
+ * @method AbstractPattern getEnd()
  *         getEnd()
  *         Returns the end pattern of the range
  * 
- * @method REBuilder_Pattern_CharClassRange setEnd()
- *         setEnd(REBuilder_Pattern_Abstract $pattern)
+ * @method CharClassRange setEnd()
+ *         setEnd(AbstractPattern $pattern)
  *         Sets the end pattern of the range
  */
-class REBuilder_Pattern_CharClassRange extends REBuilder_Pattern_AbstractContainer
+class CharClassRange extends AbstractContainer
 {
     /**
      * Flag that identifies if the pattern can be added to character classes
@@ -43,24 +55,27 @@ class REBuilder_Pattern_CharClassRange extends REBuilder_Pattern_AbstractContain
      * 
      * @var string
      */
-    protected $_limitParent = "REBuilder_Pattern_CharClass";
+    protected $_limitParent = "REBuilder\Pattern\CharClass";
     
     /**
      * Adds a child to the class at the given index
      * 
-     * @param REBuilder_Pattern_Abstract $child Child to add
-     * @param int                        $index Index
-     * @return REBuilder_Pattern_CharClass
-     * @throw REBuilder_Exception_Generic
+     * @param AbstractPattern $child Child to add
+     * @param int             $index Index
+     * 
+     * @return CharClass
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
-    public function addChildAt (REBuilder_Pattern_Abstract $child, $index = null)
+    public function addChildAt (AbstractPattern $child, $index = null)
     {
         if (!$child->canBeAddedToCharClassRange()) {
-            throw new REBuilder_Exception_Generic(
-                $this->_getClassName($child) . " cannot be added to character class ranges"
+            throw new \REBuilder\Exception\Generic(
+                $this->_getClassName($child) .
+                " cannot be added to character class ranges"
             );
         } elseif (count($this->getChildren()) === 2) {
-            throw new REBuilder_Exception_Generic(
+            throw new \REBuilder\Exception\Generic(
                 "Character class ranges can contain only 2 children"
             );
         }
@@ -71,12 +86,13 @@ class REBuilder_Pattern_CharClassRange extends REBuilder_Pattern_AbstractContain
      * Returns the string representation of the class
      * 
      * @return string
-     * @throw REBuilder_Exception_Generic
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     public function render ()
     {
         if (count($this->getChildren()) !== 2) {
-            throw new REBuilder_Exception_Generic(
+            throw new \REBuilder\Exception\Generic(
                 "Character class ranges must contain 2 children"
             );
         }
@@ -88,7 +104,10 @@ class REBuilder_Pattern_CharClassRange extends REBuilder_Pattern_AbstractContain
      * 
      * @param string $name      Method name
      * @param array  $arguments Method arguments
+     * 
      * @return mixed
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     function __call ($name, $arguments)
     {
@@ -100,13 +119,14 @@ class REBuilder_Pattern_CharClassRange extends REBuilder_Pattern_AbstractContain
                        null;
             } else {
                 if (!count($arguments) ||
-                    !$arguments[0] instanceof REBuilder_Pattern_Abstract) {
-                    throw new REBuilder_Exception_Generic(
+                    !$arguments[0] instanceof AbstractPattern) {
+                    throw new \REBuilder\Exception\Generic(
                         "$name requires a pattern"
                     );
                 } elseif (!$arguments[0]->canBeAddedToCharClassRange()) {
-                    throw new REBuilder_Exception_Generic(
-                        $this->_getClassName($arguments[0]) . " cannot be added to character class ranges"
+                    throw new \REBuilder\Exception\Generic(
+                        $this->_getClassName($arguments[0]) .
+                        " cannot be added to character class ranges"
                     );
                 }
                 return $this->removeChildAt($index)

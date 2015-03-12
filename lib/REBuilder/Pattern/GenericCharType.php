@@ -1,12 +1,23 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents generic character types: \d, \D, \h, \H, \s, \S, \v, \V, \w, \W
  * 
- * @author Marco Marchiò
- * @abstract
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.escape.php
  */
-class REBuilder_Pattern_GenericCharType extends REBuilder_Pattern_AbstractIdentifier
+class GenericCharType extends AbstractIdentifier
 {
     /**
      * Flag that identifies if the pattern can be added to character classes
@@ -20,14 +31,17 @@ class REBuilder_Pattern_GenericCharType extends REBuilder_Pattern_AbstractIdenti
      * "d", "D", "h", "H", "s", "S", "v", "V", "w", "W"
      * 
      * @param string $identifier Identifier to match
-     * @return REBuilder_Pattern_GenericCharType
-     * @throws REBuilder_Exception_Generic
+     * 
+     * @return GenericCharType
+     * 
+     * @throws \REBuilder\Exception\Generic
+     * 
      * @link http://php.net/manual/en/regexp.reference.escape.php
      */
     public function setIdentifier ($identifier)
     {
-        if (!REBuilder_Parser_Rules::validateGenericCharType($identifier)) {
-            throw new REBuilder_Exception_Generic(
+        if (!\REBuilder\Parser\Rules::validateGenericCharType($identifier)) {
+            throw new \REBuilder\Exception\Generic(
                 "'$identifier' is not a valid generic character type identifier"
             );
         }

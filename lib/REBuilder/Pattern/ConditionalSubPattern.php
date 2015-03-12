@@ -1,55 +1,67 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a conditional subpattern.
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.conditional.php
  * 
- * @method REBuilder_Pattern_ConditionalThen addConditionalThen()
+ * @method ConditionalThen addConditionalThen()
  *         addConditionalThen()
- *         Adds a new REBuilder_Pattern_ConditionalThen class instance to this container
- *         @see REBuilder_Pattern_ConditionalThen::__construct
+ *         Adds a new "then" part to the subpattern
+ *         @see ConditionalThen::__construct
  * 
- * @method REBuilder_Pattern_ConditionalSubPattern addConditionalThenAndContinue()
+ * @method ConditionalSubPattern addConditionalThenAndContinue()
  *         addConditionalThenAndContinue(string $char)
  *         Same as addConditionalThen but it returns the current container
- *         @see REBuilder_Pattern_ConditionalThen::__construct
+ *         @see ConditionalThen::__construct
  * 
- * @method REBuilder_Pattern_ConditionalElse addConditionalElse()
+ * @method ConditionalElse addConditionalElse()
  *         addConditionalElse()
- *         Adds a new REBuilder_Pattern_ConditionalElse class instance to this container
- *         @see REBuilder_Pattern_ConditionalElse::__construct
+ *         Adds a new "else" part to the subpattern
+ *         @see ConditionalElse::__construct
  * 
- * @method REBuilder_Pattern_ConditionalSubPattern addConditionalElseAndContinue()
+ * @method ConditionalSubPattern addConditionalElseAndContinue()
  *         addConditionalElseAndContinue(string $char)
  *         Same as addConditionalElse but it returns the current container
- *         @see REBuilder_Pattern_ConditionalElse::__construct
+ *         @see ConditionalElse::__construct
  * 
- * @method REBuilder_Pattern_Assertion getIf()
+ * @method Assertion getIf()
  *         getIf()
  *         Returns the "if" part of the conditional subpattern
  * 
- * @method REBuilder_Pattern_ConditionalSubPattern setIf()
- *         setIf(REBuilder_Pattern_Assertion $if)
+ * @method ConditionalSubPattern setIf()
+ *         setIf(Assertion $if)
  *         Sets the "if" part of the conditional subpattern
  * 
- * @method REBuilder_Pattern_ConditionalThen getThen()
+ * @method ConditionalThen getThen()
  *         getThen()
  *         Returns the "then" part of the conditional subpattern
  * 
- * @method REBuilder_Pattern_ConditionalSubPattern setThen()
- *         setThen(REBuilder_Pattern_ConditionalThen $then)
+ * @method ConditionalSubPattern setThen()
+ *         setThen(ConditionalThen $then)
  *         Sets the "then" part of the conditional subpattern
  * 
- * @method REBuilder_Pattern_ConditionalElse getElse()
+ * @method ConditionalElse getElse()
  *         getElse()
  *         Returns the "else" part of the conditional subpattern
  * 
- * @method REBuilder_Pattern_ConditionalSubPattern setElse()
- *         setIf(REBuilder_Pattern_ConditionalElse $else)
+ * @method ConditionalSubPattern setElse()
+ *         setIf(ConditionalElse $else)
  *         Sets the "else" part of the conditional subpattern
  */
-class REBuilder_Pattern_ConditionalSubPattern extends REBuilder_Pattern_AbstractContainer
+class ConditionalSubPattern extends AbstractContainer
 {
     /**
      * Defines the order of children based on their classes
@@ -57,11 +69,11 @@ class REBuilder_Pattern_ConditionalSubPattern extends REBuilder_Pattern_Abstract
      * @var array
      */
     protected $_childrenOrder = array(
-        "if" => "REBuilder_Pattern_Assertion",
-        "then" => "REBuilder_Pattern_ConditionalThen",
-        "else" => "REBuilder_Pattern_ConditionalElse",
+        "if" => "REBuilder\Pattern\Assertion",
+        "then" => "REBuilder\Pattern\ConditionalThen",
+        "else" => "REBuilder\Pattern\ConditionalElse",
     );
-    
+
     /**
      * Flag that indicates if it is safe to add the child without checking its
      * index
@@ -69,13 +81,14 @@ class REBuilder_Pattern_ConditionalSubPattern extends REBuilder_Pattern_Abstract
      * @var bool
      */
     protected $_safeAdd = false;
-    
+
     /**
      * Returns the children that corresponds to the given type or null
      * if missing
      * 
      * @param string $type Child type
-     * @return REBuilder_Pattern_Abstract|null
+     * 
+     * @return AbstractPattern|null
      */
     protected function _getConditionalChild ($type)
     {
@@ -85,42 +98,49 @@ class REBuilder_Pattern_ConditionalSubPattern extends REBuilder_Pattern_Abstract
                $this->_children[$index] :
                null;
     }
-    
+
     /**
      * Adds a child to the class at the given index
      * 
-     * @param REBuilder_Pattern_Abstract $child Child to add
-     * @param int                        $index Index
-     * @return REBuilder_Pattern_CharClass
-     * @throw REBuilder_Exception_Generic
+     * @param AbstractPattern $child Child to add
+     * @param int             $index Index
+     * 
+     * @return CharClass
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
-    public function addChildAt (REBuilder_Pattern_Abstract $child, $index = null)
+    public function addChildAt (AbstractPattern $child, $index = null)
     {
         $childClass = get_class($child);
         if (!in_array($childClass, $this->_childrenOrder)) {
-            throw new REBuilder_Exception_Generic(
-                $this->_getClassName($child) . " cannot be added to conditional subpatterns"
+            throw new \REBuilder\Exception\Generic(
+                $this->_getClassName($child) .
+                " cannot be added to conditional subpatterns"
             );
         }
         $index = array_search($childClass, array_values($this->_childrenOrder));
         if (!$this->_safeAdd) {
             if (isset($this->_children[$index])) {
-                throw new REBuilder_Exception_Generic(
-                    $this->_getClassName($child) . " already present in conditional subpattern"
+                throw new \REBuilder\Exception\Generic(
+                    $this->_getClassName($child) .
+                    " already present in conditional subpattern"
                 );
             }
         }
         $this->_safeAdd = false;
         return parent::addChildAt($child, $index);
     }
-    
+
     /**
      * Allows to call setIf, getIf, setThen, getThen, setElse and getElse
      * functions
      * 
      * @param string $name      Method name
      * @param array  $arguments Method arguments
+     * 
      * @return mixed
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     function __call ($name, $arguments)
     {
@@ -133,7 +153,7 @@ class REBuilder_Pattern_ConditionalSubPattern extends REBuilder_Pattern_Abstract
                 $testClass = $this->_childrenOrder[$type];
                 if (!count($arguments) ||
                     !$arguments[0] instanceof $testClass) {
-                    throw new REBuilder_Exception_Generic(
+                    throw new \REBuilder\Exception\Generic(
                         "$name requires a " . $this->_getClassName($testClass)
                     );
                 }
@@ -146,25 +166,27 @@ class REBuilder_Pattern_ConditionalSubPattern extends REBuilder_Pattern_Abstract
         }
         return parent::__call($name, $arguments);
     }
-    
+
     /**
      * Returns the string representation of the class
      * 
      * @return string
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     public function render ()
     {
         $if = $this->_getConditionalChild("if");
         $then = $this->_getConditionalChild("then");
         $else = $this->_getConditionalChild("else");
-        
+
         if (!$if || !$then) {
             $missing = !$if ? "if" : "then";
-            throw new REBuilder_Exception_Generic(
-				"Missing '$missing' part in conditional subpattern"
-			);
+            throw new \REBuilder\Exception\Generic(
+                "Missing '$missing' part in conditional subpattern"
+            );
         }
-        
+
         return "(?$if$then" .
                ($else ? "|$else" : "") .
                ")" .

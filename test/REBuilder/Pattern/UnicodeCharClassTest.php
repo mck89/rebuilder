@@ -8,11 +8,11 @@ class UnicodeCharClassTest extends PHPUnit_Framework_TestCase
         foreach ($validClasses as $c) {
             foreach ($identifiers as $identifier) {
                 $negate = $identifier === "P";
-                $regex = REBuilder::parse("/\\$identifier$c/");
-                $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+                $regex = REBuilder\REBuilder::parse("/\\$identifier$c/");
+                $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
                 $children = $regex->getChildren();
                 $this->assertSame(1, count($children));
-                $this->assertInstanceOf("REBuilder_Pattern_UnicodeCharClass", $children[0]);
+                $this->assertInstanceOf("REBuilder\Pattern\UnicodeCharClass", $children[0]);
                 $this->assertSame(str_replace(array("{", "}"), "", $c), $children[0]->getClass());
                 $this->assertSame($negate, $children[0]->getNegate());
                 if ($c === "C") {
@@ -25,40 +25,40 @@ class UnicodeCharClassTest extends PHPUnit_Framework_TestCase
 
     public function testExtendedUnicodeSequenceGeneratedStructure ()
     {
-        $regex = REBuilder::parse("/\X/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/\X/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_UnicodeCharClass", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\UnicodeCharClass", $children[0]);
         $this->assertSame("X", $children[0]->getClass());
         $this->assertSame(false, $children[0]->getNegate());
         $this->assertSame("/\X/", $regex->render());
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testInvalidClassException ()
     {
-        $char = new REBuilder_Pattern_UnicodeCharClass();
+        $char = new REBuilder\Pattern\UnicodeCharClass();
         $char->setClass("invalid");
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testEmptyClassException ()
     {
-        $char = new REBuilder_Pattern_UnicodeCharClass();
+        $char = new REBuilder\Pattern\UnicodeCharClass();
         $char->render();
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testExtendedUnicodeSequenceNegateException ()
     {
-        $char = new REBuilder_Pattern_UnicodeCharClass("X");
+        $char = new REBuilder\Pattern\UnicodeCharClass("X");
         $char->setNegate(true);
         $char->render();
     }
@@ -74,23 +74,23 @@ class UnicodeCharClassTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidRegexProvider
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testInvalidRegexException ($invalid)
     {
-        REBuilder::parse("/$invalid/");
+        REBuilder\REBuilder::parse("/$invalid/");
     }
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex->addUnicodeCharClass("C");
         $this->assertSame("/\p{C}/", $regex->render());
     }
 
     public function testObjectGenerationNegate ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex->addUnicodeCharClass("C", true)->setRepetition("?");
         $this->assertSame("/\P{C}?/", $regex->render());
     }

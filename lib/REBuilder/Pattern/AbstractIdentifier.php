@@ -1,11 +1,23 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Abstract class for patterns that represents an identifier
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @abstract
  */
-abstract class REBuilder_Pattern_AbstractIdentifier extends REBuilder_Pattern_Abstract
+abstract class AbstractIdentifier extends AbstractPattern
 {
     /**
      * Identifier to match
@@ -30,7 +42,8 @@ abstract class REBuilder_Pattern_AbstractIdentifier extends REBuilder_Pattern_Ab
      * Sets the identifier.
      * 
      * @param string $identifier Identifier to match
-     * @return REBuilder_Pattern_AbstractIdentifier
+     * 
+     * @return AbstractIdentifier
      */
     public function setIdentifier ($identifier)
     {
@@ -52,14 +65,16 @@ abstract class REBuilder_Pattern_AbstractIdentifier extends REBuilder_Pattern_Ab
      * Returns the string representation of the class
      * 
      * @return string
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     public function render ()
     {
-        if ($this->_identifier === null) {
-            throw new REBuilder_Exception_Generic(
+        if ($this->getIdentifier() === null) {
+            throw new \REBuilder\Exception\Generic(
                 "No identifier has been set"
             );
         }
-        return "\\" . $this->_identifier . $this->_renderRepetition();
+        return "\\" . $this->getIdentifier() . $this->_renderRepetition();
     }
 }

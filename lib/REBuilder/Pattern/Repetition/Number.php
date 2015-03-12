@@ -1,12 +1,24 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern\Repetition;
+
+/**
  * Represents the "{}" repetition that matches the subject exactly the given
  * number of times
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.repetition.php
  */
-class REBuilder_Pattern_Repetition_Number extends REBuilder_Pattern_Repetition_Abstract
+class Number extends AbstractRepetition
 {
     /**
      * Minimum repetition
@@ -36,7 +48,8 @@ class REBuilder_Pattern_Repetition_Number extends REBuilder_Pattern_Repetition_A
      * Sets the number of times the repetition must match
      * 
      * @param int $number Number of times the repetition must match
-     * @return REBuilder_Pattern_Repetition_Number
+     * 
+     * @return Number
      */
     public function setNumber ($number)
     {
@@ -59,7 +72,8 @@ class REBuilder_Pattern_Repetition_Number extends REBuilder_Pattern_Repetition_A
      * 
      * @return string
      */
-    public function render () {
-        return "{" . $this->_min . "}";
+    public function render ()
+    {
+        return "{" . $this->getMin() . "}";
     }
 }

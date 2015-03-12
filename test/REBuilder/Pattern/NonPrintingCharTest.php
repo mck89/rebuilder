@@ -3,11 +3,11 @@ class NonPrintingCharTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {
-        $regex = REBuilder::parse("/\a/i");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/\a/i");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_NonPrintingChar", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\NonPrintingChar", $children[0]);
         $this->assertSame("a", $children[0]->getIdentifier());
     }
 
@@ -28,7 +28,7 @@ class NonPrintingCharTest extends PHPUnit_Framework_TestCase
      */
     public function testValidIdentifierException ($identifier)
     {
-        $char = new REBuilder_Pattern_NonPrintingChar($identifier);
+        $char = new REBuilder\Pattern\NonPrintingChar($identifier);
         $this->assertSame($identifier, $char->getIdentifier());
     }
 
@@ -45,26 +45,26 @@ class NonPrintingCharTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidIdentifiersProvider
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testInvalidIdentifierException ($identifier)
     {
-        $char = new REBuilder_Pattern_NonPrintingChar($identifier);
+        $char = new REBuilder\Pattern\NonPrintingChar($identifier);
         $char->render();
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testExceptionMissingIdentifier ()
     {
-        $assertion = new REBuilder_Pattern_NonPrintingChar();
+        $assertion = new REBuilder\Pattern\NonPrintingChar();
         $assertion->render();
     }
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex->addNonPrintingChar("a")->setRepetition(2);
         $this->assertSame("/\a{2}/", $regex->render());
     }

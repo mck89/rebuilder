@@ -1,12 +1,23 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a comment
  * 
- * @author Marco Marchiò
- * @abstract
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.internal-options.php
  */
-class REBuilder_Pattern_Comment extends REBuilder_Pattern_Abstract
+class Comment extends AbstractPattern
 {
     /**
      * Comment
@@ -36,7 +47,8 @@ class REBuilder_Pattern_Comment extends REBuilder_Pattern_Abstract
      * Sets the comment
      * 
      * @param string $comment Comment
-     * @return REBuilder_Pattern_Comment
+     * 
+     * @return Comment
      */
     public function setComment ($comment)
     {

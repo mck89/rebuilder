@@ -1,11 +1,23 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern\Repetition;
+
+/**
  * Represents the "*" repetition that matches the subject one or more times
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.repetition.php
  */
-class REBuilder_Pattern_Repetition_OneOrMore extends REBuilder_Pattern_Repetition_Abstract
+class OneOrMore extends AbstractRepetition
 {
     /**
      * Minimum repetition
@@ -35,6 +47,8 @@ class REBuilder_Pattern_Repetition_OneOrMore extends REBuilder_Pattern_Repetitio
      * Sets the lazy flag
      * 
      * @param bool $lazy True if the repetition must be lazy
+     * 
+     * @return OneOrMore
      */
     public function setLazy ($lazy)
     {
@@ -47,7 +61,8 @@ class REBuilder_Pattern_Repetition_OneOrMore extends REBuilder_Pattern_Repetitio
      * 
      * @return string
      */
-    public function render () {
-        return "+" . ($this->_lazy ? "?" : "");
+    public function render ()
+    {
+        return "+" . ($this->getLazy() ? "?" : "");
     }
 }

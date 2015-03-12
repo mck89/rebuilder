@@ -1,11 +1,22 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a character or a group of characters that will be matched as they
  * are, like "a" and "bc" in /a.bc/
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
  */
-class REBuilder_Pattern_Char extends REBuilder_Pattern_AbstractChar
+class Char extends AbstractChar
 {
     /**
      * Flag that identifies if the pattern can be added to character classes
@@ -29,7 +40,7 @@ class REBuilder_Pattern_Char extends REBuilder_Pattern_AbstractChar
     public function render ()
     {
         $char = parent::render();
-        $needsGroup = strlen($this->_char) > 1 && $this->getRepetition();
+        $needsGroup = strlen($this->getChar()) > 1 && $this->getRepetition();
         return ($needsGroup ? "(?:$char)" : $char) . $this->_renderRepetition();
     }
 }

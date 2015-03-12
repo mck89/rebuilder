@@ -1,11 +1,23 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents the "then" part of a conditional subpatter
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.subpatterns.php
  */
-class REBuilder_Pattern_ConditionalThen extends REBuilder_Pattern_AbstractContainer
+class ConditionalThen extends AbstractContainer
 {
     /**
      * Flag that identifies if the pattern supports repetitions
@@ -20,7 +32,7 @@ class REBuilder_Pattern_ConditionalThen extends REBuilder_Pattern_AbstractContai
      * 
      * @var string
      */
-    protected $_limitParent = "REBuilder_Pattern_ConditionalSubPattern";
+    protected $_limitParent = "REBuilder\Pattern\ConditionalSubPattern";
     
     /**
      * Returns the string representation of the class

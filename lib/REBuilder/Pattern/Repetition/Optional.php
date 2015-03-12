@@ -1,12 +1,24 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern\Repetition;
+
+/**
  * Represents the "?" repetition that matches optionally matches a subject, in
  * other words it matches a subject one or zero times
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.repetition.php
  */
-class REBuilder_Pattern_Repetition_Optional extends REBuilder_Pattern_Repetition_Abstract
+class Optional extends AbstractRepetition
 {
     /**
      * Minimum repetition
@@ -27,7 +39,8 @@ class REBuilder_Pattern_Repetition_Optional extends REBuilder_Pattern_Repetition
      * 
      * @return string
      */
-    public function render () {
+    public function render ()
+    {
         return "?";
     }
 }

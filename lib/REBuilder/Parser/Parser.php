@@ -1,22 +1,33 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Parser;
+
+/**
  * Parser class
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
  */
-class REBuilder_Parser_Parser
+class Parser
 {
     /**
      * Parser's tokenizer
      * 
-     * @var REBuilder_Parser_Tokenizer 
+     * @var Tokenizer 
      */
     protected $_tokenizer;
 
     /**
      * Parser's builder
      * 
-     * @var REBuilder_Parser_Builder 
+     * @var Builder 
      */
     protected $_builder;
 
@@ -27,8 +38,8 @@ class REBuilder_Parser_Parser
      */
     public function __construct ($regex)
     {
-        $this->_builder = new REBuilder_Parser_Builder;
-        $this->_tokenizer = new REBuilder_Parser_Tokenizer(
+        $this->_builder = new Builder;
+        $this->_tokenizer = new Tokenizer(
             $regex,
             array($this->_builder, "receiveToken")
         );
@@ -37,7 +48,7 @@ class REBuilder_Parser_Parser
     /**
      * Starts the parsing process
      * 
-     * @return REBuilder_Pattern_Regex
+     * @return REBuilder\Pattern\Regex
      */
     public function parse ()
     {

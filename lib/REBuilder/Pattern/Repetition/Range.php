@@ -1,12 +1,24 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern\Repetition;
+
+/**
  * Represents the "{,}" repetition that matches the subject a variable number
  * of times between a minimum and a maximum value
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.repetition.php
  */
-class REBuilder_Pattern_Repetition_Range extends REBuilder_Pattern_Repetition_Abstract
+class Range extends AbstractRepetition
 {
     /**
      * Minimum repetition
@@ -39,7 +51,8 @@ class REBuilder_Pattern_Repetition_Range extends REBuilder_Pattern_Repetition_Ab
      * Sets the minimum number of repetitions
      * 
      * @param int|null $min Minimum number of repetitions
-     * @return REBuilder_Pattern_Repetition_Range
+     * 
+     * @return Range
      */
     public function setMin ($min)
     {
@@ -52,7 +65,8 @@ class REBuilder_Pattern_Repetition_Range extends REBuilder_Pattern_Repetition_Ab
      * 
      * @param int|null $max Maximum number of repetitions. If null is passed
      *                      then no maximum limit will be used
-     * @return REBuilder_Pattern_Repetition_Range
+     * 
+     * @return Range
      */
     public function setMax ($max)
     {
@@ -65,9 +79,10 @@ class REBuilder_Pattern_Repetition_Range extends REBuilder_Pattern_Repetition_Ab
      * 
      * @return string
      */
-    public function render () {
-        return "{" . $this->_min . "," .
-                ($this->_max === null ? "" : $this->_max)
+    public function render ()
+    {
+        return "{" . $this->getMin() . "," .
+                ($this->getMax() === null ? "" : $this->getMax())
                 . "}";
     }
 }

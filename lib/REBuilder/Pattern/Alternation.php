@@ -1,12 +1,24 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents an alternation. This container can be added only to alternation
  * groups
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.alternation.php
  */
-class REBuilder_Pattern_Alternation extends REBuilder_Pattern_AbstractContainer
+class Alternation extends AbstractContainer
 {
     /**
      * Flag that identifies if the pattern supports repetitions
@@ -21,7 +33,7 @@ class REBuilder_Pattern_Alternation extends REBuilder_Pattern_AbstractContainer
      * 
      * @var string
      */
-    protected $_limitParent = "REBuilder_Pattern_AlternationGroup";
+    protected $_limitParent = "REBuilder\Pattern\AlternationGroup";
 
     /**
      * Returns the string representation of the class

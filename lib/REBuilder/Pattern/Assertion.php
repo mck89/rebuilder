@@ -1,11 +1,23 @@
 <?php
 /**
- * Represent lookahead and lookbehind assertions
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
+ * Represents lookahead and lookbehind assertions
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.assertions.php
  */
-class REBuilder_Pattern_Assertion extends REBuilder_Pattern_AbstractContainer
+class Assertion extends AbstractContainer
 {
     /**
      * True if the assertion is a lookahead assertion, false if it's a
@@ -40,7 +52,8 @@ class REBuilder_Pattern_Assertion extends REBuilder_Pattern_AbstractContainer
      * create a lookbehind assertion
      * 
      * @param bool $lookahead Assertion type
-     * @return REBuilder_Pattern_Assertion
+     * 
+     * @return Assertion
      */
     public function setLookahead ($lookahead)
     {
@@ -64,7 +77,8 @@ class REBuilder_Pattern_Assertion extends REBuilder_Pattern_AbstractContainer
      * negative assertion
      * 
      * @param bool $negate Negation flag
-     * @return REBuilder_Pattern_Assertion
+     * 
+     * @return Assertion
      */
     public function setNegate ($negate)
     {

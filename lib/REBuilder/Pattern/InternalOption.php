@@ -1,13 +1,24 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents an internal option (?i). This allows to set or subtract modifiers
  * at a certain point of a regex
  * 
- * @author Marco Marchiò
- * @abstract
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.internal-options.php
  */
-class REBuilder_Pattern_InternalOption extends REBuilder_Pattern_Abstract
+class InternalOption extends AbstractPattern
 {
     /**
      * Internal option mopdifiers
@@ -26,7 +37,7 @@ class REBuilder_Pattern_InternalOption extends REBuilder_Pattern_Abstract
     /**
      * Constructor
      * 
-     * @param string $modifiers    Internal option modifiers
+     * @param string $modifiers Internal option modifiers
      */
     public function __construct ($modifiers = null)
     {
@@ -39,16 +50,18 @@ class REBuilder_Pattern_InternalOption extends REBuilder_Pattern_Abstract
      * Sets internal option modifiers
      * 
      * @param string $modifiers Internal option modifiers
-     * @return REBuilder_Pattern_InternalOption
-     * @throws REBuilder_Exception_Generic
+     * 
+     * @return InternalOption
+     * 
+     * @throws \REBuilder\Exception\InvalidModifier
      */
     public function setModifiers ($modifiers)
     {
-        if (!REBuilder_Parser_Rules::validateModifiers(
+        if (!\REBuilder\Parser\Rules::validateModifiers(
                 str_replace("-", "", $modifiers),
                 $wrongModifier
             )) {
-            throw new REBuilder_Exception_InvalidModifier(
+            throw new \REBuilder\Exception\InvalidModifier(
                 "Invalid modifier '$wrongModifier'"
             );
         }

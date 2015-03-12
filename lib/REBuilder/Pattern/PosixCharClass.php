@@ -1,12 +1,24 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a POSIX character class. This class can only be added to
  * character classes
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.character-classes.php
  */
-class REBuilder_Pattern_PosixCharClass extends REBuilder_Pattern_Abstract
+class PosixCharClass extends AbstractPattern
 {
     /**
      * Flag that identifies if the pattern can be added to character classes
@@ -42,13 +54,13 @@ class REBuilder_Pattern_PosixCharClass extends REBuilder_Pattern_Abstract
      * 
      * @var string
      */
-    protected $_limitParent = "REBuilder_Pattern_CharClass";
+    protected $_limitParent = "REBuilder\Pattern\CharClass";
     
     /**
      * Constructor
      * 
-     * @param string $class   POSIX Character class to match
-     * @param string $negate  True to negate the class
+     * @param string $class  Posix character class to match
+     * @param string $negate True to negate the class
      */
     public function __construct ($class = null, $negate = false)
     {
@@ -63,10 +75,13 @@ class REBuilder_Pattern_PosixCharClass extends REBuilder_Pattern_Abstract
      * negated anything but its characters are matched
      * 
      * @param bool $negate True to negate the match
+     * 
+     * @return PosixCharClass
      */
     public function setNegate ($negate)
     {
         $this->_negate = $negate;
+        return $this;
     }
 
     /**
@@ -83,18 +98,22 @@ class REBuilder_Pattern_PosixCharClass extends REBuilder_Pattern_Abstract
      * Sets the POSIX character class. It can be any supported POSIX classes
      * 
      * @param string $class Character class to match
-     * @return REBuilder_Pattern_PosixCharClass
-     * @throws REBuilder_Exception_Generic
+     * 
+     * @return PosixCharClass
+     * 
+     * @throws \REBuilder\Exception\Generic
+     * 
      * @link http://php.net/manual/en/regexp.reference.character-classes.php
      */
     public function setClass ($class)
     {
-        if (!REBuilder_Parser_Rules::validatePosixCharClass($class)) {
-            throw new REBuilder_Exception_Generic(
+        if (!\REBuilder\Parser\Rules::validatePosixCharClass($class)) {
+            throw new \REBuilder\Exception\Generic(
                 "Unknow POSIX character class '$class'"
             );
         }
         $this->_class = $class;
+        return $this;
     }
 
     /**
@@ -111,11 +130,13 @@ class REBuilder_Pattern_PosixCharClass extends REBuilder_Pattern_Abstract
      * Returns the string representation of the class
      * 
      * @return string
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     public function render ()
     {
-        if ($this->_class === null) {
-            throw new REBuilder_Exception_Generic(
+        if ($this->getClass() === null) {
+            throw new \REBuilder\Exception\Generic(
                 "No POSIX character class has been set"
             );
         }

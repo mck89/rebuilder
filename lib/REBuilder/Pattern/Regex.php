@@ -1,11 +1,22 @@
 <?php
 /**
- * This class represents the main regex container and will contain the entire
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
+ * Represents the main regex container and will contain the entire
  * regex structure
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
  */
-class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
+class Regex extends AbstractContainer
 {
     /**
      * Start delimiter
@@ -51,18 +62,20 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
      * Sets the regex delimiter
      * 
      * @param string $delimiter Regex delimiter
-     * @return REBuilder_Pattern_Regex
-     * @throws REBuilder_Exception_InvalidDelimiter
+     * 
+     * @return Regex
+     * 
+     * @throws \REBuilder\Exception\InvalidDelimiter
      */
     public function setDelimiter ($delimiter)
     {
-        if (!REBuilder_Parser_Rules::validateDelimiter($delimiter)) {
-            throw new REBuilder_Exception_InvalidDelimiter(
+        if (!\REBuilder\Parser\Rules::validateDelimiter($delimiter)) {
+            throw new \REBuilder\Exception\InvalidDelimiter(
                 "Invalid delimiter '$delimiter'"
             );
         }
         $this->_startDelimiter = $delimiter;
-        $this->_endDelimiter = REBuilder_Parser_Rules::getEndDelimiter($delimiter);
+        $this->_endDelimiter = \REBuilder\Parser\Rules::getEndDelimiter($delimiter);
         return $this;
     }
 
@@ -90,13 +103,19 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
      * Sets regex modifiers
      * 
      * @param string $modifiers Regex modifiers
-     * @return REBuilder_Pattern_Regex
-     * @throws REBuilder_Exception_InvalidModifier
+     * 
+     * @return Regex
+     * 
+     * @throws \REBuilder\Exception\InvalidModifier
      */
     public function setModifiers ($modifiers)
     {
-        if (!REBuilder_Parser_Rules::validateModifiers($modifiers, $wrongModifier)) {
-            throw new REBuilder_Exception_InvalidModifier("Invalid modifier '$wrongModifier'");
+        if (!\REBuilder\Parser\Rules::validateModifiers(
+                $modifiers, $wrongModifier
+            )) {
+            throw new \REBuilder\Exception\InvalidModifier(
+                "Invalid modifier '$wrongModifier'"
+            );
         }
         $this->_modifiers = $modifiers;
         return $this;
@@ -115,6 +134,8 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
     /**
      * Quotes the given string using current configurations
      * 
+     * @param string $str String to quote
+     * 
      * @return string
      */
     public function quote ($str)
@@ -125,7 +146,8 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
     /**
      * Test if the regex matches the given string
      * 
-     * @param string $str    Test string
+     * @param string $str Test string
+     * 
      * @return bool
      */
     public function test ($str)
@@ -140,6 +162,7 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
      * @param string $str           The string to match
      * @param bool   $setOrder      True to group the matches in sets
      * @param bool   $captureOffset True to capture matches offset too
+     * 
      * @return array|null
      */
     public function exec ($str, $setOrder = false, $captureOffset = false)
@@ -164,6 +187,7 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
      * @param array $array  Array to filter
      * @param bool  $invert If true the behaviour is inverted and this function
      *                      filters out values that match the regex
+     * 
      * @return array
      */
     public function grep ($array, $invert = false)
@@ -183,6 +207,7 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
      *                              delimiter are returned
      * @param bool   $captureOffset If true the offset of each substring is
      *                              returned
+     * 
      * @return array
      */
     public function split ($str, $limit = null, $noEmpty = false,
@@ -212,6 +237,7 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
      *                                 to get the replacement
      * @param string          $str     Subject string
      * @param int             $limit   Maximum number of replacements
+     * 
      * @return string
      */
     public function replace ($replace, $str, $limit = null)
@@ -230,9 +256,9 @@ class REBuilder_Pattern_Regex extends REBuilder_Pattern_AbstractContainer
      */
     public function render ()
     {
-        return $this->_startDelimiter .
+        return $this->getStartDelimiter() .
                $this->renderChildren() .
-               $this->_endDelimiter .
-               $this->_modifiers;
+               $this->getEndDelimiter() .
+               $this->getModifiers();
     }
 }

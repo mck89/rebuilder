@@ -3,38 +3,38 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
 {
     public function testSimpleSubpattern ()
     {
-        $regex = REBuilder::parse("/(a)*/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(a)*/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame(true, $children[0]->getCapture());
         $this->assertSame("", $children[0]->getName());
         $this->assertSame("", $children[0]->getModifiers());
         $children = $children[0]->getChildren();
-        $this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\Char", $children[0]);
         $this->assertSame("a", $children[0]->getChar());
         $this->assertSame("/(a)*/", $regex->render());
     }
 
     public function testNonCapturingSubpattern ()
     {
-        $regex = REBuilder::parse("/(?:a)*/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(?:a)*/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame(false, $children[0]->getCapture());
         $this->assertSame("/(?:a)*/", $regex->render());
     }
 
     public function testNonCapturingSubpatternWithModifiers ()
     {
-        $regex = REBuilder::parse("/(?i:a)*/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(?i:a)*/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame(false, $children[0]->getCapture());
         $this->assertSame("i", $children[0]->getModifiers());
         $this->assertSame("/(?i:a)*/", $regex->render());
@@ -56,11 +56,11 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
      */
     public function testSubpatternWithAnchors ($pattern, $start, $end)
     {
-        $regex = REBuilder::parse("/$pattern/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/$pattern/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame($start, $children[0]->getStartAnchored());
         $this->assertSame($end, $children[0]->getEndAnchored());
         $render = $start || $end ? $pattern : "(a)";
@@ -81,11 +81,11 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
      */
     public function testNamedSubpattern ($pattern)
     {
-        $regex = REBuilder::parse("/(?" . $pattern . "a)*/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(?" . $pattern . "a)*/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame(true, $children[0]->getCapture());
         $this->assertSame("name", $children[0]->getName());
         $this->assertSame("/(?<name>a)*/", $regex->render());
@@ -93,11 +93,11 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
 
     public function testGroupMatches ()
     {
-        $regex = REBuilder::parse("/(?|a)*/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(?|a)*/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame(false, $children[0]->getCapture());
         $this->assertSame(true, $children[0]->getGroupMatches());
         $this->assertSame("/(?|a)*/", $regex->render());
@@ -105,11 +105,11 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
 
     public function testOnceOnly ()
     {
-        $regex = REBuilder::parse("/(?>a)/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(?>a)/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame(false, $children[0]->getCapture());
         $this->assertSame(true, $children[0]->getOnceOnly());
         $this->assertSame("/(?>a)/", $regex->render());
@@ -117,27 +117,27 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
 
     public function testSubtractModifiers ()
     {
-        $regex = REBuilder::parse("/(?-i:a)/i");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(?-i:a)/i");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame("-i", $children[0]->getModifiers());
         $this->assertSame("/(?-i:a)/i", $regex->render());
     }
 
     public function testNestedSubpatterns ()
     {
-        $regex = REBuilder::parse("/(?:a(b))*/");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/(?:a(b))*/");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(1, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[0]);
         $this->assertSame(false, $children[0]->getCapture());
         $children = $children[0]->getChildren();
         $this->assertSame(2, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
-        $this->assertInstanceOf("REBuilder_Pattern_SubPattern", $children[1]);
+        $this->assertInstanceOf("REBuilder\Pattern\Char", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\SubPattern", $children[1]);
         $children = $children[1]->getChildren();
         $this->assertSame(1, count($children));
         $this->assertSame("/(?:a(b))*/", $regex->render());
@@ -157,37 +157,37 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidSubpatterns
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testInvaliSubpattern ($pattern)
     {
-        REBuilder::parse("/$pattern/");
+        REBuilder\REBuilder::parse("/$pattern/");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testInvalidRepetition ()
     {
-        REBuilder::parse("/(*)/");
+        REBuilder\REBuilder::parse("/(*)/");
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testInvalidNameException ()
     {
-        REBuilder::create()
+        REBuilder\REBuilder::create()
                 ->addSubpattern()
                     ->setName("%");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidModifier
+     * @expectedException REBuilder\Exception\InvalidModifier
      */
     public function testInvalidModifierException ()
     {
-        REBuilder::create()
+        REBuilder\REBuilder::create()
                 ->addSubpattern()
                     ->setModifiers("?");
     }
@@ -197,7 +197,7 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
      */
     public function testCallUndefinedMethodException ()
     {
-        $subpattern = new REBuilder_Pattern_SubPattern();
+        $subpattern = new REBuilder\Pattern\SubPattern();
         $subpattern->addUndefinedMethod();
     }
 
@@ -223,10 +223,10 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
     public function testCombinedOptions ($capture, $name, $modifiers,
                                          $groupMatches, $onceOnly, $testCode)
     {
-        $subpattern = new REBuilder_Pattern_SubPattern($capture, $name,
+        $subpattern = new REBuilder\Pattern\SubPattern($capture, $name,
                                                        $modifiers, $groupMatches,
                                                        $onceOnly);
-        $subpattern->addChild(new REBuilder_Pattern_Char("a"));
+        $subpattern->addChild(new REBuilder\Pattern\Char("a"));
         $render = $subpattern->render();
         $this->assertSame($testCode, $render);
         $this->assertSame(1, preg_match("/" . $render . "/", "a"));
@@ -234,7 +234,7 @@ class SubPatternTest extends PHPUnit_Framework_TestCase
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->addSubpattern(false)
                     ->addControlChar(";")

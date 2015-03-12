@@ -3,44 +3,44 @@ class InternalOptionTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {
-        $regex = REBuilder::parse("/a(?m-i)b/i");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/a(?m-i)b/i");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(3, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_Char", $children[0]);
-        $this->assertInstanceOf("REBuilder_Pattern_InternalOption", $children[1]);
+        $this->assertInstanceOf("REBuilder\Pattern\Char", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\InternalOption", $children[1]);
         $this->assertSame("m-i", $children[1]->getModifiers());
         $this->assertSame("/a(?m-i)b/i", $regex->render());
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidModifier
+     * @expectedException REBuilder\Exception\InvalidModifier
      */
     public function testInvalidModifierException ()
     {
-        new REBuilder_Pattern_InternalOption("$");
+        new REBuilder\Pattern\InternalOption("$");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testRepetitionNotAllowedOnParse ()
     {
-        REBuilder::parse("/(?i)*/");
+        REBuilder\REBuilder::parse("/(?i)*/");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testRepetitionNotAllowedOnGeneration ()
     {
-        $option = new REBuilder_Pattern_InternalOption();
+        $option = new REBuilder\Pattern\InternalOption();
         $option->setRepetition("*");
     }
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->addInternalOptionAndContinue("i-m")
                 ->addChar("test");

@@ -1,11 +1,23 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a capturing or non capturing subpattern.
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.subpatterns.php
  */
-class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_AbstractContainer
+class SubPattern extends AbstractContainer
 {
     /**
      * Identifies if the subpattern is a capturing subpattern or a non capturing
@@ -75,7 +87,8 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_AbstractContainer
      * make it non capturing
      * 
      * @param bool $capture Subpattern capturing mode
-     * @return REBuilder_Pattern_SubPattern
+     * 
+     * @return SubPattern
      */
     public function setCapture ($capture)
     {
@@ -98,13 +111,15 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_AbstractContainer
      * is a capturing subpattern
      * 
      * @param string $name Subpattern name
-     * @return REBuilder_Pattern_SubPattern
-     * @throws REBuilder_Exception_Generic
+     * 
+     * @return SubPattern
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     public function setName ($name)
     {
         if (!preg_match("#^\w*$#", $name)) {
-            throw new REBuilder_Exception_Generic(
+            throw new \REBuilder\Exception\Generic(
                 "Invalid subpattern name '$name'. Subpattern names can contain " .
                 "only letters, numbers and underscore"
             );
@@ -127,16 +142,18 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_AbstractContainer
      * Sets subpattern modifiers
      * 
      * @param string $modifiers Subpattern modifiers
-     * @return REBuilder_Pattern_SubPattern
-     * @throws REBuilder_Exception_Generic
+     * 
+     * @return SubPattern
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
     public function setModifiers ($modifiers)
     {
-        if (!REBuilder_Parser_Rules::validateModifiers(
+        if (!\REBuilder\Parser\Rules::validateModifiers(
                 str_replace("-", "", $modifiers),
                 $wrongModifier
             )) {
-            throw new REBuilder_Exception_InvalidModifier(
+            throw new \REBuilder\Exception\InvalidModifier(
                 "Invalid modifier '$wrongModifier'"
             );
         }
@@ -159,7 +176,8 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_AbstractContainer
      * subpatterns are stored in the same match number
      * 
      * @param bool $groupMatches Subpattern group matches mode
-     * @return REBuilder_Pattern_SubPattern
+     * 
+     * @return SubPattern
      */
     public function setGroupMatches ($groupMatches)
     {
@@ -183,7 +201,9 @@ class REBuilder_Pattern_SubPattern extends REBuilder_Pattern_AbstractContainer
      * regex faster but it can cause it to fail is some cases
      * 
      * @param bool $onceOnly Subpattern once only mode
-     * @return REBuilder_Pattern_SubPattern
+     * 
+     * @return SubPattern
+     * 
      * @link http://php.net/manual/en/regexp.reference.onlyonce.php
      */
     public function setOnceOnly ($onceOnly)

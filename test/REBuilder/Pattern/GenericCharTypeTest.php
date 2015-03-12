@@ -3,15 +3,15 @@ class GenericCharTypeTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratedStructure ()
     {
-        $regex = REBuilder::parse("/\d\w\s/i");
-        $this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
+        $regex = REBuilder\REBuilder::parse("/\d\w\s/i");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
         $children = $regex->getChildren();
         $this->assertSame(3, count($children));
-        $this->assertInstanceOf("REBuilder_Pattern_GenericCharType", $children[0]);
+        $this->assertInstanceOf("REBuilder\Pattern\GenericCharType", $children[0]);
         $this->assertSame("d", $children[0]->getIdentifier());
-        $this->assertInstanceOf("REBuilder_Pattern_GenericCharType", $children[1]);
+        $this->assertInstanceOf("REBuilder\Pattern\GenericCharType", $children[1]);
         $this->assertSame("w", $children[1]->getIdentifier());
-        $this->assertInstanceOf("REBuilder_Pattern_GenericCharType", $children[2]);
+        $this->assertInstanceOf("REBuilder\Pattern\GenericCharType", $children[2]);
         $this->assertSame("s", $children[2]->getIdentifier());
         $this->assertSame("/\d\w\s/i", $regex->render());
     }
@@ -37,7 +37,7 @@ class GenericCharTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testValidIdentifierException ($identifier)
     {
-        $char = new REBuilder_Pattern_GenericCharType($identifier);
+        $char = new REBuilder\Pattern\GenericCharType($identifier);
         $this->assertSame($identifier, $char->getIdentifier());
     }
 
@@ -53,26 +53,26 @@ class GenericCharTypeTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidIdentifiersProvider
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testInvalidIdentifierException ($identifier)
     {
-        $char = new REBuilder_Pattern_GenericCharType($identifier);
+        $char = new REBuilder\Pattern\GenericCharType($identifier);
         $char->render();
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testExceptionMissingIdentifier ()
     {
-        $assertion = new REBuilder_Pattern_GenericCharType();
+        $assertion = new REBuilder\Pattern\GenericCharType();
         $assertion->render();
     }
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex->addGenericCharType("w");
         $this->assertSame("/\w/", $regex->render());
     }

@@ -1,42 +1,42 @@
 <?php
 class SimpleAssertionTest extends PHPUnit_Framework_TestCase
 {
-	public function testGeneratedStructure ()
-	{
-		$regex = REBuilder::parse("/\bword\b/i");
-		$this->assertInstanceOf("REBuilder_Pattern_Regex", $regex);
-		$children = $regex->getChildren();
-		$this->assertSame(3, count($children));
-		$this->assertInstanceOf("REBuilder_Pattern_SimpleAssertion", $children[0]);
-		$this->assertSame("b", $children[0]->getIdentifier());
-		$this->assertInstanceOf("REBuilder_Pattern_Char", $children[1]);
-		$this->assertSame("word", $children[1]->getChar());
-		$this->assertInstanceOf("REBuilder_Pattern_SimpleAssertion", $children[2]);
-		$this->assertSame("b", $children[2]->getIdentifier());
-		$this->assertSame("/\bword\b/i", $regex->render());
-	}
-	
-	public function validIdentifiersProvider ()
+    public function testGeneratedStructure ()
     {
-		return array(
-			array("b"),
-			array("B"),
-			array("A"),
-			array("Z"),
-			array("z"),
-			array("G"),
-			array("Q"),
-			array("E"),
-			array("K")
-		);
-	}
-	
-	/**
-	 * @dataProvider validIdentifiersProvider
+        $regex = REBuilder\REBuilder::parse("/\bword\b/i");
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
+        $children = $regex->getChildren();
+        $this->assertSame(3, count($children));
+        $this->assertInstanceOf("REBuilder\Pattern\SimpleAssertion", $children[0]);
+        $this->assertSame("b", $children[0]->getIdentifier());
+        $this->assertInstanceOf("REBuilder\Pattern\Char", $children[1]);
+        $this->assertSame("word", $children[1]->getChar());
+        $this->assertInstanceOf("REBuilder\Pattern\SimpleAssertion", $children[2]);
+        $this->assertSame("b", $children[2]->getIdentifier());
+        $this->assertSame("/\bword\b/i", $regex->render());
+    }
+
+    public function validIdentifiersProvider ()
+    {
+        return array(
+            array("b"),
+            array("B"),
+            array("A"),
+            array("Z"),
+            array("z"),
+            array("G"),
+            array("Q"),
+            array("E"),
+            array("K")
+        );
+    }
+
+    /**
+     * @dataProvider validIdentifiersProvider
      */
     public function testValidIdentifierException ($identifier)
     {
-        $assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
+        $assertion = new REBuilder\Pattern\SimpleAssertion($identifier);
         $this->assertSame($identifier, $assertion->getIdentifier());
     }
 
@@ -52,43 +52,43 @@ class SimpleAssertionTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidIdentifiersProvider
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testInvalidIdentifierException ($identifier)
     {
-        $assertion = new REBuilder_Pattern_SimpleAssertion($identifier);
+        $assertion = new REBuilder\Pattern\SimpleAssertion($identifier);
         $assertion->render();
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testRepetitionNotAllowedOnParse ()
     {
-        REBuilder::parse("/\b*/i");
+        REBuilder\REBuilder::parse("/\b*/i");
     }
 
     /**
-     * @expectedException REBuilder_Exception_InvalidRepetition
+     * @expectedException REBuilder\Exception\InvalidRepetition
      */
     public function testRepetitionNotAllowedOnGeneration ()
     {
-        $assertion = new REBuilder_Pattern_SimpleAssertion("b");
+        $assertion = new REBuilder\Pattern\SimpleAssertion("b");
         $assertion->setRepetition("*");
     }
 
     /**
-     * @expectedException REBuilder_Exception_Generic
+     * @expectedException REBuilder\Exception\Generic
      */
     public function testExceptionMissingIdentifier ()
     {
-        $assertion = new REBuilder_Pattern_SimpleAssertion();
+        $assertion = new REBuilder\Pattern\SimpleAssertion();
         $assertion->render();
     }
 
     public function testObjectGeneration ()
     {
-        $regex = REBuilder::create();
+        $regex = REBuilder\REBuilder::create();
         $regex
                 ->addSimpleAssertionAndContinue("b")
                 ->addChar("abc");

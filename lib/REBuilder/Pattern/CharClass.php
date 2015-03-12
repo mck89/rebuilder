@@ -1,31 +1,43 @@
 <?php
 /**
+ * This file is part of the REBuilder package
+ *
+ * (c) Marco Marchiò <marco.mm89@gmail.com>
+ *
+ * For the full copyright and license information refer to the LICENSE file
+ * distributed with this source code
+ */
+
+namespace REBuilder\Pattern;
+
+/**
  * Represents a character class
  * 
- * @author Marco Marchiò
+ * @author Marco Marchiò <marco.mm89@gmail.com>
+ * 
  * @link http://php.net/manual/en/regexp.reference.character-classes.php
  * 
- * @method REBuilder_Pattern_PosixCharClass addPosixCharClass()
+ * @method PosixCharClass addPosixCharClass()
  *         addPosixCharClass(string $class, bool $negate)
- *         Adds a new REBuilder_Pattern_PosixCharClass class instance to this container
- *         @see REBuilder_Pattern_PosixCharClass::__construct
+ *         Adds a new Posix character class to this container
+ *         @see PosixCharClass::__construct
  * 
- * @method REBuilder_Pattern_AbstractContainer addPosixCharClassAndContinue()
+ * @method AbstractContainer addPosixCharClassAndContinue()
  *         addPosixCharClassAndContinue(string $class, bool $negate)
  *         Same as addPosixCharClass but it returns the current container
- *         @see REBuilder_Pattern_PosixCharClass::__construct
+ *         @see PosixCharClass::__construct
  * 
- * @method REBuilder_Pattern_CharClassRange addCharClassRange()
+ * @method CharClassRange addCharClassRange()
  *         addCharClassRange()
- *         Adds a new REBuilder_Pattern_CharClassRange class instance to this container
- *         @see REBuilder_Pattern_CharClassRange::__construct
+ *         Adds a new character class range to this container
+ *         @see CharClassRange::__construct
  * 
- * @method REBuilder_Pattern_AbstractContainer addCharClassRangeAndContinue()
+ * @method AbstractContainer addCharClassRangeAndContinue()
  *         addCharClassRangeAndContinue()
  *         Same as addCharClassRange but it returns the current container
- *         @see REBuilder_Pattern_CharClassRange::__construct
+ *         @see CharClassRange::__construct
  */
-class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
+class CharClass extends AbstractContainer
 {
     /**
      * Flag that indicates if the container supports anchors
@@ -44,7 +56,7 @@ class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
     /**
      * Constructor
      * 
-     * @param string $negate  True to create a negative character class
+     * @param string $negate True to create a negative character class
      */
     public function __construct ($negate = false)
     {
@@ -56,10 +68,13 @@ class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
      * of the class
      * 
      * @param bool $negate True to negate the character class
+     * 
+     * @return CharClass
      */
     public function setNegate ($negate)
     {
         $this->_negate = $negate;
+        return $this;
     }
 
     /**
@@ -75,16 +90,19 @@ class REBuilder_Pattern_CharClass extends REBuilder_Pattern_AbstractContainer
     /**
      * Adds a child to the class at the given index
      * 
-     * @param REBuilder_Pattern_Abstract $child Child to add
-     * @param int                        $index Index
-     * @return REBuilder_Pattern_CharClass
-     * @throw REBuilder_Exception_Generic
+     * @param AbstractPattern $child Child to add
+     * @param int             $index Index
+     * 
+     * @return CharClass
+     * 
+     * @throws \REBuilder\Exception\Generic
      */
-    public function addChildAt (REBuilder_Pattern_Abstract $child, $index = null)
+    public function addChildAt (AbstractPattern $child, $index = null)
     {
         if (!$child->canBeAddedToCharClass()) {
-            throw new REBuilder_Exception_Generic(
-                $this->_getClassName($child) . " cannot be added to character classes"
+            throw new \REBuilder\Exception\Generic(
+                $this->_getClassName($child) .
+                " cannot be added to character classes"
             );
         }
         return parent::addChildAt($child, $index);

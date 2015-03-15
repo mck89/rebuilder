@@ -20,22 +20,22 @@ namespace REBuilder\Pattern;
  * @method ConditionalThen addConditionalThen()
  *         addConditionalThen()
  *         Adds a new "then" part to the subpattern
- *         @see ConditionalThen::__construct
+ *         {@see REBuilder\Pattern\ConditionalThen::__construct}
  * 
  * @method ConditionalSubPattern addConditionalThenAndContinue()
  *         addConditionalThenAndContinue(string $char)
  *         Same as addConditionalThen but it returns the current container
- *         @see ConditionalThen::__construct
+ *         {@see REBuilder\Pattern\ConditionalThen::__construct}
  * 
  * @method ConditionalElse addConditionalElse()
  *         addConditionalElse()
  *         Adds a new "else" part to the subpattern
- *         @see ConditionalElse::__construct
+ *         {@see REBuilder\Pattern\ConditionalElse::__construct}
  * 
  * @method ConditionalSubPattern addConditionalElseAndContinue()
  *         addConditionalElseAndContinue(string $char)
  *         Same as addConditionalElse but it returns the current container
- *         @see ConditionalElse::__construct
+ *         {@see REBuilder\Pattern\ConditionalElse::__construct}
  * 
  * @method Assertion getIf()
  *         getIf()

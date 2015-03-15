@@ -20,22 +20,22 @@ namespace REBuilder\Pattern;
  * @method PosixCharClass addPosixCharClass()
  *         addPosixCharClass(string $class, bool $negate)
  *         Adds a new Posix character class to this container
- *         @see PosixCharClass::__construct
+ *         {@see REBuilder\Pattern\PosixCharClass::__construct}
  * 
  * @method AbstractContainer addPosixCharClassAndContinue()
  *         addPosixCharClassAndContinue(string $class, bool $negate)
  *         Same as addPosixCharClass but it returns the current container
- *         @see PosixCharClass::__construct
+ *         {@see REBuilder\Pattern\PosixCharClass::__construct}
  * 
  * @method CharClassRange addCharClassRange()
  *         addCharClassRange()
  *         Adds a new character class range to this container
- *         @see CharClassRange::__construct
+ *         {@see REBuilder\Pattern\CharClassRange::__construct}
  * 
  * @method AbstractContainer addCharClassRangeAndContinue()
  *         addCharClassRangeAndContinue()
  *         Same as addCharClassRange but it returns the current container
- *         @see CharClassRange::__construct
+ *         {@see REBuilder\Pattern\CharClassRange::__construct}
  */
 class CharClass extends AbstractContainer
 {

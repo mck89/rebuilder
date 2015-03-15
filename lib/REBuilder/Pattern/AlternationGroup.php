@@ -21,12 +21,12 @@ namespace REBuilder\Pattern;
  * @method Alternation addAlternation()
  *         addAlternation()
  *         Adds a new alternation
- *         @see Alternation::__construct
+ *         {@see REBuilder\Pattern\Alternation::__construct}
  * 
  * @method Alternation addAlternationAndContinue()
  *         addAlternationAndContinue()
  *         Same as addAlternation but it returns the current container
- *         @see Alternation::__construct
+ *         {@see REBuilder\Pattern\Alternation::__construct}
  */
 class AlternationGroup extends AbstractContainer
 {

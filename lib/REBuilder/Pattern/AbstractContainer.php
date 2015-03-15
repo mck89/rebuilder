@@ -20,194 +20,194 @@ namespace REBuilder\Pattern;
  * @method Char addChar()
  *         addChar(string $char)
  *         Adds a new character to this container
- *         @see Char::__construct
+ *         {@see REBuilder\Pattern\Char::__construct}
  * 
  * @method AbstractContainer addCharAndContinue()
  *         addCharAndContinue(string $char)
  *         Same as addChar but it returns the current container
- *         @see Char::__construct
+ *         {@see REBuilder\Pattern\Char::__construct}
  * 
  * @method ControlChar addControlChar()
  *         addControlChar(string $char)
  *         Adds a new control character to this container
- *         @see ControlChar::__construct
+ *         {@see REBuilder\Pattern\ControlChar::__construct}
  * 
  * @method AbstractContainer addControlCharAndContinue()
  *         addControlCharAndContinue(string $char)
  *         Same as addControlChar but it returns the current container
- *         @see ControlChar::__construct
+ *         {@see REBuilder\Pattern\ControlChar::__construct}
  * 
  * @method HexChar addHexChar()
  *         addHexChar(string $char)
  *         Adds a new hexadecimal character to this container
- *         @see HexChar::__construct
+ *         {@see REBuilder\Pattern\HexChar::__construct}
  * 
  * @method AbstractContainer addHexCharAndContinue()
  *         addHexCharAndContinue(string $char)
  *         Same as addHexChar but it returns the current container
- *         @see HexChar::__construct
+ *         {@see REBuilder\Pattern\HexChar::__construct}
  * 
  * @method GenericCharType addGenericCharType()
  *         addGenericCharType(string $identifier)
  *         Adds a new generic character type to this container
- *         @see GenericCharType::__construct
+ *         {@see REBuilder\Pattern\GenericCharType::__construct}
  * 
  * @method AbstractContainer addGenericCharTypeAndContinue()
  *         addGenericCharTypeAndContinue(string $identifier)
  *         Same as addGenericCharType but it returns the current container
- *         @see GenericCharType::__construct
+ *         {@see REBuilder\Pattern\GenericCharType::__construct}
  * 
  * @method NonPrintingChar addNonPrintingChar()
  *         addNonPrintingChar(string $identifier)
  *         Adds a new non printing character to this container
- *         @see NonPrintingChar::__construct
+ *         {@see REBuilder\Pattern\NonPrintingChar::__construct}
  * 
  * @method AbstractContainer addNonPrintingCharAndContinue()
  *         addNonPrintingCharAndContinue(string $identifier)
  *         Same as addNonPrintingChar but it returns the current container
- *         @see NonPrintingChar::__construct
+ *         {@see REBuilder\Pattern\NonPrintingChar::__construct}
  * 
  * @method SimpleAssertion addSimpleAssertion()
  *         addSimpleAssertion(string $identifier)
  *         Adds a new simple assertion to this container
- *         @see SimpleAssertion::__construct
+ *         {@see REBuilder\Pattern\SimpleAssertion::__construct}
  * 
  * @method AbstractContainer addSimpleAssertionAndContinue()
  *         addSimpleAssertionAndContinue(string $identifier)
  *         Same as addSimpleAssertion but it returns the current container
- *         @see SimpleAssertion::__construct
+ *         {@see REBuilder\Pattern\SimpleAssertion::__construct}
  * 
  * @method Dot addDot()
  *         addDot()
  *         Adds a new dot to this container
- *         @see Dot::__construct
+ *         {@see REBuilder\Pattern\Dot::__construct}
  * 
  * @method AbstractContainer addDotAndContinue()
  *         addDotAndContinue()
  *         Same as addDot but it returns the current container
- *         @see Dot::__construct
+ *         {@see REBuilder\Pattern\Dot::__construct}
  * 
  * @method Byte addByte()
  *         addByte()
  *         Adds a new byte to this container
- *         @see Byte::__construct
+ *         {@see REBuilder\Pattern\Byte::__construct}
  * 
  * @method AbstractContainer addByteAndContinue()
  *         addByteAndContinue()
  *         Same as addByte but it returns the current container
- *         @see Byte::__construct
+ *         {@see REBuilder\Pattern\Byte::__construct}
  * 
  * @method UnicodeCharClass addUnicodeCharClass()
  *         addUnicodeCharClass(string $class, bool $negate)
  *         Adds a new unicode char class to this container
- *         @see UnicodeCharClass::__construct
+ *         {@see REBuilder\Pattern\UnicodeCharClass::__construct}
  * 
  * @method AbstractContainer addUnicodeCharClassAndContinue()
  *         addUnicodeCharClassAndContinue(string $class, bool $negate)
  *         Same as addUnicodeCharClass but it returns the current container
- *         @see UnicodeCharClass::__construct
+ *         {@see REBuilder\Pattern\UnicodeCharClass::__construct}
  * 
  * @method InternalOption addInternalOption()
  *         addInternalOption(string $modifiers)
  *         Adds a new internal option to this container
- *         @see InternalOption::__construct
+ *         {@see REBuilder\Pattern\InternalOption::__construct}
  * 
  * @method AbstractContainer addInternalOptionAndContinue()
  *         addInternalOptionAndContinue(string $modifiers)
  *         Same as addInternalOption but it returns the current container
- *         @see InternalOption::__construct
+ *         {@see REBuilder\Pattern\InternalOption::__construct}
  * 
  * @method Comment addComment()
  *         addComment(string $comment)
  *         Adds a new comment to this container
- *         @see Comment::__construct
+ *         {@see REBuilder\Pattern\Comment::__construct}
  * 
  * @method AbstractContainer addCommentAndContinue()
  *         addCommentAndContinue(string $comment)
  *         Same as addComment but it returns the current container
- *         @see Comment::__construct
+ *         {@see REBuilder\Pattern\Comment::__construct}
  * 
  * @method OctalChar addOctalChar()
  *         addOctalChar(string $char)
  *         Adds a new octal character to this container
- *         @see OctalChar::__construct
+ *         {@see REBuilder\Pattern\OctalChar::__construct}
  * 
  * @method AbstractContainer addOctalCharAndContinue()
  *         addOctalCharAndContinue(string $char)
  *         Same as addOctalChar but it returns the current container
- *         @see OctalChar::__construct
+ *         {@see REBuilder\Pattern\OctalChar::__construct}
  * 
  * @method BackReference addBackReference()
  *         addBackReference(string $reference)
  *         Adds a new back reference to this container
- *         @see BackReference::__construct
+ *         {@see REBuilder\Pattern\BackReference::__construct}
  * 
  * @method AbstractContainer addBackReferenceAndContinue()
  *         addBackReferenceAndContinue(string $reference)
  *         Same as addBackReference but it returns the current container
- *         @see BackReference::__construct
+ *         {@see REBuilder\Pattern\BackReference::__construct}
  * 
  * @method RecursivePattern addRecursivePattern()
  *         addRecursivePattern(string $reference)
  *         Adds a new recursive pattern to this container
- *         @see RecursivePattern::__construct
+ *         {@see REBuilder\Pattern\RecursivePattern::__construct}
  * 
  * @method AbstractContainer addRecursivePatternAndContinue()
  *         addRecursivePatternAndContinue(string $reference)
  *         Same as addRecursivePattern but it returns the current container
- *         @see RecursivePattern::__construct
+ *         {@see REBuilder\Pattern\RecursivePattern::__construct}
  * 
  * @method AlternationGroup addAlternationGroup()
  *         addAlternationGroup()
  *         Adds a new alternation group to this container
- *         @see AlternationGroup::__construct
+ *         {@see REBuilder\Pattern\AlternationGroup::__construct}
  * 
  * @method AlternationGroup addAlternationGroupAndContinue()
  *         addAlternationGroupAndContinue()
  *         Same as addAlternationGroup but it returns the current container
- *         @see AlternationGroup::__construct
+ *         {@see REBuilder\Pattern\AlternationGroup::__construct}
  * 
  * @method SubPattern addSubPattern()
  *         addSubPattern(bool $capture, string $name, string $modifiers,
  *                       bool $groupMatches, bool $onceOnly)
  *         Adds a new sub pattern to this container
- *         @see SubPattern::__construct
+ *         {@see REBuilder\Pattern\SubPattern::__construct}
  * 
  * @method AbstractContainer addSubPatternAndContinue()
  *         addSubPatternAndContinue(bool $capture, string $name, string $modifiers,
  *                                  bool $groupMatches, bool $onceOnly)
  *         Same as addSubPattern but it returns the current container
- *         @see SubPattern::__construct
+ *         {@see REBuilder\Pattern\SubPattern::__construct}
  * 
  * @method Assertion addAssertion()
  *         addAssertion(bool $lookahead, bool $negate)
  *         Adds a new assertion to this container
- *         @see Assertion::__construct
+ *         {@see REBuilder\Pattern\Assertion::__construct}
  * 
  * @method AbstractContainer addAssertionAndContinue()
  *         addAssertion(bool $lookahead, bool $negate)
  *         Same as addAssertion but it returns the current container
- *         @see Assertion::__construct
+ *         {@see REBuilder\Pattern\Assertion::__construct}
  * 
  * @method CharClass addCharClass()
  *         addCharClass(bool $negate)
  *         Adds a new character class to this container
- *         @see CharClass::__construct
+ *         {@see REBuilder\Pattern\CharClass::__construct}
  * 
  * @method AbstractContainer addCharClassAndContinue()
  *         addCharClassAndContinue(bool $negate)
  *         Same as addCharClass but it returns the current container
- *         @see CharClass::__construct
+ *         {@see REBuilder\Pattern\CharClass::__construct}
  * 
  * @method ConditionalSubPattern addConditionalSubPattern()
  *         addConditionalSubPattern()
  *         Adds a new conditional sub pattern to this container
- *         @see ConditionalSubPattern::__construct
+ *         {@see REBuilder\Pattern\ConditionalSubPattern::__construct}
  * 
  * @method AbstractContainer addConditionalSubPatternAndContinue()
  *         addConditionalSubPatternAndContinue(bool $negate)
  *         Same as addConditionalSubPattern but it returns the current container
- *         @see ConditionalSubPattern::__construct
+ *         {@see REBuilder\Pattern\ConditionalSubPattern::__construct}
  */
 abstract class AbstractContainer extends AbstractPattern
 {

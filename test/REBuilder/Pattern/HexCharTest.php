@@ -14,6 +14,17 @@ class HexCharTest extends PHPUnit_Framework_TestCase
             $this->assertSame("/\x$c/", $regex->render());
         }
     }
+    
+    public function testAlternativeSyntax ()
+    {
+        $regex = REBuilder\REBuilder::parse('/\x{61}/');
+        $this->assertInstanceOf("REBuilder\Pattern\Regex", $regex);
+        $children = $regex->getChildren();
+        $this->assertSame(1, count($children));
+        $this->assertInstanceOf("REBuilder\Pattern\HexChar", $children[0]);
+        $this->assertSame("61", $children[0]->getChar());
+        $this->assertSame('/\x61/', $regex->render());
+    }
 
     public function invalidHexChars ()
     {
@@ -31,6 +42,14 @@ class HexCharTest extends PHPUnit_Framework_TestCase
     {
         $char = new REBuilder\Pattern\HexChar();
         $char->setChar($chars);
+    }
+    
+    /**
+     * @expectedException REBuilder\Exception\Generic
+     */
+    public function testInvalidAlternativeSyntax ()
+    {
+        REBuilder\REBuilder::parse('/\x{61/');
     }
 
     public function testObjectGeneration ()

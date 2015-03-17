@@ -269,16 +269,28 @@ class Tokenizer
             }
             //If escaped and it's the hexadecimal character identifier "x"
             elseif ($this->_escaped && $char === "x") {
-                //Find following hexadecimal digits
+                $nextChar = $this->_consume();
                 $tokenSubject = "";
-                for ($i = 0; $i < 2; $i++) {
-                    $nextChar = $this->_consume();
-                    if ($nextChar !== null &&
-                        Rules::validateHexString($nextChar)) {
-                        $tokenSubject .= $nextChar;
-                    } else {
-                        $nextChar !== null && $this->_unconsume();
-                        break;
+                if ($nextChar === "{") {
+                    $nextChars = $this->_consumeUntil("}", true);
+                    if ($nextChars === null) {
+                        throw new Exception\Generic(
+                            "Unclosed brace in hex char"
+                        );
+                    }
+                    $tokenSubject = trim($nextChars, "}");
+                } elseif ($nextChar !== null) {
+                    $this->_unconsume();
+                    //Find following hexadecimal digits
+                    for ($i = 0; $i < 2; $i++) {
+                        $nextChar = $this->_consume();
+                        if ($nextChar !== null &&
+                            Rules::validateHexString($nextChar)) {
+                            $tokenSubject .= $nextChar;
+                        } else {
+                            $nextChar !== null && $this->_unconsume();
+                            break;
+                        }
                     }
                 }
                 //Emit the hexadecimal character token

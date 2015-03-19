@@ -117,7 +117,7 @@ class Tokenizer
      * 
      * @throws \REBuilder\Exception\EmptyRegex
      */
-    public function __construct ($regex, callable $receiver)
+    public function __construct ($regex, $receiver)
     {
         //Check if the regex is empty
         if ($regex === "") {

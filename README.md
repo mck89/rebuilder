@@ -1,7 +1,7 @@
 REBuilder
 ==========
 
-REBuilder is a PHP library to build and parse regular expressions
+REBuilder is a PHP 5.3+ library to build and parse regular expressions
 
 Parse
 -------------

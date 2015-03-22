@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class REBuilder\Parser\Token</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-REBuilder.html">
+						REBuilder<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-REBuilder.Exception.html">
+						Exception					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-REBuilder.Parser.html">
+						Parser					</a>
+
+						</li>
+				<li>
+					<a href="namespace-REBuilder.Pattern.html">
+						Pattern<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-REBuilder.Pattern.Repetition.html">
+						Repetition					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-REBuilder.Parser.Builder.html">Builder</a></li>
+				<li><a href="class-REBuilder.Parser.Parser.html">Parser</a></li>
+				<li><a href="class-REBuilder.Parser.Rules.html">Rules</a></li>
+				<li class="active"><a href="class-REBuilder.Parser.Token.html">Token</a></li>
+				<li><a href="class-REBuilder.Parser.Tokenizer.html">Tokenizer</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-REBuilder.Parser.html" title="Summary of REBuilder\Parser"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Token</h1>
+
+
+	<div class="description">
+	<p>This class represents a token emitted from the tokenizer</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-REBuilder.html">REBuilder</a>\<a href="namespace-REBuilder.Parser.html">Parser</a><br>
+		
+
+				<b>Author:</b>
+				Marco Marchiò <a href="&#x6d;&#97;&#x69;&#108;t&#x6f;&#58;&#x6d;&#97;&#114;&#x63;&#111;&#x2e;&#109;&#109;&#x38;&#57;&#x40;&#x67;&#109;&#x61;&#105;l&#x2e;&#99;&#x6f;&#109;">&#x6d;&#97;&#114;&#x63;&#111;&#x2e;&#109;&#109;&#x38;&#57;&#x40;&#x67;&#109;&#x61;&#105;l&#x2e;&#99;&#x6f;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-REBuilder.Parser.Token.html#13-269" title="Go to source code">REBuilder/Parser/Token.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-REBuilder.Parser.Token.html#222-238" title="Go to source code">__construct</a>( <span>integer <var>$type</var></span>, <span>string <var>$identifier</var></span>, <span>string <var>$subject</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Constructor</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructor</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd><p>Token's type. It can be one of the current
+                          class type constants</p></dd>
+					<dt><var>$identifier</var></dt>
+					<dd>Token's identifier</dd>
+					<dt><var>$subject</var></dt>
+					<dd>Token's subject</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getType" id="_getType">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getType">#</a>
+		<code><a href="source-class-REBuilder.Parser.Token.html#240-248" title="Go to source code">getType</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the token type</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the token type</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getIdentifier" id="_getIdentifier">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getIdentifier">#</a>
+		<code><a href="source-class-REBuilder.Parser.Token.html#250-258" title="Go to source code">getIdentifier</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the token identifier</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the token identifier</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSubject" id="_getSubject">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSubject">#</a>
+		<code><a href="source-class-REBuilder.Parser.Token.html#260-268" title="Go to source code">getSubject</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the token subject</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the token subject</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="TYPE_REGEX_START_DELIMITER" id="TYPE_REGEX_START_DELIMITER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#21-24" title="Go to source code"><b>TYPE_REGEX_START_DELIMITER</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Regex start delimiter token</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Regex start delimiter token</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_REGEX_START_DELIMITER" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_REGEX_END_DELIMITER" id="TYPE_REGEX_END_DELIMITER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#26-29" title="Go to source code"><b>TYPE_REGEX_END_DELIMITER</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Regex start delimiter token</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Regex start delimiter token</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_REGEX_END_DELIMITER" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_REGEX_MODIFIERS" id="TYPE_REGEX_MODIFIERS">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#31-34" title="Go to source code"><b>TYPE_REGEX_MODIFIERS</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Regex modifiers token</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Regex modifiers token</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_REGEX_MODIFIERS" class="anchor">#</a>
+				<code><span class="php-num">3</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_CHAR" id="TYPE_CHAR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#36-39" title="Go to source code"><b>TYPE_CHAR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Simple character</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Simple character</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_CHAR" class="anchor">#</a>
+				<code><span class="php-num">4</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_NON_PRINTING_CHAR" id="TYPE_NON_PRINTING_CHAR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#41-44" title="Go to source code"><b>TYPE_NON_PRINTING_CHAR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Non-printing character identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Non-printing character identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_NON_PRINTING_CHAR" class="anchor">#</a>
+				<code><span class="php-num">5</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_GENERIC_CHAR_TYPE" id="TYPE_GENERIC_CHAR_TYPE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#46-49" title="Go to source code"><b>TYPE_GENERIC_CHAR_TYPE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Generic character type identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Generic character type identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_GENERIC_CHAR_TYPE" class="anchor">#</a>
+				<code><span class="php-num">6</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_SIMPLE_ASSERTION" id="TYPE_SIMPLE_ASSERTION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#51-54" title="Go to source code"><b>TYPE_SIMPLE_ASSERTION</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Simple assertion identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Simple assertion identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_SIMPLE_ASSERTION" class="anchor">#</a>
+				<code><span class="php-num">7</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_CONTROL_CHAR" id="TYPE_CONTROL_CHAR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#56-59" title="Go to source code"><b>TYPE_CONTROL_CHAR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Control character identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Control character identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_CONTROL_CHAR" class="anchor">#</a>
+				<code><span class="php-num">8</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_EXT_UNICODE_SEQUENCE" id="TYPE_EXT_UNICODE_SEQUENCE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#61-64" title="Go to source code"><b>TYPE_EXT_UNICODE_SEQUENCE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Extended unicode sequence identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Extended unicode sequence identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_EXT_UNICODE_SEQUENCE" class="anchor">#</a>
+				<code><span class="php-num">9</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_UNICODE_CHAR_CLASS" id="TYPE_UNICODE_CHAR_CLASS">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#66-69" title="Go to source code"><b>TYPE_UNICODE_CHAR_CLASS</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Unicode character class identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Unicode character class identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_UNICODE_CHAR_CLASS" class="anchor">#</a>
+				<code><span class="php-num">10</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_HEX_CHAR" id="TYPE_HEX_CHAR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#71-74" title="Go to source code"><b>TYPE_HEX_CHAR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Hexadecimal character identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Hexadecimal character identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_HEX_CHAR" class="anchor">#</a>
+				<code><span class="php-num">11</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_REPETITION" id="TYPE_REPETITION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#76-79" title="Go to source code"><b>TYPE_REPETITION</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Repetition identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Repetition identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_REPETITION" class="anchor">#</a>
+				<code><span class="php-num">12</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_DOT" id="TYPE_DOT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#81-84" title="Go to source code"><b>TYPE_DOT</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Dot</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Dot</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_DOT" class="anchor">#</a>
+				<code><span class="php-num">13</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_BYTE" id="TYPE_BYTE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#86-89" title="Go to source code"><b>TYPE_BYTE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Single byte identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Single byte identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_BYTE" class="anchor">#</a>
+				<code><span class="php-num">14</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_SUBPATTERN_START" id="TYPE_SUBPATTERN_START">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#91-94" title="Go to source code"><b>TYPE_SUBPATTERN_START</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Subpattern start</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Subpattern start</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_SUBPATTERN_START" class="anchor">#</a>
+				<code><span class="php-num">15</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_SUBPATTERN_END" id="TYPE_SUBPATTERN_END">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#96-99" title="Go to source code"><b>TYPE_SUBPATTERN_END</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Subpattern end</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Subpattern end</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_SUBPATTERN_END" class="anchor">#</a>
+				<code><span class="php-num">16</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_SUBPATTERN_NON_CAPTURING" id="TYPE_SUBPATTERN_NON_CAPTURING">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#101-104" title="Go to source code"><b>TYPE_SUBPATTERN_NON_CAPTURING</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Subpattern non capturing flag and relatend modifiers</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Subpattern non capturing flag and relatend modifiers</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_SUBPATTERN_NON_CAPTURING" class="anchor">#</a>
+				<code><span class="php-num">17</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_SUBPATTERN_NAME" id="TYPE_SUBPATTERN_NAME">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#106-109" title="Go to source code"><b>TYPE_SUBPATTERN_NAME</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Subpattern name</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Subpattern name</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_SUBPATTERN_NAME" class="anchor">#</a>
+				<code><span class="php-num">18</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_SUBPATTERN_GROUP_MATCHES" id="TYPE_SUBPATTERN_GROUP_MATCHES">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#111-114" title="Go to source code"><b>TYPE_SUBPATTERN_GROUP_MATCHES</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Subpattern group matches identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Subpattern group matches identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_SUBPATTERN_GROUP_MATCHES" class="anchor">#</a>
+				<code><span class="php-num">19</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_SUBPATTERN_ONCE_ONLY" id="TYPE_SUBPATTERN_ONCE_ONLY">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#116-119" title="Go to source code"><b>TYPE_SUBPATTERN_ONCE_ONLY</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Subpattern once only identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Subpattern once only identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_SUBPATTERN_ONCE_ONLY" class="anchor">#</a>
+				<code><span class="php-num">20</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_INTERNAL_OPTION" id="TYPE_INTERNAL_OPTION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#121-124" title="Go to source code"><b>TYPE_INTERNAL_OPTION</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Internal option identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Internal option identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_INTERNAL_OPTION" class="anchor">#</a>
+				<code><span class="php-num">21</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_ALTERNATION" id="TYPE_ALTERNATION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#126-129" title="Go to source code"><b>TYPE_ALTERNATION</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Alternation identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Alternation identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_ALTERNATION" class="anchor">#</a>
+				<code><span class="php-num">22</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_LOOKAHEAD_ASSERTION" id="TYPE_LOOKAHEAD_ASSERTION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#131-134" title="Go to source code"><b>TYPE_LOOKAHEAD_ASSERTION</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Lookahead assertion identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Lookahead assertion identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_LOOKAHEAD_ASSERTION" class="anchor">#</a>
+				<code><span class="php-num">23</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_LOOKBEHIND_ASSERTION" id="TYPE_LOOKBEHIND_ASSERTION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#136-139" title="Go to source code"><b>TYPE_LOOKBEHIND_ASSERTION</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Lookbehind assertion identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Lookbehind assertion identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_LOOKBEHIND_ASSERTION" class="anchor">#</a>
+				<code><span class="php-num">24</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_COMMENT" id="TYPE_COMMENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#141-144" title="Go to source code"><b>TYPE_COMMENT</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Comment</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Comment</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_COMMENT" class="anchor">#</a>
+				<code><span class="php-num">25</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_BACK_REFERENCE" id="TYPE_BACK_REFERENCE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#146-149" title="Go to source code"><b>TYPE_BACK_REFERENCE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Backreference</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Backreference</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_BACK_REFERENCE" class="anchor">#</a>
+				<code><span class="php-num">26</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_OCTAL_CHAR" id="TYPE_OCTAL_CHAR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#151-154" title="Go to source code"><b>TYPE_OCTAL_CHAR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Octal code character</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Octal code character</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_OCTAL_CHAR" class="anchor">#</a>
+				<code><span class="php-num">27</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_START_ANCHOR" id="TYPE_START_ANCHOR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#156-159" title="Go to source code"><b>TYPE_START_ANCHOR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Start anchor identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Start anchor identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_START_ANCHOR" class="anchor">#</a>
+				<code><span class="php-num">28</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_END_ANCHOR" id="TYPE_END_ANCHOR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#161-164" title="Go to source code"><b>TYPE_END_ANCHOR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>End anchor identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>End anchor identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_END_ANCHOR" class="anchor">#</a>
+				<code><span class="php-num">29</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_CHAR_CLASS_START" id="TYPE_CHAR_CLASS_START">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#166-169" title="Go to source code"><b>TYPE_CHAR_CLASS_START</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Character class start identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Character class start identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_CHAR_CLASS_START" class="anchor">#</a>
+				<code><span class="php-num">30</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_CHAR_CLASS_END" id="TYPE_CHAR_CLASS_END">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#171-174" title="Go to source code"><b>TYPE_CHAR_CLASS_END</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Character class end identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Character class end identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_CHAR_CLASS_END" class="anchor">#</a>
+				<code><span class="php-num">31</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_CHAR_CLASS_NEGATE" id="TYPE_CHAR_CLASS_NEGATE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#176-179" title="Go to source code"><b>TYPE_CHAR_CLASS_NEGATE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Character class negation identifier</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Character class negation identifier</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_CHAR_CLASS_NEGATE" class="anchor">#</a>
+				<code><span class="php-num">32</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_POSIX_CHAR_CLASS" id="TYPE_POSIX_CHAR_CLASS">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#181-184" title="Go to source code"><b>TYPE_POSIX_CHAR_CLASS</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Posix char class</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Posix char class</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_POSIX_CHAR_CLASS" class="anchor">#</a>
+				<code><span class="php-num">33</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_CHAR_CLASS_RANGE" id="TYPE_CHAR_CLASS_RANGE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#186-189" title="Go to source code"><b>TYPE_CHAR_CLASS_RANGE</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Char class range</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Char class range</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_CHAR_CLASS_RANGE" class="anchor">#</a>
+				<code><span class="php-num">34</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_RECURSIVE_PATTERN" id="TYPE_RECURSIVE_PATTERN">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#191-194" title="Go to source code"><b>TYPE_RECURSIVE_PATTERN</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Recursive pattern</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Recursive pattern</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_RECURSIVE_PATTERN" class="anchor">#</a>
+				<code><span class="php-num">35</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TYPE_CONDITIONAL_SUBPATTERN" id="TYPE_CONDITIONAL_SUBPATTERN">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-REBuilder.Parser.Token.html#196-199" title="Go to source code"><b>TYPE_CONDITIONAL_SUBPATTERN</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Conditional subpattern</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Conditional subpattern</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TYPE_CONDITIONAL_SUBPATTERN" class="anchor">#</a>
+				<code><span class="php-num">36</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

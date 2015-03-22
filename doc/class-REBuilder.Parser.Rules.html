@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class REBuilder\Parser\Rules</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-REBuilder.html">
+						REBuilder<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-REBuilder.Exception.html">
+						Exception					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-REBuilder.Parser.html">
+						Parser					</a>
+
+						</li>
+				<li>
+					<a href="namespace-REBuilder.Pattern.html">
+						Pattern<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-REBuilder.Pattern.Repetition.html">
+						Repetition					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-REBuilder.Parser.Builder.html">Builder</a></li>
+				<li><a href="class-REBuilder.Parser.Parser.html">Parser</a></li>
+				<li class="active"><a href="class-REBuilder.Parser.Rules.html">Rules</a></li>
+				<li><a href="class-REBuilder.Parser.Token.html">Token</a></li>
+				<li><a href="class-REBuilder.Parser.Tokenizer.html">Tokenizer</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-REBuilder.Parser.html" title="Summary of REBuilder\Parser"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Rules</h1>
+
+
+	<div class="description">
+	<p>Utility class for regex rules</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-REBuilder.html">REBuilder</a>\<a href="namespace-REBuilder.Parser.html">Parser</a><br>
+		
+
+				<b>Author:</b>
+				Marco Marchiò <a href="&#x6d;&#97;&#x69;&#108;t&#x6f;&#58;&#x6d;&#97;&#114;&#x63;&#111;&#x2e;&#109;&#109;&#x38;&#57;&#x40;&#x67;&#109;&#x61;&#105;l&#x2e;&#99;&#x6f;&#109;">&#x6d;&#97;&#114;&#x63;&#111;&#x2e;&#109;&#109;&#x38;&#57;&#x40;&#x67;&#109;&#x61;&#105;l&#x2e;&#99;&#x6f;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-REBuilder.Parser.Rules.html#13-292" title="Go to source code">REBuilder/Parser/Rules.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="validateDelimiter" id="_validateDelimiter">
+
+		<td class="attributes"><code>
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateDelimiter">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#128-142" title="Go to source code">validateDelimiter</a>( <span>string <var>$delimiter</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string is a valid delimiter, otherwise false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string is a valid delimiter, otherwise false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$delimiter</var></dt>
+					<dd>Delimiter to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEndDelimiter" id="_getEndDelimiter">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEndDelimiter">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#144-161" title="Go to source code">getEndDelimiter</a>( <span>string <var>$delimiter</var></span> )</code>
+
+		<div class="description short">
+			<p>Given a start delimiter it returns the corresponding end delimiter. This
+function returns a delimiter different from the given one only if it's a
+bracket style delimiter</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Given a start delimiter it returns the corresponding end delimiter. This
+function returns a delimiter different from the given one only if it's a
+bracket style delimiter</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$delimiter</var></dt>
+					<dd>Start delimiter</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateModifiers" id="_validateModifiers">
+
+		<td class="attributes"><code>
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateModifiers">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#163-186" title="Go to source code">validateModifiers</a>( <span>string <var>$modifiers</var></span>, <span>string <var>&amp; $wrongModifier</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string contains only valid modifiers, otherwise
+false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string contains only valid modifiers, otherwise
+false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$modifiers</var></dt>
+					<dd>Modifiers to check</dd>
+					<dt><var>$wrongModifier</var></dt>
+					<dd><p>If the check fails this variable will
+                             contain the invalid modifier</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateNonPrintingChar" id="_validateNonPrintingChar">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateNonPrintingChar">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#188-201" title="Go to source code">validateNonPrintingChar</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string is a valid representable non printing
+character indentifier, otherwise false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string is a valid representable non printing
+character indentifier, otherwise false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateGenericCharType" id="_validateGenericCharType">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateGenericCharType">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#203-216" title="Go to source code">validateGenericCharType</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string is a valid generic character type
+identifier, otherwise false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string is a valid generic character type
+identifier, otherwise false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateSimpleAssertion" id="_validateSimpleAssertion">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateSimpleAssertion">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#218-231" title="Go to source code">validateSimpleAssertion</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string is a valid simple assertion identifier,
+otherwise false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string is a valid simple assertion identifier,
+otherwise false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateUnicodePropertyCode" id="_validateUnicodePropertyCode">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateUnicodePropertyCode">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#233-246" title="Go to source code">validateUnicodePropertyCode</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string is a valid unicode property code,
+otherwise false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string is a valid unicode property code,
+otherwise false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateUnicodeScript" id="_validateUnicodeScript">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateUnicodeScript">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#248-261" title="Go to source code">validateUnicodeScript</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string is a valid unicode script, otherwise
+false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string is a valid unicode script, otherwise
+false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validateHexString" id="_validateHexString">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validateHexString">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#263-276" title="Go to source code">validateHexString</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string contains only valid hexadecimal digits,
+otherwise false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string contains only valid hexadecimal digits,
+otherwise false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="validatePosixCharClass" id="_validatePosixCharClass">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_validatePosixCharClass">#</a>
+		<code><a href="source-class-REBuilder.Parser.Rules.html#278-291" title="Go to source code">validatePosixCharClass</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Return true if the given string is a valid POSIX character class,
+otherwise false</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return true if the given string is a valid POSIX character class,
+otherwise false</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

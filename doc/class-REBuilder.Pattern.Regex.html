@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class REBuilder\Pattern\Regex</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-REBuilder.html">
+						REBuilder<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-REBuilder.Exception.html">
+						Exception					</a>
+
+						</li>
+				<li>
+					<a href="namespace-REBuilder.Parser.html">
+						Parser					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-REBuilder.Pattern.html">
+						Pattern<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-REBuilder.Pattern.Repetition.html">
+						Repetition					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-REBuilder.Pattern.AbstractChar.html">AbstractChar</a></li>
+				<li><a href="class-REBuilder.Pattern.AbstractContainer.html">AbstractContainer</a></li>
+				<li><a href="class-REBuilder.Pattern.AbstractIdentifier.html">AbstractIdentifier</a></li>
+				<li><a href="class-REBuilder.Pattern.AbstractPattern.html">AbstractPattern</a></li>
+				<li><a href="class-REBuilder.Pattern.Alternation.html">Alternation</a></li>
+				<li><a href="class-REBuilder.Pattern.AlternationGroup.html">AlternationGroup</a></li>
+				<li><a href="class-REBuilder.Pattern.Assertion.html">Assertion</a></li>
+				<li><a href="class-REBuilder.Pattern.BackReference.html">BackReference</a></li>
+				<li><a href="class-REBuilder.Pattern.Byte.html">Byte</a></li>
+				<li><a href="class-REBuilder.Pattern.Char.html">Char</a></li>
+				<li><a href="class-REBuilder.Pattern.CharClass.html">CharClass</a></li>
+				<li><a href="class-REBuilder.Pattern.CharClassRange.html">CharClassRange</a></li>
+				<li><a href="class-REBuilder.Pattern.Comment.html">Comment</a></li>
+				<li><a href="class-REBuilder.Pattern.ConditionalElse.html">ConditionalElse</a></li>
+				<li><a href="class-REBuilder.Pattern.ConditionalSubPattern.html">ConditionalSubPattern</a></li>
+				<li><a href="class-REBuilder.Pattern.ConditionalThen.html">ConditionalThen</a></li>
+				<li><a href="class-REBuilder.Pattern.ControlChar.html">ControlChar</a></li>
+				<li><a href="class-REBuilder.Pattern.Dot.html">Dot</a></li>
+				<li><a href="class-REBuilder.Pattern.GenericCharType.html">GenericCharType</a></li>
+				<li><a href="class-REBuilder.Pattern.HexChar.html">HexChar</a></li>
+				<li><a href="class-REBuilder.Pattern.InternalOption.html">InternalOption</a></li>
+				<li><a href="class-REBuilder.Pattern.NonPrintingChar.html">NonPrintingChar</a></li>
+				<li><a href="class-REBuilder.Pattern.OctalChar.html">OctalChar</a></li>
+				<li><a href="class-REBuilder.Pattern.PosixCharClass.html">PosixCharClass</a></li>
+				<li><a href="class-REBuilder.Pattern.RecursivePattern.html">RecursivePattern</a></li>
+				<li class="active"><a href="class-REBuilder.Pattern.Regex.html">Regex</a></li>
+				<li><a href="class-REBuilder.Pattern.SimpleAssertion.html">SimpleAssertion</a></li>
+				<li><a href="class-REBuilder.Pattern.SubPattern.html">SubPattern</a></li>
+				<li><a href="class-REBuilder.Pattern.UnicodeCharClass.html">UnicodeCharClass</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-REBuilder.Pattern.html" title="Summary of REBuilder\Pattern"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Regex</h1>
+
+
+	<div class="description">
+	<p>Represents the main regex container and will contain the entire
+regex structure</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-REBuilder.Pattern.AbstractPattern.html"><span>REBuilder\Pattern\AbstractPattern</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-REBuilder.Pattern.AbstractContainer.html"><span>REBuilder\Pattern\AbstractContainer</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>REBuilder\Pattern\Regex</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-REBuilder.html">REBuilder</a>\<a href="namespace-REBuilder.Pattern.html">Pattern</a><br>
+		
+
+				<b>Author:</b>
+				Marco Marchiò <a href="&#x6d;&#97;&#x69;&#108;t&#x6f;&#58;&#x6d;&#97;&#114;&#x63;&#111;&#x2e;&#109;&#109;&#x38;&#57;&#x40;&#x67;&#109;&#x61;&#105;l&#x2e;&#99;&#x6f;&#109;">&#x6d;&#97;&#114;&#x63;&#111;&#x2e;&#109;&#109;&#x38;&#57;&#x40;&#x67;&#109;&#x61;&#105;l&#x2e;&#99;&#x6f;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-REBuilder.Pattern.Regex.html#13-264" title="Go to source code">REBuilder/Pattern/Regex.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#49-59" title="Go to source code">__construct</a>( <span>string <var>$modifiers</var> = <span class="php-quote">&quot;&quot;</span></span>, <span>string <var>$delimiter</var> = <span class="php-quote">&quot;/&quot;</span></span> )</code>
+
+		<div class="description short">
+			<p>Constructor</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructor</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$modifiers</var></dt>
+					<dd>Regex modifiers</dd>
+					<dt><var>$delimiter</var></dt>
+					<dd>Regex delimiter</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDelimiter" id="_setDelimiter">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-REBuilder.Pattern.Regex.html">REBuilder\Pattern\Regex</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDelimiter">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#61-80" title="Go to source code">setDelimiter</a>( <span>string <var>$delimiter</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets the regex delimiter</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets the regex delimiter</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$delimiter</var></dt>
+					<dd>Regex delimiter</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-REBuilder.Pattern.Regex.html">REBuilder\Pattern\Regex</a></code>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-REBuilder.Exception.InvalidDelimiter.html">REBuilder\Exception\InvalidDelimiter</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStartDelimiter" id="_getStartDelimiter">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStartDelimiter">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#82-90" title="Go to source code">getStartDelimiter</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the regex start delimiter</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the regex start delimiter</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getEndDelimiter" id="_getEndDelimiter">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getEndDelimiter">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#92-100" title="Go to source code">getEndDelimiter</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the regex end delimiter</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the regex end delimiter</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setModifiers" id="_setModifiers">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-REBuilder.Pattern.Regex.html">REBuilder\Pattern\Regex</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setModifiers">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#102-122" title="Go to source code">setModifiers</a>( <span>string <var>$modifiers</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets regex modifiers</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets regex modifiers</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$modifiers</var></dt>
+					<dd>Regex modifiers</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-REBuilder.Pattern.Regex.html">REBuilder\Pattern\Regex</a></code>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-REBuilder.Exception.InvalidModifier.html">REBuilder\Exception\InvalidModifier</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getModifiers" id="_getModifiers">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getModifiers">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#124-132" title="Go to source code">getModifiers</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the regex modifiers</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the regex modifiers</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="quote" id="_quote">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_quote">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#134-144" title="Go to source code">quote</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Quotes the given string using current configurations</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Quotes the given string using current configurations</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>String to quote</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="test" id="_test">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_test">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#146-156" title="Go to source code">test</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			<p>Test if the regex matches the given string</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Test if the regex matches the given string</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>Test string</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exec" id="_exec">
+
+		<td class="attributes"><code>
+			 public 
+
+			array|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exec">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#158-182" title="Go to source code">exec</a>( <span>string <var>$str</var></span>, <span>boolean <var>$setOrder</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$captureOffset</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Executes the regex on the given string and return the matches array or
+null if the string does not match</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Executes the regex on the given string and return the matches array or
+null if the string does not match</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>The string to match</dd>
+					<dt><var>$setOrder</var></dt>
+					<dd>True to group the matches in sets</dd>
+					<dt><var>$captureOffset</var></dt>
+					<dd>True to capture matches offset too</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array|null
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="grep" id="_grep">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_grep">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#184-197" title="Go to source code">grep</a>( <span>array <var>$array</var></span>, <span>boolean <var>$invert</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Filters an array by removing values that do not match the regex</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Filters an array by removing values that do not match the regex</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$array</var></dt>
+					<dd>Array to filter</dd>
+					<dt><var>$invert</var></dt>
+					<dd><p>If true the behaviour is inverted and this function
+                     filters out values that match the regex</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="split" id="_split">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_split">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#199-230" title="Go to source code">split</a>( <span>string <var>$str</var></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span>, <span>boolean <var>$noEmpty</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$captureDelim</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$captureOffset</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Splits the given string using the regex</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Splits the given string using the regex</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd>The string to split</dd>
+					<dt><var>$limit</var></dt>
+					<dd>Maximum number of substrings to return</dd>
+					<dt><var>$noEmpty</var></dt>
+					<dd><p>If true only non empty substrings are
+                             returned</p></dd>
+					<dt><var>$captureDelim</var></dt>
+					<dd><p>If true also capturing pattern in the
+                             delimiter are returned</p></dd>
+					<dt><var>$captureOffset</var></dt>
+					<dd><p>If true the offset of each substring is
+                             returned</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="replace" id="_replace">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_replace">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#232-250" title="Go to source code">replace</a>( <span>string|callable <var>$replace</var></span>, <span>string <var>$str</var></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Replaces the matched pattern with the given replacement</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Replaces the matched pattern with the given replacement</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$replace</var></dt>
+					<dd><p>Replacement string or callback that will
+                                will be executed on every pattern match
+                                to get the replacement</p></dd>
+					<dt><var>$str</var></dt>
+					<dd>Subject string</dd>
+					<dt><var>$limit</var></dt>
+					<dd>Maximum number of replacements</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="render" id="_render">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_render">#</a>
+		<code><a href="source-class-REBuilder.Pattern.Regex.html#252-263" title="Go to source code">render</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the string representation of the class</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the string representation of the class</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-REBuilder.Pattern.AbstractContainer.html#methods">REBuilder\Pattern\AbstractContainer</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#___call">__call()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_addChild">addChild()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_addChildAt">addChildAt()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_addChildren">addChildren()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_getChildren">getChildren()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_getEndAnchored">getEndAnchored()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_getStartAnchored">getStartAnchored()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_hasChildren">hasChildren()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_removeChild">removeChild()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_removeChildAt">removeChildAt()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_renderChildren">renderChildren()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_setEndAnchored">setEndAnchored()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_setStartAnchored">setStartAnchored()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#_supportsAnchors">supportsAnchors()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-REBuilder.Pattern.AbstractPattern.html#methods">REBuilder\Pattern\AbstractPattern</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#___toString">__toString()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_canBeAddedToCharClass">canBeAddedToCharClass()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_canBeAddedToCharClassRange">canBeAddedToCharClassRange()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_getParent">getParent()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_getParentRegex">getParentRegex()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_getRepetition">getRepetition()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_setParent">setParent()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_setRepetition">setRepetition()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractPattern.html#_supportsRepetition">supportsRepetition()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Magic methods inherited from <a href="class-REBuilder.Pattern.AbstractContainer.html#methods">REBuilder\Pattern\AbstractContainer</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addAlternationGroup">addAlternationGroup()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addAlternationGroupAndContinue">addAlternationGroupAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addAssertion">addAssertion()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addAssertionAndContinue">addAssertionAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addBackReference">addBackReference()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addBackReferenceAndContinue">addBackReferenceAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addByte">addByte()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addByteAndContinue">addByteAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addChar">addChar()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addCharAndContinue">addCharAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addCharClass">addCharClass()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addCharClassAndContinue">addCharClassAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addComment">addComment()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addCommentAndContinue">addCommentAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addConditionalSubPattern">addConditionalSubPattern()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addConditionalSubPatternAndContinue">addConditionalSubPatternAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addControlChar">addControlChar()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addControlCharAndContinue">addControlCharAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addDot">addDot()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addDotAndContinue">addDotAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addGenericCharType">addGenericCharType()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addGenericCharTypeAndContinue">addGenericCharTypeAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addHexChar">addHexChar()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addHexCharAndContinue">addHexCharAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addInternalOption">addInternalOption()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addInternalOptionAndContinue">addInternalOptionAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addNonPrintingChar">addNonPrintingChar()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addNonPrintingCharAndContinue">addNonPrintingCharAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addOctalChar">addOctalChar()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addOctalCharAndContinue">addOctalCharAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addRecursivePattern">addRecursivePattern()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addRecursivePatternAndContinue">addRecursivePatternAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addSimpleAssertion">addSimpleAssertion()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addSimpleAssertionAndContinue">addSimpleAssertionAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addSubPattern">addSubPattern()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addSubPatternAndContinue">addSubPatternAndContinue()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addUnicodeCharClass">addUnicodeCharClass()</a>, 
+			<a href="class-REBuilder.Pattern.AbstractContainer.html#m_addUnicodeCharClassAndContinue">addUnicodeCharClassAndContinue()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

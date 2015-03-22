@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="REBuilder is a PHP 5.3+ library to build and parse regular expressions">
+		<link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+		<link href='//fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet' type='text/css'>
+		
+		<link href='//cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css' rel='stylesheet' type='text/css'>
+		<link href='//cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCoreMidnight.min.css' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPhp.min.js"></script>
+		
+		<title>REBuilder: a PHP library to build and parse regular expressions</title>
+		<style>
+		body{
+			background: rgba(30,94,184,1);
+			background: -moz-linear-gradient(top, rgba(30,94,184,1) 0%, rgba(30,94,184,1) 74%, rgba(17,57,111,1) 100%);
+			background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(30,94,184,1)), color-stop(74%, rgba(30,94,184,1)), color-stop(100%, rgba(17,57,111,1)));
+			background: -webkit-linear-gradient(top, rgba(30,94,184,1) 0%, rgba(30,94,184,1) 74%, rgba(17,57,111,1) 100%);
+			background: -o-linear-gradient(top, rgba(30,94,184,1) 0%, rgba(30,94,184,1) 74%, rgba(17,57,111,1) 100%);
+			background: -ms-linear-gradient(top, rgba(30,94,184,1) 0%, rgba(30,94,184,1) 74%, rgba(17,57,111,1) 100%);
+			background: linear-gradient(to bottom, rgba(30,94,184,1) 0%, rgba(30,94,184,1) 74%, rgba(17,57,111,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5eb8', endColorstr='#11396f', GradientType=0 );
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			height:100%;
+			text-align:center;
+			font-family: 'Lato', sans-serif;
+			font-size: 15px;
+			margin:0;
+			padding:0;
+		}
+		a, a:hover, a:visited{
+			color: #006aeb;
+			text-decoration: none;
+		}
+		#header{
+			margin-top: 25px;
+			height:105px;
+			overflow: hidden;
+		}
+		h1{
+			font-family: 'Fugaz One', cursive;
+			font-size: 130px;
+			color:white;
+			text-align: center;
+			margin: 15px 0;
+			line-height: 80%;
+			text-shadow: 0 0 10px #000;
+		}
+		#container {
+			width:650px;
+			margin: 0 auto;
+			text-align: left;
+			background:white;
+			border-radius: 10px;
+			padding:15px;
+			box-shadow: 0 0 10px #000;
+			margin-bottom: 20px;
+		}
+		h2{
+			font-size: 20px;
+			font-weight: bold;
+			margin: 15px 0;
+		}
+		h3{
+			font-size:18px;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="header"><h1>REBuilder</h1></div>
+		<div id="container">
+			<h2>REBuilder is a PHP 5.3+ library to build and parse regular expressions</h2>
+			
+			<h3>Usage</h3>
+			To use REBuilder clone the <a href="https://github.com/mck89/REBuilder" target="_blank">Github repository</a>, include the main class and register the autoloader:
+			<pre class="brush: php">
+require_once "lib\REBuilder\REBuilder.php";
+REBuilder\Rebuilder::registerAutoloader();</pre>
+
+			<h3>Parse</h3>
+			REBuilder's parser builds a tree structure starting from a regular expression. For example this code:
+			<pre class="brush: php">
+$regex = REBuilder\Rebuilder::parse("/parse\s+me/");</pre>
+			Generates this structure:
+			<pre class="brush: php">
+REBuilder\Pattern\Regex
+    getStartDelimiter() => "/"
+    getEndDelimiter() => "/"
+    getChildren() => array(
+        REBuilder\Pattern\Char
+            getChar() => "parse"
+
+        REBuilder\Pattern\GenericCharType
+            getIdentifier() => "s"
+            getRepetition() => REBuilder\Pattern\Repetition\OneOrMore
+
+        REBuilder\Pattern\Char
+            getChar() => "me"
+    )</pre>
+	
+			<h3>Build</h3>
+			REBuilder allows you to build regular expressions with object oriented PHP:
+			<pre class="brush: php">
+//Create an empty regular expression object
+$regex = REBuilder\Rebuilder::create();
+
+$regex->addCharAndContinue("parse")
+      ->addGenericCharType("s")
+          ->setRepetition("+")
+          ->getParent()
+      ->addCharAndContinue("me");
+
+echo $regex->render(); //"/parse\s+me/"</pre>
+			<h3>Documentation</h3>
+			For a brief guide on how to use REBuilder check the <a href="https://github.com/mck89/REBuilder/wiki" target="_blank">Github wiki</a>,
+			otherwise consult the <a href="doc/index.html">complete class reference</a>.
+		</div>
+		<script type="text/javascript">SyntaxHighlighter.all();</script>
+	</body>
+</html>

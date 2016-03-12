@@ -1,0 +1,16 @@
+{
+    "name": "mck89/REBuilder",
+    "description": "REBuilder is a PHP library to build and parse regular expressions",
+    "authors": [
+        {
+            "name": "Marco Marchiò",
+            "email": "marco.mm89@gmail.com"
+        }
+    ],
+    "require": {},
+	"autoload": {
+        "psr-4": {
+            "REBuilder\\": "lib/REBuilder/"
+        }
+    }
+}

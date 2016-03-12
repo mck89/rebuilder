@@ -18,7 +18,6 @@ Include the following requirement to your composer.json:
 Run `composer install` and include the autoloader:
 
 ```php
-<?php
 require_once "vendor/autoload.php";
 ```
 
@@ -29,7 +28,6 @@ REBuilder's parser builds a tree structure starting from a regular expression.
 For example this code:
 
 ```php
-<?php
 //Parse the regular expression
 $regex = REBuilder\REBuilder::parse("/parse\s+me/");
 ```
@@ -59,7 +57,6 @@ Build
 REBuilder allows you to build regular expressions with object oriented PHP:
 
 ```php
-<?php
 //Create an empty regular expression object
 $regex = REBuilder\REBuilder::create();
 

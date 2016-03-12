@@ -3,6 +3,25 @@ REBuilder
 
 REBuilder is a PHP 5.3+ library to build and parse regular expressions
 
+Installation
+-------------
+
+Include the following requirement to your composer.json:
+```
+{
+	"require": {
+		"mck89/rebuilder": "dev-master"
+	}
+}
+```
+
+Run `composer install` and include the autoloader:
+
+```php
+<?php
+require_once "vendor/autoload.php";
+```
+
 Parse
 -------------
 
@@ -11,13 +30,8 @@ For example this code:
 
 ```php
 <?php
-require_once "lib\REBuilder\REBuilder.php";
-
-//Register the autoloader
-REBuilder\Rebuilder::registerAutoloader();
-
 //Parse the regular expression
-$regex = REBuilder\Rebuilder::parse("/parse\s+me/");
+$regex = REBuilder\REBuilder::parse("/parse\s+me/");
 ```
 
 Generates this structure:
@@ -46,13 +60,8 @@ REBuilder allows you to build regular expressions with object oriented PHP:
 
 ```php
 <?php
-require_once "lib\REBuilder\REBuilder.php";
-
-//Register the autoloader
-REBuilder\Rebuilder::registerAutoloader();
-
 //Create an empty regular expression object
-$regex = REBuilder\Rebuilder::create();
+$regex = REBuilder\REBuilder::create();
 
 $regex->addCharAndContinue("parse")
       ->addGenericCharType("s")
